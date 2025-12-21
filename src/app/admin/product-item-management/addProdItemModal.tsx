@@ -35,7 +35,7 @@ export default function AddProdItemModal({
 
   const [product, setProduct] = useState<Product | null>(null);
 
-  const { getById } = useSizeAdmin(product?.sizeTypeId);
+  const { getBySizeTypeId } = useSizeAdmin('', '', product?.sizeTypeId);
 
   const [productName, setProductName] = useState('');
   const [size, setSize] = useState('');
@@ -56,10 +56,10 @@ export default function AddProdItemModal({
       ]
     : [{ label: 'Chưa có', value: '' }];
 
-  const sizeOptions = getById.data?.data
+  const sizeOptions = getBySizeTypeId.data?.data
     ? [
         { label: 'Chưa có', value: '' },
-        ...getById.data.data.map((size: Size) =>
+        ...getBySizeTypeId.data.data.map((size: Size) =>
           normalizedSelectOptions(size.nameSize, size._id)
         ),
       ]
