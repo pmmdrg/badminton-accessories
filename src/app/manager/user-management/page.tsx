@@ -4,8 +4,8 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Spinner } from '@/components/custom/spinner';
 import TextField from '@/components/custom/textfield';
-import { COUNTRY_CODE, ROLE, STATUS } from '@/lib/constants';
-import { isValidImageSrc } from '@/lib/utils';
+import { COUNTRY_CODE } from '@/lib/constants';
+import { capitalizeFirst, isValidImageSrc } from '@/lib/utils';
 import { placeholderImage } from '@/assets/images';
 import Pagination from '@/components/custom/pagination';
 import { User } from '@/models/user';
@@ -80,16 +80,8 @@ export default function ManagerUserPage() {
                     COUNTRY_CODE.VN
                   )}
                 </td>
-                <td className='px-4 py-2'>
-                  {user.status === STATUS.ACTIVE ? 'Active' : 'Inactive'}
-                </td>
-                <td className='px-4 py-2'>
-                  {user.role === ROLE.ADMIN
-                    ? 'Admin'
-                    : user.role === ROLE.MANAGER
-                    ? 'Manager'
-                    : 'User'}
-                </td>
+                <td className='px-4 py-2'>{capitalizeFirst(user.status)}</td>
+                <td className='px-4 py-2'>{capitalizeFirst(user.role)}</td>
               </tr>
             ))}
           </tbody>

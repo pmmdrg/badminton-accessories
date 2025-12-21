@@ -1,36 +1,37 @@
 'use client';
 
 import { useState } from 'react';
+
 import { Spinner } from '@/components/custom/spinner';
 import TextField from '@/components/custom/textfield';
 import { COUNTRY_CODE } from '@/lib/constants';
-import Pagination from '@/components/custom/pagination';
-import { Supplier } from '@/models/supplier';
-import { useSupplierManager } from '@/hooks/manager/useSupplier';
 import { capitalizeFirst } from '@/lib/utils';
+import Pagination from '@/components/custom/pagination';
+import { Color } from '@/models/color';
+import { useColorManager } from '@/hooks/manager/useColor';
 
-export default function ManagerSupplierPage() {
-  const { getAll } = useSupplierManager();
+export default function ManagerColorPage() {
+  const { getAll } = useColorManager();
   const [currPage, setCurrPage] = useState(1);
   const [search, setSearch] = useState('');
 
-  const filteredSuppliers = getAll.data?.data?.filter((s: Supplier) =>
-    s.nameSupplier.toLowerCase().includes(search.toLowerCase())
+  const filteredColors = getAll.data?.data?.filter((b: Color) =>
+    b.nameColor.toLowerCase().includes(search.toLowerCase())
   );
 
-  const totalPages = Math.ceil((filteredSuppliers || []).length / 20);
+  const totalPages = Math.ceil((filteredColors || []).length / 20);
 
   if (getAll.isLoading) return <Spinner />;
 
   return (
     <div className='p-6'>
-      <h1 className='text-2xl font-bold mb-4'>Nhà Cung Cấp</h1>
+      <h1 className='text-2xl font-bold mb-4'>Màu</h1>
 
       <div className='flex items-center justify-between mb-4'>
         <TextField
-          name='search-product'
+          name='search-color'
           type='text'
-          placeholder='Tìm kiếm nhà cung cấp...'
+          placeholder='Tìm kiếm màu...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -40,26 +41,20 @@ export default function ManagerSupplierPage() {
         <table className='min-w-full divide-y divide-gray-200'>
           <thead className='bg-gray-200'>
             <tr>
-              <th className='px-4 py-2 text-left'>Nhà Cung Cấp</th>
-              <th className='px-4 py-2 text-left'>Địa Chỉ</th>
+              <th className='px-4 py-2 text-left'>Tên Màu</th>
+              <th className='px-4 py-2 text-left'>Mô Tả</th>
               <th className='px-4 py-2 text-left'>Trạng Thái</th>
               <th className='px-4 py-2 text-left'>Ngày Tạo</th>
             </tr>
           </thead>
           <tbody className='divide-y divide-gray-200'>
-            {filteredSuppliers?.map((supplier: Supplier) => (
-              <tr key={supplier._id}>
-                <td className='px-4 py-2'>{supplier.nameSupplier}</td>
-
-                <td className='px-4 py-2 text-rose-700 font-semibold'>
-                  {supplier.address}
-                </td>
-
+            {filteredColors?.map((color: Color) => (
+              <tr key={color._id}>
+                <td className='px-4 py-2'>{color.nameColor}</td>
+                <td className='px-4 py-2'>{color.description}</td>
+                <td className='px-4 py-2'>{capitalizeFirst(color.status)}</td>
                 <td className='px-4 py-2'>
-                  {capitalizeFirst(supplier.status)}
-                </td>
-                <td className='px-4 py-2'>
-                  {new Date(supplier.created_at).toLocaleDateString(
+                  {new Date(color.created_at).toLocaleDateString(
                     COUNTRY_CODE.VN
                   )}
                 </td>

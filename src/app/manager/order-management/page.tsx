@@ -11,7 +11,7 @@ import { Order } from '@/models/order';
 import DetailOrderModal from './detailOrderModal';
 import { useOrderManager } from '@/hooks/manager/useOrder';
 
-export default function AdminOrderPage() {
+export default function ManagerOrderPage() {
   const { getAll, deliver } = useOrderManager();
   const [currPage, setCurrPage] = useState(1);
   const [search, setSearch] = useState('');

@@ -4,33 +4,33 @@ import { useState } from 'react';
 import { Spinner } from '@/components/custom/spinner';
 import TextField from '@/components/custom/textfield';
 import { COUNTRY_CODE } from '@/lib/constants';
-import Pagination from '@/components/custom/pagination';
-import { Supplier } from '@/models/supplier';
-import { useSupplierManager } from '@/hooks/manager/useSupplier';
 import { capitalizeFirst } from '@/lib/utils';
+import Pagination from '@/components/custom/pagination';
+import { SizeType } from '@/models/sizeType';
+import { useSizeTypeManager } from '@/hooks/manager/useSizeType';
 
-export default function ManagerSupplierPage() {
-  const { getAll } = useSupplierManager();
+export default function ManagerSizeTypePage() {
+  const { getAll } = useSizeTypeManager();
   const [currPage, setCurrPage] = useState(1);
   const [search, setSearch] = useState('');
 
-  const filteredSuppliers = getAll.data?.data?.filter((s: Supplier) =>
-    s.nameSupplier.toLowerCase().includes(search.toLowerCase())
+  const filteredSizeTypes = getAll.data?.data?.filter((b: SizeType) =>
+    b.nameSizeType.toLowerCase().includes(search.toLowerCase())
   );
 
-  const totalPages = Math.ceil((filteredSuppliers || []).length / 20);
+  const totalPages = Math.ceil((filteredSizeTypes || []).length / 20);
 
   if (getAll.isLoading) return <Spinner />;
 
   return (
     <div className='p-6'>
-      <h1 className='text-2xl font-bold mb-4'>Nhà Cung Cấp</h1>
+      <h1 className='text-2xl font-bold mb-4'>Loại Kích Thước</h1>
 
       <div className='flex items-center justify-between mb-4'>
         <TextField
-          name='search-product'
+          name='search-size-type'
           type='text'
-          placeholder='Tìm kiếm nhà cung cấp...'
+          placeholder='Tìm kiếm loại kích thước...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -40,26 +40,22 @@ export default function ManagerSupplierPage() {
         <table className='min-w-full divide-y divide-gray-200'>
           <thead className='bg-gray-200'>
             <tr>
-              <th className='px-4 py-2 text-left'>Nhà Cung Cấp</th>
-              <th className='px-4 py-2 text-left'>Địa Chỉ</th>
+              <th className='px-4 py-2 text-left'>Loại Kích Thước</th>
+              <th className='px-4 py-2 text-left'>Mô Tả</th>
               <th className='px-4 py-2 text-left'>Trạng Thái</th>
               <th className='px-4 py-2 text-left'>Ngày Tạo</th>
             </tr>
           </thead>
           <tbody className='divide-y divide-gray-200'>
-            {filteredSuppliers?.map((supplier: Supplier) => (
-              <tr key={supplier._id}>
-                <td className='px-4 py-2'>{supplier.nameSupplier}</td>
-
-                <td className='px-4 py-2 text-rose-700 font-semibold'>
-                  {supplier.address}
-                </td>
-
+            {filteredSizeTypes?.map((sizeType: SizeType) => (
+              <tr key={sizeType._id}>
+                <td className='px-4 py-2'>{sizeType.nameSizeType}</td>
+                <td className='px-4 py-2'>{sizeType.description}</td>
                 <td className='px-4 py-2'>
-                  {capitalizeFirst(supplier.status)}
+                  {capitalizeFirst(sizeType.status)}
                 </td>
                 <td className='px-4 py-2'>
-                  {new Date(supplier.created_at).toLocaleDateString(
+                  {new Date(sizeType.created_at).toLocaleDateString(
                     COUNTRY_CODE.VN
                   )}
                 </td>

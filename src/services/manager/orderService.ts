@@ -1,7 +1,7 @@
 import api from '@/lib/api';
 
 export async function getAllOrderManager() {
-  const res = await api.get('/manager/all-order');
+  const res = await api.get('/manager/order/all-order');
 
   return res.data;
 }

@@ -4,8 +4,8 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Spinner } from '@/components/custom/spinner';
 import TextField from '@/components/custom/textfield';
-import { COUNTRY_CODE, STATUS } from '@/lib/constants';
-import { isValidImageSrc } from '@/lib/utils';
+import { COUNTRY_CODE } from '@/lib/constants';
+import { capitalizeFirst, isValidImageSrc } from '@/lib/utils';
 import { placeholderImage } from '@/assets/images';
 import Pagination from '@/components/custom/pagination';
 import { Brand } from '@/models/brand';
@@ -70,9 +70,7 @@ export default function ManagerBrandPage() {
                 <td className='px-4 py-2'>{brand.nameBrand}</td>
                 <td className='px-4 py-2'>{brand.description}</td>
                 <td className='px-4 py-2'>{brand.country}</td>
-                <td className='px-4 py-2'>
-                  {brand.status === STATUS.ACTIVE ? 'Active' : 'Inactive'}
-                </td>
+                <td className='px-4 py-2'>{capitalizeFirst(brand.status)}</td>
                 <td className='px-4 py-2'>
                   {new Date(brand.created_at).toLocaleDateString(
                     COUNTRY_CODE.VN

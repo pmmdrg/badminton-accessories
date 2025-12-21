@@ -5,14 +5,17 @@ import useAuth from '@/hooks/useAuth';
 import {
   ArchiveBoxIcon,
   ArrowRightStartOnRectangleIcon,
+  ArrowsPointingOutIcon,
   InboxArrowDownIcon,
   InboxStackIcon,
   RectangleGroupIcon,
   RectangleStackIcon,
+  SparklesIcon,
   Square3Stack3DIcon,
   TruckIcon,
   UserGroupIcon,
   UserIcon,
+  ViewfinderCircleIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { ReactNode } from 'react';
@@ -42,10 +45,33 @@ export default function ManagerLayout({ children }: { children: ReactNode }) {
           </Link>
 
           <Link
+            href='/manager/size-management'
+            className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-rose-500 transition font-medium'
+          >
+            <ViewfinderCircleIcon strokeWidth={2} className='h-5 w-5' /> Kích
+            thước
+          </Link>
+
+          <Link
+            href='/manager/size-type-management'
+            className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-rose-500 transition font-medium'
+          >
+            <ArrowsPointingOutIcon strokeWidth={2} className='h-5 w-5' /> Loại
+            kích thước
+          </Link>
+
+          <Link
             href='/manager/user-management'
             className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-rose-500 transition font-medium'
           >
             <UserIcon strokeWidth={2} className='h-5 w-5' /> Người dùng
+          </Link>
+
+          <Link
+            href='/manager/color-management'
+            className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-rose-500 transition font-medium'
+          >
+            <SparklesIcon strokeWidth={2} className='h-5 w-5' /> Màu
           </Link>
 
           <Link

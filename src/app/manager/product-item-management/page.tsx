@@ -5,8 +5,8 @@ import Image from 'next/image';
 import { ProductItem } from '@/models/productItem';
 import { Spinner } from '@/components/custom/spinner';
 import TextField from '@/components/custom/textfield';
-import { COUNTRY_CODE, STATUS } from '@/lib/constants';
-import { isValidImageSrc } from '@/lib/utils';
+import { COUNTRY_CODE } from '@/lib/constants';
+import { capitalizeFirst, isValidImageSrc } from '@/lib/utils';
 import { placeholderImage } from '@/assets/images';
 import Pagination from '@/components/custom/pagination';
 import { useProductItemManager } from '@/hooks/manager/useProductItem';
@@ -81,9 +81,7 @@ export default function ManagerProductItemPage() {
                   </td>
                   <td className='px-4 py-2'>{productItem.quantity}</td>
                   <td className='px-4 py-2'>
-                    {productItem.status === STATUS.ACTIVE
-                      ? 'Active'
-                      : 'Inactive'}
+                    {capitalizeFirst(productItem.status)}
                   </td>
                   <td className='px-4 py-2'>
                     {new Date(productItem.created_at).toLocaleDateString(
