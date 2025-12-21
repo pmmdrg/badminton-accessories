@@ -40,7 +40,7 @@ export default function Homepage() {
 
       <Section title='Sản phẩm nổi bật'>
         <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6'>
-          {getAll.data.data.slice(0, 5).map((product: Product) => (
+          {getAll.data?.data.slice(0, 5).map((product: Product) => (
             <ProdCard key={product._id} {...product} />
           ))}
         </div>

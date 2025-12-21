@@ -7,7 +7,7 @@ export async function getAllOrderManager() {
 }
 
 export async function getDetailOrder(id: string) {
-  const res = await api.get(`/manager/order/id?id=${id}`);
+  const res = await api.get(`/manager/order/detail-order?id=${id}`);
 
   return res.data;
 }

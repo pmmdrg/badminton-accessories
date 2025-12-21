@@ -67,6 +67,7 @@ export default function AdminOrderPage() {
                   setSelectedId(order._id);
                   setIsOpen(true);
                 }}
+                className='cursor-pointer'
               >
                 <td className='px-4 py-2'>{order.fullname}</td>
                 <td className='px-4 py-2'>{order.totalQuantity}</td>
