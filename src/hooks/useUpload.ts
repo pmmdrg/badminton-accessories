@@ -19,6 +19,12 @@ export function useUpload() {
 
       return res;
     },
+    onSuccess: () => {
+      addToast({
+        type: TOAST_TYPE.SUCCESS,
+        message: 'Bắt đầu tải ảnh',
+      });
+    },
     onMutate: () => {
       addToast({
         type: TOAST_TYPE.INFO,
