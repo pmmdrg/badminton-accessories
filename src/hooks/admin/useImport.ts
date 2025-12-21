@@ -9,6 +9,8 @@ import {
 } from '@/services/admin/importService';
 import { useToast } from '@/components/custom/toast';
 import { TOAST_TYPE } from '@/lib/constants';
+import { AxiosError } from 'axios';
+import { ApiError } from '@/types/apiError';
 
 export function useImportAdmin(
   id?: string,
@@ -24,6 +26,18 @@ export function useImportAdmin(
       addToast({
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã tạo lô nhập hàng mới',
+      });
+    },
+    onMutate: () => {
+      addToast({
+        type: TOAST_TYPE.INFO,
+        message: 'Đang tạo lô hàng mới, vui lòng đợi',
+      });
+    },
+    onError: (err: AxiosError<ApiError>) => {
+      addToast({
+        type: TOAST_TYPE.ERROR,
+        message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });
     },
   });

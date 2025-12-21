@@ -13,6 +13,8 @@ import {
 } from '@/services/admin/paymentService';
 import { useToast } from '@/components/custom/toast';
 import { TOAST_TYPE } from '@/lib/constants';
+import { AxiosError } from 'axios';
+import { ApiError } from '@/types/apiError';
 
 export function usePaymentAdmin(id?: string, name?: string) {
   const { addToast } = useToast();
@@ -23,6 +25,18 @@ export function usePaymentAdmin(id?: string, name?: string) {
       addToast({
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã tạo phương thức thanh toán mới',
+      });
+    },
+    onMutate: () => {
+      addToast({
+        type: TOAST_TYPE.INFO,
+        message: 'Đang tạo phương thức thanh toán mới, vui lòng đợi',
+      });
+    },
+    onError: (err: AxiosError<ApiError>) => {
+      addToast({
+        type: TOAST_TYPE.ERROR,
+        message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });
     },
   });
@@ -68,6 +82,18 @@ export function usePaymentAdmin(id?: string, name?: string) {
       addToast({
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã chỉnh sửa phương thức thanh toán',
+      });
+    },
+    onMutate: () => {
+      addToast({
+        type: TOAST_TYPE.INFO,
+        message: 'Đang chỉnh sửa phương thức thanh toán, vui lòng đợi',
+      });
+    },
+    onError: (err: AxiosError<ApiError>) => {
+      addToast({
+        type: TOAST_TYPE.ERROR,
+        message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });
     },
   });

@@ -13,6 +13,8 @@ import {
 } from '@/services/admin/colorService';
 import { useToast } from '@/components/custom/toast';
 import { TOAST_TYPE } from '@/lib/constants';
+import { AxiosError } from 'axios';
+import { ApiError } from '@/types/apiError';
 
 export function useColorAdmin(id?: string, name?: string) {
   const { addToast } = useToast();
@@ -23,6 +25,18 @@ export function useColorAdmin(id?: string, name?: string) {
       addToast({
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã tạo màu mới',
+      });
+    },
+    onMutate: () => {
+      addToast({
+        type: TOAST_TYPE.INFO,
+        message: 'Đang tạo màu mới, vui lòng đợi',
+      });
+    },
+    onError: (err: AxiosError<ApiError>) => {
+      addToast({
+        type: TOAST_TYPE.ERROR,
+        message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });
     },
   });
@@ -69,6 +83,18 @@ export function useColorAdmin(id?: string, name?: string) {
       addToast({
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã chỉnh sửa màu',
+      });
+    },
+    onMutate: () => {
+      addToast({
+        type: TOAST_TYPE.INFO,
+        message: 'Đang chỉnh sửa màu, vui lòng đợi',
+      });
+    },
+    onError: (err: AxiosError<ApiError>) => {
+      addToast({
+        type: TOAST_TYPE.ERROR,
+        message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });
     },
   });

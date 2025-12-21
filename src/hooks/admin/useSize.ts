@@ -15,6 +15,8 @@ import {
 } from '@/services/admin/sizeService';
 import { useToast } from '@/components/custom/toast';
 import { TOAST_TYPE } from '@/lib/constants';
+import { AxiosError } from 'axios';
+import { ApiError } from '@/types/apiError';
 
 export function useSizeAdmin(
   id?: string,
@@ -30,6 +32,18 @@ export function useSizeAdmin(
       addToast({
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã tạo kích thước mới',
+      });
+    },
+    onMutate: () => {
+      addToast({
+        type: TOAST_TYPE.INFO,
+        message: 'Đang tạo kích thước mới, vui lòng đợi',
+      });
+    },
+    onError: (err: AxiosError<ApiError>) => {
+      addToast({
+        type: TOAST_TYPE.ERROR,
+        message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });
     },
   });
@@ -89,6 +103,18 @@ export function useSizeAdmin(
       addToast({
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã chỉnh sửa kích thước',
+      });
+    },
+    onMutate: () => {
+      addToast({
+        type: TOAST_TYPE.INFO,
+        message: 'Đang chỉnh sửa kích thước, vui lòng đợi',
+      });
+    },
+    onError: (err: AxiosError<ApiError>) => {
+      addToast({
+        type: TOAST_TYPE.ERROR,
+        message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });
     },
   });

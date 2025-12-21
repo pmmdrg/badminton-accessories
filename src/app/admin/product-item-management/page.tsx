@@ -15,6 +15,7 @@ import { useProductItemAdmin } from '@/hooks/admin/useProductItem';
 import { useUpload } from '@/hooks/useUpload';
 import { upload } from '@imagekit/next';
 import EditProdItemModal from '../product-item-management/editProdItemModal';
+import { UploadProgress } from '@/components/custom/uploadProgress';
 
 export default function AdminProductItemPage() {
   const { getIKToken } = useUpload();
@@ -25,6 +26,7 @@ export default function AdminProductItemPage() {
   const [isOpenAdd, setIsOpenAdd] = useState(false);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [selectedId, setSelectedId] = useState('');
+  const [progress, setProgress] = useState(0);
 
   const filteredProductItems = getAll.data?.data?.filter((pi: ProductItem) =>
     pi.nameProductItem.toLowerCase().includes(search.toLowerCase())
@@ -56,6 +58,8 @@ export default function AdminProductItemPage() {
               token: tokenRes.token,
               expire: tokenRes.expire,
               publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_PUBLIC_KEY || '',
+              onProgress: (e) =>
+                setProgress(Math.round((e.loaded / e.total) * 100)),
             });
 
             return uploadRes.url ?? null;
@@ -106,6 +110,8 @@ export default function AdminProductItemPage() {
               token: tokenRes.token,
               expire: tokenRes.expire,
               publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_PUBLIC_KEY || '',
+              onProgress: (e) =>
+                setProgress(Math.round((e.loaded / e.total) * 100)),
             });
 
             return uploadRes.url ?? null;
@@ -139,6 +145,7 @@ export default function AdminProductItemPage() {
 
   return (
     <div className='p-6'>
+      <UploadProgress value={progress} />
       <h1 className='text-2xl font-bold mb-4'>Quản Lý Mặt Hàng Sản Phẩm</h1>
 
       <div className='flex items-center justify-between mb-4'>

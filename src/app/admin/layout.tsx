@@ -8,7 +8,6 @@ import {
   ArrowsPointingOutIcon,
   InboxArrowDownIcon,
   InboxStackIcon,
-  MapIcon,
   RectangleGroupIcon,
   RectangleStackIcon,
   SparklesIcon,
@@ -104,13 +103,6 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-rose-500 transition font-medium'
           >
             <ArchiveBoxIcon strokeWidth={2} className='h-5 w-5' /> Đơn hàng
-          </Link>
-
-          <Link
-            href='/admin/address-management'
-            className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-rose-500 transition font-medium'
-          >
-            <MapIcon strokeWidth={2} className='h-5 w-5' /> Địa chỉ
           </Link>
 
           <Link

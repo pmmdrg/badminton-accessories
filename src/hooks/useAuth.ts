@@ -15,6 +15,8 @@ import { jwtDecode } from 'jwt-decode';
 import { DecodePayload } from '@/types/decodeAuthPayload';
 import { useToast } from '@/components/custom/toast';
 import { TOAST_TYPE } from '@/lib/constants';
+import { AxiosError } from 'axios';
+import { ApiError } from '@/types/apiError';
 
 export default function useAuth() {
   const router = useRouter();
@@ -37,6 +39,12 @@ export default function useAuth() {
         addToast({ message: 'Đăng nhập thành công', type: TOAST_TYPE.SUCCESS });
       }
     },
+    onError: (err: AxiosError<ApiError>) => {
+      addToast({
+        type: TOAST_TYPE.ERROR,
+        message: `Xảy ra lỗi: ${err.response?.data?.message}`,
+      });
+    },
   });
 
   const registerUser = useMutation({
@@ -53,6 +61,18 @@ export default function useAuth() {
           type: TOAST_TYPE.SUCCESS,
         });
       }
+    },
+    onMutate: () => {
+      addToast({
+        type: TOAST_TYPE.INFO,
+        message: 'Đang đăng ký tài khoản mới, vui lòng đợi',
+      });
+    },
+    onError: (err: AxiosError<ApiError>) => {
+      addToast({
+        type: TOAST_TYPE.ERROR,
+        message: `Xảy ra lỗi: ${err.response?.data?.message}`,
+      });
     },
   });
 
@@ -71,6 +91,18 @@ export default function useAuth() {
         });
       }
     },
+    onMutate: () => {
+      addToast({
+        type: TOAST_TYPE.INFO,
+        message: 'Đang đăng ký tài khoản mới, vui lòng đợi',
+      });
+    },
+    onError: (err: AxiosError<ApiError>) => {
+      addToast({
+        type: TOAST_TYPE.ERROR,
+        message: `Xảy ra lỗi: ${err.response?.data?.message}`,
+      });
+    },
   });
 
   const registerManager = useMutation({
@@ -79,6 +111,18 @@ export default function useAuth() {
       addToast({
         message: 'Đăng ký tài khoản quản lý thành công',
         type: TOAST_TYPE.SUCCESS,
+      });
+    },
+    onMutate: () => {
+      addToast({
+        type: TOAST_TYPE.INFO,
+        message: 'Đang đăng ký tài khoản mới, vui lòng đợi',
+      });
+    },
+    onError: (err: AxiosError<ApiError>) => {
+      addToast({
+        type: TOAST_TYPE.ERROR,
+        message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });
     },
   });
@@ -93,6 +137,12 @@ export default function useAuth() {
       addToast({
         message: 'Đã đăng xuất',
         type: TOAST_TYPE.SUCCESS,
+      });
+    },
+    onError: (err: AxiosError<ApiError>) => {
+      addToast({
+        type: TOAST_TYPE.ERROR,
+        message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });
     },
   });
@@ -124,6 +174,18 @@ export default function useAuth() {
       addToast({
         message: 'Đã đổi mật khẩu, vui lòng đăng nhập lại',
         type: TOAST_TYPE.SUCCESS,
+      });
+    },
+    onMutate: () => {
+      addToast({
+        type: TOAST_TYPE.INFO,
+        message: 'Đang đổi mật khẩu, vui lòng đợi',
+      });
+    },
+    onError: (err: AxiosError<ApiError>) => {
+      addToast({
+        type: TOAST_TYPE.ERROR,
+        message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });
     },
   });

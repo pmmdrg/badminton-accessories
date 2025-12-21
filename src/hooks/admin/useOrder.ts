@@ -19,6 +19,8 @@ import {
 } from '@/services/admin/orderService';
 import { useToast } from '@/components/custom/toast';
 import { TOAST_TYPE } from '@/lib/constants';
+import { AxiosError } from 'axios';
+import { ApiError } from '@/types/apiError';
 
 export function useOrderAdmin(
   id?: string,
@@ -128,6 +130,12 @@ export function useOrderAdmin(
         type: TOAST_TYPE.SUCCESS,
       });
     },
+    onError: (err: AxiosError<ApiError>) => {
+      addToast({
+        type: TOAST_TYPE.ERROR,
+        message: `Xảy ra lỗi: ${err.response?.data?.message}`,
+      });
+    },
   });
 
   const cancel = useMutation({
@@ -136,6 +144,12 @@ export function useOrderAdmin(
       addToast({
         message: 'Đã huỷ đơn hàng',
         type: TOAST_TYPE.SUCCESS,
+      });
+    },
+    onError: (err: AxiosError<ApiError>) => {
+      addToast({
+        type: TOAST_TYPE.ERROR,
+        message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });
     },
   });

@@ -16,6 +16,7 @@ import { useUpload } from '@/hooks/useUpload';
 import { upload } from '@imagekit/next';
 import AddCateModal from './addCateModal';
 import EditCateModal from './editCateModal';
+import { UploadProgress } from '@/components/custom/uploadProgress';
 
 export default function AdminCategoryPage() {
   const { getIKToken } = useUpload();
@@ -25,6 +26,7 @@ export default function AdminCategoryPage() {
   const [selectedId, setSelectedId] = useState('');
   const [isOpenAdd, setIsOpenAdd] = useState(false);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const filteredCates = getAll.data?.data?.filter((c: Cate) =>
     c.nameCate.toLowerCase().includes(search.toLowerCase())
@@ -50,6 +52,8 @@ export default function AdminCategoryPage() {
           token: getIKToken.data.token,
           expire: getIKToken.data.expire,
           publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_PUBLIC_KEY || '',
+          onProgress: (e) =>
+            setProgress(Math.round((e.loaded / e.total) * 100)),
         });
 
         imageUrl = res.url ?? '';
@@ -87,6 +91,8 @@ export default function AdminCategoryPage() {
           token: getIKToken.data.token,
           expire: getIKToken.data.expire,
           publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_PUBLIC_KEY || '',
+          onProgress: (e) =>
+            setProgress(Math.round((e.loaded / e.total) * 100)),
         });
 
         imageUrl = res.url ?? '';
@@ -118,6 +124,7 @@ export default function AdminCategoryPage() {
 
   return (
     <div className='p-6'>
+      <UploadProgress value={progress} />
       <h1 className='text-2xl font-bold mb-4'>Quản Lý Danh Mục</h1>
 
       <div className='flex items-center justify-between mb-4'>

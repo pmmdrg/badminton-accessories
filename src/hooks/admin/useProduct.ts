@@ -27,6 +27,12 @@ export function useProductAdmin(id?: string, name?: string) {
         message: 'Đã tạo sản phẩm mới',
       });
     },
+    onMutate: () => {
+      addToast({
+        type: TOAST_TYPE.INFO,
+        message: 'Đang tạo sản phẩm mới, vui lòng đợi',
+      });
+    },
     onError: (err: AxiosError<ApiError>) => {
       addToast({
         type: TOAST_TYPE.ERROR,
@@ -81,6 +87,18 @@ export function useProductAdmin(id?: string, name?: string) {
       addToast({
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã chỉnh sửa sản phẩm',
+      });
+    },
+    onMutate: () => {
+      addToast({
+        type: TOAST_TYPE.INFO,
+        message: 'Đang chỉnh sửa sản phẩm, vui lòng đợi',
+      });
+    },
+    onError: (err: AxiosError<ApiError>) => {
+      addToast({
+        type: TOAST_TYPE.ERROR,
+        message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });
     },
   });

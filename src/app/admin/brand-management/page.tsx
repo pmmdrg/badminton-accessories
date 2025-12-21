@@ -15,6 +15,7 @@ import { useUpload } from '@/hooks/useUpload';
 import { upload } from '@imagekit/next';
 import AddBrandModal from './addBrandModal';
 import EditBrandModal from './editBrandModal';
+import { UploadProgress } from '@/components/custom/uploadProgress';
 
 export default function AdminBrandPage() {
   const { getIKToken } = useUpload();
@@ -24,6 +25,7 @@ export default function AdminBrandPage() {
   const [selectedId, setSelectedId] = useState('');
   const [isOpenAdd, setIsOpenAdd] = useState(false);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const filteredBrands = getAll.data?.data?.filter((b: Brand) =>
     b.nameBrand.toLowerCase().includes(search.toLowerCase())
@@ -50,6 +52,8 @@ export default function AdminBrandPage() {
           token: getIKToken.data.token,
           expire: getIKToken.data.expire,
           publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_PUBLIC_KEY || '',
+          onProgress: (e) =>
+            setProgress(Math.round((e.loaded / e.total) * 100)),
         });
 
         imageUrl = res.url ?? '';
@@ -90,6 +94,8 @@ export default function AdminBrandPage() {
           token: getIKToken.data.token,
           expire: getIKToken.data.expire,
           publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_PUBLIC_KEY || '',
+          onProgress: (e) =>
+            setProgress(Math.round((e.loaded / e.total) * 100)),
         });
 
         imageUrl = res.url ?? '';
@@ -123,6 +129,7 @@ export default function AdminBrandPage() {
 
   return (
     <div className='p-6'>
+      <UploadProgress value={progress} />
       <h1 className='text-2xl font-bold mb-4'>Quản Lý Thương Hiệu</h1>
 
       <div className='flex items-center justify-between mb-4'>

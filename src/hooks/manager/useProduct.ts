@@ -12,6 +12,8 @@ import {
 } from '@/services/manager/productService';
 import { useToast } from '@/components/custom/toast';
 import { TOAST_TYPE } from '@/lib/constants';
+import { AxiosError } from 'axios';
+import { ApiError } from '@/types/apiError';
 
 export function useProductManager(id?: string, name?: string) {
   const { addToast } = useToast();
@@ -62,6 +64,18 @@ export function useProductManager(id?: string, name?: string) {
       addToast({
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã chỉnh sửa sản phẩm',
+      });
+    },
+    onMutate: () => {
+      addToast({
+        type: TOAST_TYPE.INFO,
+        message: 'Đang chỉnh sửa sản phẩm, vui lòng đợi',
+      });
+    },
+    onError: (err: AxiosError<ApiError>) => {
+      addToast({
+        type: TOAST_TYPE.ERROR,
+        message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });
     },
   });
