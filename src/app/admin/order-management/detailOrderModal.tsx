@@ -1,9 +1,11 @@
+import { placeholderImage } from '@/assets/images';
 import Modal from '@/components/custom/modal';
 import { Spinner } from '@/components/custom/spinner';
 import { useOrderAdmin } from '@/hooks/admin/useOrder';
 import { COUNTRY_CODE } from '@/lib/constants';
-import { capitalizeFirst } from '@/lib/utils';
+import { capitalizeFirst, isValidImageSrc } from '@/lib/utils';
 import { DetailOrder } from '@/models/detailOrder';
+import Image from 'next/image';
 
 export default function DetailOrderModal({
   orderId,
@@ -127,31 +129,52 @@ export default function DetailOrderModal({
             </p>
           </div>
 
-          {getDetail.data?.data[0].orderdetail.map((detail: DetailOrder) => (
-            <>
-              <div className='h-px bg-black' />
-              <div className='my-4 flex gap-2'>
-                <p className='font-medium'>Tên mặt hàng:</p>
-                <p>{detail.nameProductItem}</p>
-              </div>
-              <div className='my-4 flex gap-2'>
-                <p className='font-medium'>Đơn giá:</p>
-                <p className='text-rose-600 font-bold'>
-                  {detail.price.toLocaleString(COUNTRY_CODE.VN)}₫
-                </p>
-              </div>
-              <div className='my-4 flex gap-2'>
-                <p className='font-medium'>Số lượng:</p>
-                <p>{detail.quantity}</p>
-              </div>
-              <div className='my-4 flex gap-2'>
-                <p className='font-medium'>Tổng giá trị mặt hàng:</p>
-                <p className='text-rose-600 font-bold'>
-                  {detail.totalPriceCartItem.toLocaleString(COUNTRY_CODE.VN)}₫
-                </p>
-              </div>
-            </>
-          ))}
+          {getDetail.data?.data[0].orderdetail.map(
+            (detail: DetailOrder, index: number) => (
+              <>
+                <div className='h-px bg-black' />
+                <div key={detail._id} className='flex gap-8 items-center'>
+                  <p className='text-lg font-semibold'>{index + 1}</p>
+                  <Image
+                    src={
+                      isValidImageSrc(detail.imageProductItem)
+                        ? detail.imageProductItem
+                        : placeholderImage
+                    }
+                    alt={detail.nameProductItem}
+                    width={120}
+                    height={120}
+                    className='object-contain'
+                  />
+                  <div>
+                    <div className='my-4 flex gap-2'>
+                      <p className='font-medium'>Tên mặt hàng:</p>
+                      <p>{detail.nameProductItem}</p>
+                    </div>
+                    <div className='my-4 flex gap-2'>
+                      <p className='font-medium'>Đơn giá:</p>
+                      <p className='text-rose-600 font-bold'>
+                        {detail.price.toLocaleString(COUNTRY_CODE.VN)}₫
+                      </p>
+                    </div>
+                    <div className='my-4 flex gap-2'>
+                      <p className='font-medium'>Số lượng:</p>
+                      <p>{detail.quantity}</p>
+                    </div>
+                    <div className='my-4 flex gap-2'>
+                      <p className='font-medium'>Tổng giá trị mặt hàng:</p>
+                      <p className='text-rose-600 font-bold'>
+                        {detail.totalPriceCartItem.toLocaleString(
+                          COUNTRY_CODE.VN
+                        )}
+                        ₫
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )
+          )}
         </div>
       )}
     </Modal>
