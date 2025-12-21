@@ -1,0 +1,129 @@
+'use client';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import {
+  createSize,
+  deleteSize,
+  getAllActiveSizeAdmin,
+  getAllSizeAdmin,
+  getAllInactiveSizeAdmin,
+  getSizeByIdAdmin,
+  getSizeByNameAdmin,
+  restoreSize,
+  updateSize,
+  getSizeBySizeTypeId,
+  getSizeBySizeTypeName,
+} from '@/services/admin/sizeService';
+import { useToast } from '@/components/custom/toast';
+import { TOAST_TYPE } from '@/lib/constants';
+
+export function useSizeAdmin(
+  id?: string,
+  name?: string,
+  sizeTypeId?: string,
+  sizeTypeName?: string
+) {
+  const { addToast } = useToast();
+
+  const add = useMutation({
+    mutationFn: createSize,
+    onSuccess: () => {
+      addToast({
+        type: TOAST_TYPE.SUCCESS,
+        message: 'Đã tạo kích thước mới',
+      });
+    },
+  });
+
+  const getAll = useQuery({
+    queryKey: ['admin-sizes'],
+    queryFn: getAllSizeAdmin,
+  });
+
+  const getAllActive = useQuery({
+    queryKey: ['admin-active-sizes'],
+    queryFn: getAllActiveSizeAdmin,
+  });
+
+  const getAllInactive = useQuery({
+    queryKey: ['admin-inactive-sizes'],
+    queryFn: getAllInactiveSizeAdmin,
+  });
+
+  const getById = useQuery({
+    queryKey: ['id', id],
+    queryFn: () => getSizeByIdAdmin(id || ''),
+    enabled: !!id,
+  });
+
+  const getBySizeTypeId = useQuery({
+    queryKey: ['size-type-id', sizeTypeId],
+    queryFn: () => getSizeBySizeTypeId(sizeTypeId || ''),
+    enabled: !!sizeTypeId,
+  });
+
+  const getByName = useQuery({
+    queryKey: ['nameSize', name],
+    queryFn: () => getSizeByNameAdmin(name || ''),
+    enabled: !!name,
+  });
+
+  const getBySizeTypeName = useQuery({
+    queryKey: ['name-size-type', sizeTypeName],
+    queryFn: () => getSizeBySizeTypeName(sizeTypeName || ''),
+    enabled: !!sizeTypeName,
+  });
+
+  const edit = useMutation({
+    mutationFn: ({
+      id,
+      payload,
+    }: {
+      id: string;
+      payload: {
+        nameSize?: string;
+        sizeTypeId?: string;
+        description?: string;
+      };
+    }) => updateSize(id, payload),
+    onSuccess: () => {
+      addToast({
+        type: TOAST_TYPE.SUCCESS,
+        message: 'Đã chỉnh sửa kích thước',
+      });
+    },
+  });
+
+  const remove = useMutation({
+    mutationFn: (id: string) => deleteSize(id),
+    onSuccess: () => {
+      addToast({
+        type: TOAST_TYPE.SUCCESS,
+        message: 'Đã xoá kích thước',
+      });
+    },
+  });
+
+  const restore = useMutation({
+    mutationFn: (id: string) => restoreSize(id),
+    onSuccess: () => {
+      addToast({
+        type: TOAST_TYPE.SUCCESS,
+        message: 'Đã khôi phục kích thước',
+      });
+    },
+  });
+
+  return {
+    add,
+    getAll,
+    getAllActive,
+    getAllInactive,
+    getById,
+    getByName,
+    edit,
+    remove,
+    restore,
+    getBySizeTypeName,
+    getBySizeTypeId,
+  };
+}

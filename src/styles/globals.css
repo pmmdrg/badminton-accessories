@@ -1,0 +1,39 @@
+@import 'tailwindcss';
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: white !important;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 9999px;
+  padding: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.swiper-pagination-bullet {
+  background-color: rgba(255, 255, 255, 0.4) !important;
+  opacity: 1 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: white !important;
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.25s ease-out;
+}
