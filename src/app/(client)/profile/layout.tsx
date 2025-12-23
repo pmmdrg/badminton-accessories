@@ -1,18 +1,18 @@
 'use client';
 
 import clsx from 'clsx';
-
-interface ProfileLayoutProps {
-  children: React.ReactNode;
-  active?: 'profile' | 'orders';
-}
+import { usePathname, useRouter } from 'next/navigation';
 
 export default function ProfileLayout({
   children,
-  active = 'profile',
-}: ProfileLayoutProps) {
+}: {
+  children: React.ReactNode;
+}) {
+  const router = useRouter();
+  const pathname = usePathname();
+
   return (
-    <div className='w-full min-h-screen px-4 md:px-10 py-10'>
+    <div className='w-full px-4 md:px-10 py-10'>
       <div className='max-w-6xl mx-auto'>
         <div className='flex gap-8'>
           <aside className='w-64 shrink-0'>
@@ -20,9 +20,10 @@ export default function ProfileLayout({
 
             <nav className='flex flex-col gap-2'>
               <button
+                onClick={() => router.push('/profile/personal-information')}
                 className={clsx(
                   'text-left px-3 py-2 rounded-md transition',
-                  active === 'profile'
+                  pathname.endsWith('personal-information')
                     ? 'bg-rose-100 text-rose-700 font-medium'
                     : 'hover:bg-gray-100 text-gray-700'
                 )}
@@ -31,9 +32,10 @@ export default function ProfileLayout({
               </button>
 
               <button
+                onClick={() => router.push('/profile/order-history')}
                 className={clsx(
                   'text-left px-3 py-2 rounded-md transition',
-                  active === 'orders'
+                  pathname.endsWith('order-history')
                     ? 'bg-rose-100 text-rose-700 font-medium'
                     : 'hover:bg-gray-100 text-gray-700'
                 )}

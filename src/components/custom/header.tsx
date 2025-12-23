@@ -10,6 +10,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { motion, AnimatePresence } from 'framer-motion';
 import useAuth from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
 
 export default function Header() {
   const [isLogin, setIsLogin] = useState(false);
@@ -18,6 +19,7 @@ export default function Header() {
   const menuRef = useRef<HTMLDivElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
   const { logout } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     const accessToken = localStorage.getItem('access_token');
@@ -102,12 +104,15 @@ export default function Header() {
                     </>
                   ) : (
                     <>
-                      <Link
-                        href='/profile'
-                        className='block px-4 py-2 text-gray-700 hover:bg-rose-100 hover:text-rose-700'
+                      <button
+                        onClick={() => {
+                          setUserMenuOpen(false);
+                          router.push('/profile/personal-information');
+                        }}
+                        className='w-full text-left block px-4 py-2 text-gray-700 hover:bg-rose-100 hover:text-rose-700'
                       >
                         Hồ sơ
-                      </Link>
+                      </button>
                       <button
                         className='w-full text-left block px-4 py-2 text-gray-700 hover:bg-rose-100 hover:text-rose-700'
                         onClick={() => logout.mutate()}
