@@ -33,6 +33,11 @@ export function usePaymentClient(id?: string, name?: string) {
 
   const vnpay = useMutation({
     mutationFn: vnpayPayment,
+    onSuccess: (data) => {
+      console.log(data.data);
+
+      // window.location.href = data.data;
+    },
   });
 
   const vnpayReturn = useMutation({

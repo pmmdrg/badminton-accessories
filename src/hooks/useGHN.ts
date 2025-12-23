@@ -5,15 +5,17 @@ import {
 } from '@/services/ghnService';
 import { useQuery } from '@tanstack/react-query';
 
-export function useGHN() {
+export function useGHN(provinceId?: number, districtId?: number) {
   const getDistrict = useQuery({
-    queryKey: ['get-district'],
-    queryFn: getDistrictFromGHN,
+    queryKey: ['get-district', provinceId],
+    queryFn: () => getDistrictFromGHN(provinceId!),
+    enabled: provinceId !== undefined && provinceId !== 0,
   });
 
   const getWard = useQuery({
-    queryKey: ['get-ward'],
-    queryFn: getWardFromGHN,
+    queryKey: ['get-ward', districtId],
+    queryFn: () => getWardFromGHN(districtId!),
+    enabled: districtId !== undefined && districtId !== 0,
   });
 
   const getProvince = useQuery({

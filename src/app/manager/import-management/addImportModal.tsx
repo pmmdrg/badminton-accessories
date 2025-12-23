@@ -1,5 +1,5 @@
 import Modal from '@/components/custom/modal';
-import Select from '@/components/custom/select';
+import { SelectString } from '@/components/custom/select';
 import TextField from '@/components/custom/textfield';
 import { useSupplierManager } from '@/hooks/manager/useSupplier';
 import { normalizedSelectOptions } from '@/lib/utils';
@@ -51,7 +51,7 @@ export default function AddImportModal({
       }}
       title='Thêm Lô Hàng'
     >
-      <Select
+      <SelectString
         label='Nhà cung cấp'
         value={supplier}
         options={supplierOptions}

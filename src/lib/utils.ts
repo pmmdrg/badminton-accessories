@@ -20,7 +20,7 @@ export function isValidImageSrc(src?: string) {
   return false;
 }
 
-export function normalizedSelectOptions(label: string, value: string) {
+export function normalizedSelectOptions(label: string, value: string | number) {
   return { label: label, value: value };
 }
 

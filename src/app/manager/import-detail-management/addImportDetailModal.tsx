@@ -1,5 +1,5 @@
 import Modal from '@/components/custom/modal';
-import Select from '@/components/custom/select';
+import { SelectString } from '@/components/custom/select';
 import TextField from '@/components/custom/textfield';
 import { useImportManager } from '@/hooks/manager/useImport';
 import { useProductItemManager } from '@/hooks/manager/useProductItem';
@@ -70,7 +70,7 @@ export default function AddImportModal({
       title='Thêm Chi Tiết Nhập Hàng'
     >
       <div className='flex gap-10'>
-        <Select
+        <SelectString
           label='Lô hàng'
           value={imp}
           options={importOptions}
@@ -78,7 +78,7 @@ export default function AddImportModal({
           className='mx-2 my-2'
         />
 
-        <Select
+        <SelectString
           label='Mặt hàng sản phẩm'
           value={productItemName}
           options={prodItemOptions}

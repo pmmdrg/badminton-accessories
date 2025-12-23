@@ -1,7 +1,7 @@
 import api from '@/lib/api';
 
 export async function getAllOrder() {
-  const res = await api.get('/order');
+  const res = await api.get('/order/all-order');
 
   return res.data;
 }
@@ -44,12 +44,6 @@ export async function getAllOrderCancelled() {
 
 export async function takeOrderCompleted(id: string) {
   const res = await api.post(`/order/take-order-completed?id=${id}`);
-
-  return res.data;
-}
-
-export async function cancelOrder(id: string) {
-  const res = await api.post(`/order/cancel-order?id=${id}`);
 
   return res.data;
 }

@@ -9,13 +9,14 @@ import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 export default function CartTile({
   cartItem,
   onQuantityChange,
   onRemove,
 }: CartTileProps) {
+  const [isChecked, setIsChecked] = useState(cartItem.status === 'tick');
   const { tick, untick } = useCart();
 
   const increase = () => {
@@ -28,8 +29,10 @@ export default function CartTile({
 
   const handleTick = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
+      setIsChecked(true);
       tick.mutate(cartItem._id);
     } else {
+      setIsChecked(false);
       untick.mutate(cartItem._id);
     }
   };
@@ -39,7 +42,7 @@ export default function CartTile({
       <input
         name={cartItem.nameProductItem}
         type='checkbox'
-        checked={cartItem.status === 'tick' ? true : false}
+        checked={isChecked}
         onChange={handleTick}
         className='size-5 accent-rose-700'
       />
@@ -81,9 +84,7 @@ export default function CartTile({
           <Button onClick={decrease} className='p-0'>
             <MinusIcon className='h-5 w-5' />
           </Button>
-          <span className='min-w-[24px] text-center'>
-            {cartItem.totalPriceCartItem}
-          </span>
+          <span className='min-w-[24px] text-center'>{cartItem.quantity}</span>
           <Button onClick={increase}>
             <PlusIcon className='h-5 w-5' />
           </Button>

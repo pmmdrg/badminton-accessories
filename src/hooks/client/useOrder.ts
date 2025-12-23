@@ -1,13 +1,12 @@
 'use client';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import {
-  cancelOrder,
   getAllOrder,
   getAllOrderCancelled,
   getAllOrderCompleted,
   getAllOrderDelivered,
   getAllOrderProcessing,
-  getAllOrderShipped,
+  // getAllOrderShipped,
   getDetailOrder,
   takeOrderCompleted,
 } from '@/services/client/orderService';
@@ -33,10 +32,10 @@ export function useOrderClient(id?: string) {
     queryFn: getAllOrderProcessing,
   });
 
-  const getAllShipped = useQuery({
-    queryKey: ['shipped-orders'],
-    queryFn: getAllOrderShipped,
-  });
+  // const getAllShipped = useQuery({
+  //   queryKey: ['shipped-orders'],
+  //   queryFn: getAllOrderShipped,
+  // });
 
   const getAllDelivered = useQuery({
     queryKey: ['delivered-orders'],
@@ -63,25 +62,14 @@ export function useOrderClient(id?: string) {
     },
   });
 
-  const cancel = useMutation({
-    mutationFn: (id: string) => cancelOrder(id),
-    onSuccess: () => {
-      addToast({
-        type: TOAST_TYPE.SUCCESS,
-        message: 'Đã huỷ đơn hàng',
-      });
-    },
-  });
-
   return {
     getAll,
     getById,
-    getAllShipped,
+    // getAllShipped,
     getAllProcessing,
     getAllCompleted,
     getAllCancelled,
     getAllDelivered,
     complete,
-    cancel,
   };
 }

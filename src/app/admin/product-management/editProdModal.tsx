@@ -1,5 +1,5 @@
 import Modal from '@/components/custom/modal';
-import Select from '@/components/custom/select';
+import { SelectString } from '@/components/custom/select';
 import TextField from '@/components/custom/textfield';
 import { useBrandAdmin } from '@/hooks/admin/useBrand';
 import { useCateAdmin } from '@/hooks/admin/useCate';
@@ -117,13 +117,13 @@ export default function EditProdModal({
       title='Chỉnh Sửa Sản Phẩm'
     >
       <div className='flex gap-8 mx-2 mb-2'>
-        <Select
+        <SelectString
           label='Thương hiệu'
           value={brand}
           options={brandOptions}
           onChange={setBrand}
         />
-        <Select
+        <SelectString
           label='Danh mục'
           value={cate}
           options={cateOptions}
@@ -131,7 +131,7 @@ export default function EditProdModal({
         />
       </div>
 
-      <Select
+      <SelectString
         label='Loại kích thước'
         value={sizeType}
         options={sizeTypeOptions}

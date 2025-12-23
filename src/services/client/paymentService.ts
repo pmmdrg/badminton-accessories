@@ -24,7 +24,7 @@ export async function codPayment() {
   return res.data;
 }
 
-export async function vnpayPayment(payload: { amount: string }) {
+export async function vnpayPayment(payload: { amount: number }) {
   const res = await api.post('/payment/vnpay', payload);
 
   return res.data;

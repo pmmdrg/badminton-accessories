@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Select from '@/components/custom/select';
+import { SelectString } from '@/components/custom/select';
 import TextField from '@/components/custom/textfield';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import Pagination from '@/components/custom/pagination';
@@ -76,28 +76,28 @@ export default function ProductListPage() {
       </div>
 
       <div className='max-w-5xl mx-auto rounded-2xl shadow-lg p-4 flex flex-wrap items-center justify-between gap-4'>
-        <Select
+        <SelectString
           label='Thương Hiệu'
           value={brand}
           onChange={setBrand}
           options={brandOptions}
         />
 
-        <Select
+        <SelectString
           label='Danh Mục'
           value={category}
           onChange={setCategory}
           options={cateOptions}
         />
 
-        <Select
+        <SelectString
           label='Màu'
           value={color}
           onChange={setColor}
           options={colorOptions}
         />
 
-        <Select
+        <SelectString
           label='Sắp Xếp Theo'
           value={sort}
           onChange={setSort}
@@ -121,9 +121,7 @@ export default function ProductListPage() {
 
       <Pagination
         currentPage={currPage}
-        totalPages={Math.ceil(
-          (productItems.getAll.data?.data?.length ?? 0) / 20
-        )}
+        totalPages={Math.ceil((filteredProducts?.length ?? 0) / 20)}
         onPageChange={setCurrPage}
       />
     </div>

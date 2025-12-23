@@ -2,7 +2,7 @@
 import Button from '@/components/custom/button';
 import Section from '@/components/custom/section';
 import { useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useProductItemClient } from '@/hooks/client/useProductItem';
 import { Spinner } from '@/components/custom/spinner';
 import { ProductItem } from '@/models/productItem';
@@ -10,13 +10,45 @@ import ProdItemCard from '@/components/custom/prodItemCard';
 import Carousel from '@/components/custom/carousel';
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { COUNTRY_CODE } from '@/lib/constants';
+import { useCartItem } from '@/hooks/client/useCartItem';
+import { useCart } from '@/hooks/client/useCart';
 
 export default function ProductDetailPage() {
   const { id } = useParams<{ id: string }>();
   const { getAll, getById } = useProductItemClient(id);
+  const { getByUserId } = useCart();
+  const { insert } = useCartItem();
   const [quantity, setQuantity] = useState(0);
+  const router = useRouter();
 
   const foundProductItem: ProductItem = getById.data?.data;
+  const cartId = getByUserId.data?.data?._id;
+
+  const handleAddToCart = () => {
+    if (cartId && foundProductItem)
+      insert.mutate({
+        cartId,
+        productItemId: id,
+        nameProductItem: foundProductItem.nameProductItem,
+        price: foundProductItem.price,
+        imageProductItem: foundProductItem?.imageProductItem?.[0] || '',
+        quantity,
+      });
+  };
+
+  const handleBuyNow = () => {
+    if (cartId && foundProductItem)
+      insert.mutate({
+        cartId,
+        productItemId: id,
+        nameProductItem: foundProductItem.nameProductItem,
+        price: foundProductItem.price,
+        imageProductItem: foundProductItem?.imageProductItem?.[0] || '',
+        quantity: 1,
+      });
+
+    router.push('/cart');
+  };
 
   if (getById.isLoading)
     return (
@@ -79,6 +111,7 @@ export default function ProductDetailPage() {
               variant='primary'
               className='px-6 py-3 font-semibold'
               disabled={quantity === 0}
+              onClick={handleBuyNow}
             >
               Mua ngay
             </Button>
@@ -86,6 +119,7 @@ export default function ProductDetailPage() {
               variant='outline'
               className='px-6 py-3 font-semibold'
               disabled={quantity === 0}
+              onClick={handleAddToCart}
             >
               Thêm vào giỏ hàng
             </Button>

@@ -1,5 +1,5 @@
 import Modal from '@/components/custom/modal';
-import Select from '@/components/custom/select';
+import { SelectString } from '@/components/custom/select';
 import TextField from '@/components/custom/textfield';
 import { useSizeAdmin } from '@/hooks/admin/useSize';
 import { useSizeTypeAdmin } from '@/hooks/admin/useSizeType';
@@ -68,7 +68,7 @@ export default function EditSizeModal({
       }}
       title='Chỉnh Sửa Kích Thước'
     >
-      <Select
+      <SelectString
         label='Loại kích thước'
         value={sizeTypeId}
         onChange={setSizeTypeId}

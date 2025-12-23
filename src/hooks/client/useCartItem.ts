@@ -6,10 +6,11 @@ import {
   insertCartItem,
   updateCartItem,
 } from '@/services/client/cartItemService';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useCartItem() {
   const { addToast } = useToast();
+  const queryClient = useQueryClient();
 
   const getByUserId = useQuery({
     queryKey: ['cart-item'],
@@ -39,8 +40,10 @@ export function useCartItem() {
     onSuccess: () => {
       addToast({
         type: TOAST_TYPE.SUCCESS,
-        message: 'Đã cập nhật',
+        message: 'Đã cập nhật giỏ hàng',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['cart'] });
     },
   });
 

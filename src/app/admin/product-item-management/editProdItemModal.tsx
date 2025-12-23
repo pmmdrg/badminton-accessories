@@ -1,5 +1,5 @@
 import Modal from '@/components/custom/modal';
-import Select from '@/components/custom/select';
+import { SelectString } from '@/components/custom/select';
 import TextField from '@/components/custom/textfield';
 import { useColorAdmin } from '@/hooks/admin/useColor';
 import { useProductAdmin } from '@/hooks/admin/useProduct';
@@ -150,7 +150,7 @@ export default function AddProdItemModal({
       title='Chỉnh Sửa Mặt Hàng Sản Phẩm'
     >
       <div className='flex gap-8 mx-2 mb-2'>
-        <Select
+        <SelectString
           label='Sản phẩm'
           value={productName}
           options={productNameOptions}
@@ -166,7 +166,7 @@ export default function AddProdItemModal({
             }
           }}
         />
-        <Select
+        <SelectString
           label='Kích thước'
           value={size}
           options={sizeOptions}
@@ -174,7 +174,7 @@ export default function AddProdItemModal({
         />
       </div>
 
-      <Select
+      <SelectString
         label='Màu'
         value={color}
         options={colorOptions}
