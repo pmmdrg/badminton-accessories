@@ -151,7 +151,7 @@ export default function useAuth() {
     mutationFn: requestResetPassword,
     onSuccess: () => {
       addToast({
-        message: 'Đã yêu cầu đổi mật khẩu',
+        message: 'Đã yêu cầu đổi mật khẩu, vui lòng đợi link được gửi đến bạn',
         type: TOAST_TYPE.SUCCESS,
       });
     },

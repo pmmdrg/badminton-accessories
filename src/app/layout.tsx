@@ -16,7 +16,10 @@ export default function RootLayout({
   const pathname = usePathname();
 
   const isAuthPath =
-    pathname.endsWith('/login') || pathname.endsWith('/register');
+    pathname.endsWith('/login') ||
+    pathname.endsWith('/register') ||
+    pathname.endsWith('/forgot-password') ||
+    pathname.endsWith('/reset-password');
 
   const isAdminPath = pathname.startsWith('/admin');
   const isManagerPath = pathname.startsWith('/manager');

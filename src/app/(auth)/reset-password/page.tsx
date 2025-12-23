@@ -3,22 +3,18 @@
 import React, { useState } from 'react';
 import TextField from '@/components/custom/textfield';
 import Button from '@/components/custom/button';
-import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
-import { EmailRegex } from '@/lib/constants';
 import useAuth from '@/hooks/useAuth';
 
-export default function RegisterPage() {
-  const { registerUser } = useAuth();
-  const [fullname, setFullname] = useState('');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
+export default function ResetPasswordPage() {
+  const { resetPassword } = useAuth();
+  const searchParams = useSearchParams();
+  const token = searchParams.get('token');
+
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState({
-    fullname: '',
-    username: '',
-    email: '',
     password: '',
     confirmPassword: '',
   });
@@ -27,22 +23,9 @@ export default function RegisterPage() {
 
   const validateForm = () => {
     const newError = {
-      fullname: '',
-      username: '',
-      email: '',
       password: '',
       confirmPassword: '',
     };
-
-    if (!fullname) newError.fullname = 'Vui lòng nhập tên đầy đủ của bạn';
-
-    if (!username) newError.username = 'Vui lòng nhập tên người dùng';
-    else if (username.length < 3 || username.length > 20)
-      newError.username =
-        'Tên người dùng phải có ít nhất 3 ký tự và không quá 20 ký tự';
-
-    if (!email) newError.email = 'Vui lòng nhập email';
-    else if (!EmailRegex.test(email)) newError.email = 'Email không hợp lệ';
 
     if (!password) newError.password = 'Vui lòng nhập mật khẩu';
     else if (password.length < 6)
@@ -55,65 +38,29 @@ export default function RegisterPage() {
 
     setError(newError);
 
-    return (
-      !newError.email &&
-      !newError.password &&
-      !newError.confirmPassword &&
-      !newError.fullname &&
-      !newError.username
-    );
+    return !newError.password && !newError.confirmPassword;
   };
 
-  const handleRegister = async (e: React.FormEvent) => {
+  const handleReset = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateForm()) return;
+    if (!validateForm() || !token) return;
 
-    registerUser.mutate({
-      username,
-      fullname,
-      email,
-      password,
+    resetPassword.mutate({
+      token,
+      payload: { password: password },
     });
   };
 
   return (
     <form
-      onSubmit={handleRegister}
+      onSubmit={handleReset}
       className='w-full max-w-sm bg-white/20 rounded-2xl p-6 md:p-8 backdrop-blur-lg border border-white/30 shadow-lg'
     >
       <h1 className='text-2xl md:text-3xl font-semibold text-center mb-8 text-white'>
         Badminton Accessories Shop
       </h1>
 
-      <TextField
-        name='username'
-        placeholder='Tên người dùng'
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        error={error.username}
-        errorColor='text-gray-200'
-        className='w-full text-black'
-      />
-
-      <TextField
-        name='fullname'
-        placeholder='Họ và tên'
-        value={fullname}
-        onChange={(e) => setFullname(e.target.value)}
-        error={error.fullname}
-        errorColor='text-gray-200'
-        className='w-full text-black'
-      />
-
-      <TextField
-        name='email'
-        placeholder='Email'
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        error={error.email}
-        errorColor='text-gray-200'
-        className='w-full text-black'
-      />
+      <p className='font-medium'>Nhập mật khẩu mới cho tài khoản của bạn.</p>
 
       <TextField
         name='password'
@@ -160,16 +107,10 @@ export default function RegisterPage() {
         variant='primary'
         fullWidth
         shadow
-        loading={registerUser.isPending}
+        loading={resetPassword.isPending}
       >
-        Đăng ký
+        Đổi mật khẩu
       </Button>
-
-      <div className='flex justify-center mt-2'>
-        <Link href='/login' className='hover:underline'>
-          Đã có tài khoản? Đăng nhập
-        </Link>
-      </div>
     </form>
   );
 }
