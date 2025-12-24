@@ -105,13 +105,13 @@ export async function getOrderByOrderId(id: string) {
 }
 
 export async function takeOrderDelivered(id: string) {
-  const res = await api.post(`/admin/order/take-delivered?id=${id}`);
+  const res = await api.put(`/admin/order/take-delivered?id=${id}`);
 
   return res.data;
 }
 
 export async function cancelOrderAdmin(id: string) {
-  const res = await api.post(`/admin/order/cancel-order?id=${id}`);
+  const res = await api.put(`/admin/order/cancel-order?id=${id}`);
 
   return res.data;
 }

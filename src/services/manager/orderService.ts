@@ -107,7 +107,7 @@ export async function getOrderByOrderId(id: string) {
 }
 
 export async function takeOrderDelivered(id: string) {
-  const res = await api.post(`/manager/order/take-delivered?id=${id}`);
+  const res = await api.put(`/manager/order/take-delivered?id=${id}`);
 
   return res.data;
 }
