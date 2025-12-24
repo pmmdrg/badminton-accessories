@@ -44,7 +44,7 @@ export default function ProductDetailPage() {
         nameProductItem: foundProductItem.nameProductItem,
         price: foundProductItem.price,
         imageProductItem: foundProductItem?.imageProductItem?.[0] || '',
-        quantity: 1,
+        quantity,
       });
 
     router.push('/cart');
