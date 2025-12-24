@@ -1,5 +1,5 @@
 'use client';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createProductItem,
   deleteProductItem,
@@ -18,6 +18,7 @@ import { ApiError } from '@/types/apiError';
 
 export function useProductItemAdmin(id?: string, name?: string) {
   const { addToast } = useToast();
+  const queryClient = useQueryClient();
 
   const add = useMutation({
     mutationFn: createProductItem,
@@ -26,6 +27,8 @@ export function useProductItemAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã tạo mặt hàng sản phẩm mới',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-product-items'] });
     },
     onMutate: () => {
       addToast({
@@ -90,6 +93,8 @@ export function useProductItemAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã chỉnh sửa mặt hàng sản phẩm',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-product-items'] });
     },
     onMutate: () => {
       addToast({
@@ -112,6 +117,8 @@ export function useProductItemAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã xoá mặt hàng sản phẩm',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-product-items'] });
     },
   });
 
@@ -122,6 +129,8 @@ export function useProductItemAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã khôi phục mặt hàng sản phẩm',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-product-items'] });
     },
   });
 

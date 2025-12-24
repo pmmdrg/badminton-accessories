@@ -1,10 +1,10 @@
 'use client';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   getAllOrderManager,
   getDetailOrder,
   getAllOrderProcessing,
-  getAllOrderShipped,
+  // getAllOrderShipped,
   getAllOrderDelivered,
   getAllOrderCompleted,
   getAllOrderCancelled,
@@ -33,6 +33,7 @@ export function useOrderManager(
   userId?: string
 ) {
   const { addToast } = useToast();
+  const queryClient = useQueryClient();
 
   const getAll = useQuery({
     queryKey: ['manager-orders'],
@@ -50,10 +51,10 @@ export function useOrderManager(
     queryFn: () => getAllOrderProcessing(),
   });
 
-  const getAllShipped = useQuery({
-    queryKey: ['order-shipped'],
-    queryFn: () => getAllOrderShipped(),
-  });
+  // const getAllShipped = useQuery({
+  //   queryKey: ['order-shipped'],
+  //   queryFn: () => getAllOrderShipped(),
+  // });
 
   const getAllDelivered = useQuery({
     queryKey: ['order-delivered'],
@@ -126,6 +127,8 @@ export function useOrderManager(
         message: 'Đã chuyển sang trạng thái vận chuyển đơn hàng',
         type: TOAST_TYPE.SUCCESS,
       });
+
+      queryClient.invalidateQueries({ queryKey: ['manager-orders'] });
     },
   });
 
@@ -133,7 +136,7 @@ export function useOrderManager(
     getAll,
     getDetail,
     getAllProcessing,
-    getAllShipped,
+    // getAllShipped,
     getAllDelivered,
     getAllCompleted,
     getAllCancelled,

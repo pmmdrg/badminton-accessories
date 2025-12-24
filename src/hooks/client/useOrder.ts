@@ -1,5 +1,5 @@
 'use client';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   getAllOrder,
   getAllOrderCancelled,
@@ -15,6 +15,7 @@ import { TOAST_TYPE } from '@/lib/constants';
 
 export function useOrderClient(id?: string) {
   const { addToast } = useToast();
+  const queryClient = useQueryClient();
 
   const getAll = useQuery({
     queryKey: ['orders'],
@@ -59,6 +60,8 @@ export function useOrderClient(id?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đơn hàng đã chuyển thành trạng thái hoàn tất',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['orders'] });
     },
   });
 

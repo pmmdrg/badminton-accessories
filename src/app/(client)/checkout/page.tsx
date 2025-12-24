@@ -21,6 +21,18 @@ export default function CheckoutPage() {
   const wardCode = searchParams.get('ward') || '';
   const addressUser = searchParams.get('address') || '';
   const phoneNumber = searchParams.get('phone') || '';
+  const vnpAmount = searchParams.get('vnp_Amount') || '';
+  const vnpBankCode = searchParams.get('vnp_BankCode') || '';
+  const vnpBankTranNo = searchParams.get('vnp_BankTranNo') || '';
+  const vnpCardType = searchParams.get('vnp_CardType') || '';
+  const vnpOrderInfo = searchParams.get('vnp_OrderInfo') || '';
+  const vnpPayDate = searchParams.get('vnp_PayDate') || '';
+  const vnpResponseCode = searchParams.get('vnp_ResponseCode') || '';
+  const vnpTmnCode = searchParams.get('vnp_TmnCode') || '';
+  const vnpTransactionNo = searchParams.get('vnp_TransactionNo') || '';
+  const vnpTransactionStatus = searchParams.get('vnp_TransactionStatus') || '';
+  const vnpTxnRef = searchParams.get('vnp_TxnRef') || '';
+  const vnpSecureHash = searchParams.get('vnp_SecureHash') || '';
 
   const { getByUserId, totalFee } = useCart(
     districtId,
@@ -28,13 +40,28 @@ export default function CheckoutPage() {
     addressUser,
     phoneNumber
   );
-  const payments = usePaymentClient();
+  const { getAll, vnpayReturn, cod, vnpay } = usePaymentClient(
+    '',
+    '',
+    vnpAmount,
+    vnpBankCode,
+    vnpBankTranNo,
+    vnpCardType,
+    vnpOrderInfo,
+    vnpPayDate,
+    vnpResponseCode,
+    vnpTmnCode,
+    vnpTransactionNo,
+    vnpTransactionStatus,
+    vnpTxnRef,
+    vnpSecureHash
+  );
   const [paymentMethod, setPaymentMethod] = useState('');
 
-  const paymentOptions = payments.getAll.data?.data
+  const paymentOptions = getAll.data?.data
     ? [
         { label: 'Phương thức thanh toán', value: '' },
-        ...payments.getAll.data.data.map((p: Payment) =>
+        ...getAll.data.data.map((p: Payment) =>
           normalizedSelectOptions(p.namePayment, p.namePayment)
         ),
       ]
@@ -42,18 +69,19 @@ export default function CheckoutPage() {
 
   const handleCheckout = () => {
     if (paymentMethod === 'COD') {
-      payments.cod.mutate();
+      cod.mutate();
     } else if (totalFee.data?.data?.totalCartOrder) {
-      payments.vnpay.mutate({ amount: totalFee.data.data.totalCartOrder });
+      vnpay.mutate({ amount: totalFee.data.data.totalCartOrder });
     }
   };
 
   return (
     <div className='w-full bg-gray-100 py-12 px-6 flex justify-center'>
       <div className='w-full max-w-4xl bg-white rounded-xl shadow-lg p-8 space-y-8'>
-        {payments.cod.isSuccess || payments.vnpayReturn.isSuccess ? (
-          <div className='flex justify-center items-center'>
+        {cod.isSuccess || vnpayReturn.isSuccess ? (
+          <div className='flex flex-col justify-center items-center h-96'>
             <CheckCircleIcon className='w-10 h-10 text-emerald-600' />
+            <p>Đặt hàng thành công!</p>
           </div>
         ) : (
           <>

@@ -1,5 +1,5 @@
 'use client';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createPayment,
   deletePayment,
@@ -18,6 +18,7 @@ import { ApiError } from '@/types/apiError';
 
 export function usePaymentAdmin(id?: string, name?: string) {
   const { addToast } = useToast();
+  const queryClient = useQueryClient();
 
   const add = useMutation({
     mutationFn: createPayment,
@@ -26,6 +27,8 @@ export function usePaymentAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã tạo phương thức thanh toán mới',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-payments'] });
     },
     onMutate: () => {
       addToast({
@@ -83,6 +86,8 @@ export function usePaymentAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã chỉnh sửa phương thức thanh toán',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-payments'] });
     },
     onMutate: () => {
       addToast({
@@ -105,6 +110,8 @@ export function usePaymentAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã xoá phương thức thanh toán',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-payments'] });
     },
   });
 
@@ -115,6 +122,8 @@ export function usePaymentAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã khôi phục phương thức thanh toán',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-payments'] });
     },
   });
 

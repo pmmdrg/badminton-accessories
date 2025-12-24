@@ -1,5 +1,5 @@
 'use client';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   deleteProduct,
   getAllActiveProductManager,
@@ -17,6 +17,7 @@ import { ApiError } from '@/types/apiError';
 
 export function useProductManager(id?: string, name?: string) {
   const { addToast } = useToast();
+  const queryClient = useQueryClient();
 
   const getAll = useQuery({
     queryKey: ['manager-product'],
@@ -65,6 +66,8 @@ export function useProductManager(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã chỉnh sửa sản phẩm',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['manager-product'] });
     },
     onMutate: () => {
       addToast({
@@ -87,6 +90,8 @@ export function useProductManager(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã xoá sản phẩm',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['manager-product'] });
     },
   });
 
@@ -97,6 +102,8 @@ export function useProductManager(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã khôi phục sản phẩm',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['manager-product'] });
     },
   });
 

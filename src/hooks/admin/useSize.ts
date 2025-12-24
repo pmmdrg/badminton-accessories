@@ -1,5 +1,5 @@
 'use client';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createSize,
   deleteSize,
@@ -25,6 +25,7 @@ export function useSizeAdmin(
   sizeTypeName?: string
 ) {
   const { addToast } = useToast();
+  const queryClient = useQueryClient();
 
   const add = useMutation({
     mutationFn: createSize,
@@ -33,6 +34,8 @@ export function useSizeAdmin(
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã tạo kích thước mới',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-sizes'] });
     },
     onMutate: () => {
       addToast({
@@ -104,6 +107,8 @@ export function useSizeAdmin(
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã chỉnh sửa kích thước',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-sizes'] });
     },
     onMutate: () => {
       addToast({
@@ -126,6 +131,8 @@ export function useSizeAdmin(
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã xoá kích thước',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-sizes'] });
     },
   });
 
@@ -136,6 +143,8 @@ export function useSizeAdmin(
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã khôi phục kích thước',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-sizes'] });
     },
   });
 

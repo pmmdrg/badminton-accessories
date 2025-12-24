@@ -1,10 +1,10 @@
 'use client';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   getAllOrderAdmin,
   getDetailOrder,
   getAllOrderProcessing,
-  getAllOrderShipped,
+  // getAllOrderShipped,
   getAllOrderDelivered,
   getAllOrderCompleted,
   getAllOrderCancelled,
@@ -36,6 +36,7 @@ export function useOrderAdmin(
   userId?: string
 ) {
   const { addToast } = useToast();
+  const queryClient = useQueryClient();
 
   const getAll = useQuery({
     queryKey: ['admin-orders'],
@@ -53,10 +54,10 @@ export function useOrderAdmin(
     queryFn: () => getAllOrderProcessing(),
   });
 
-  const getAllShipped = useQuery({
-    queryKey: ['order-shipped'],
-    queryFn: () => getAllOrderShipped(),
-  });
+  // const getAllShipped = useQuery({
+  //   queryKey: ['order-shipped'],
+  //   queryFn: () => getAllOrderShipped(),
+  // });
 
   const getAllDelivered = useQuery({
     queryKey: ['order-delivered'],
@@ -129,6 +130,8 @@ export function useOrderAdmin(
         message: 'Đã chuyển sang trạng thái vận chuyển đơn hàng',
         type: TOAST_TYPE.SUCCESS,
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-orders'] });
     },
     onError: (err: AxiosError<ApiError>) => {
       addToast({
@@ -145,6 +148,8 @@ export function useOrderAdmin(
         message: 'Đã huỷ đơn hàng',
         type: TOAST_TYPE.SUCCESS,
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-orders'] });
     },
     onError: (err: AxiosError<ApiError>) => {
       addToast({
@@ -158,7 +163,7 @@ export function useOrderAdmin(
     getAll,
     getDetail,
     getAllProcessing,
-    getAllShipped,
+    // getAllShipped,
     getAllDelivered,
     getAllCompleted,
     getAllCancelled,

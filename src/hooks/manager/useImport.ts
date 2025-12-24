@@ -1,5 +1,5 @@
 'use client';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createImportManager,
   getAllImportByTimeRangeManager,
@@ -19,6 +19,7 @@ export function useImportManager(
   endDate?: string
 ) {
   const { addToast } = useToast();
+  const queryClient = useQueryClient();
 
   const add = useMutation({
     mutationFn: createImportManager,
@@ -27,6 +28,8 @@ export function useImportManager(
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã tạo lô nhập hàng mới',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['manager-import'] });
     },
     onMutate: () => {
       addToast({

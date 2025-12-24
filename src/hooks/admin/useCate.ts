@@ -1,5 +1,5 @@
 'use client';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createCate,
   deleteCate,
@@ -18,6 +18,7 @@ import { ApiError } from '@/types/apiError';
 
 export function useCateAdmin(id?: string, name?: string) {
   const { addToast } = useToast();
+  const queryClient = useQueryClient();
 
   const add = useMutation({
     mutationFn: createCate,
@@ -26,6 +27,8 @@ export function useCateAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã tạo danh mục mới',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-cates'] });
     },
     onMutate: () => {
       addToast({
@@ -85,6 +88,8 @@ export function useCateAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã chỉnh sửa danh mục',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-cates'] });
     },
     onMutate: () => {
       addToast({
@@ -107,6 +112,8 @@ export function useCateAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã xoá danh mục',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-cates'] });
     },
   });
 
@@ -117,6 +124,8 @@ export function useCateAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã khôi phục danh mục',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-cates'] });
     },
   });
 

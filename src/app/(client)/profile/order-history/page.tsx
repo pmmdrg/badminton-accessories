@@ -1,5 +1,6 @@
 'use client';
 
+import Button from '@/components/custom/button';
 import { Spinner } from '@/components/custom/spinner';
 import { useOrderClient } from '@/hooks/client/useOrder';
 import { COUNTRY_CODE } from '@/lib/constants';
@@ -7,7 +8,7 @@ import { capitalizeFirst } from '@/lib/utils';
 import { Order } from '@/models/order';
 
 export default function OrderHistoryPage() {
-  const { getAll } = useOrderClient();
+  const { getAll, complete } = useOrderClient();
 
   if (getAll.isLoading) return <Spinner />;
 
@@ -51,6 +52,12 @@ export default function OrderHistoryPage() {
 
                 <div className='text-gray-500'>Phương thức thanh toán</div>
                 <div className='font-medium'>{order.namePayment}</div>
+
+                {order.status === 'delivered' && (
+                  <Button onClick={() => complete.mutate(order._id)}>
+                    Đã nhận được hàng
+                  </Button>
+                )}
               </div>
             </div>
           ))}

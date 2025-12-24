@@ -1,5 +1,5 @@
 'use client';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createColor,
   deleteColor,
@@ -18,6 +18,7 @@ import { ApiError } from '@/types/apiError';
 
 export function useColorAdmin(id?: string, name?: string) {
   const { addToast } = useToast();
+  const queryClient = useQueryClient();
 
   const add = useMutation({
     mutationFn: createColor,
@@ -26,6 +27,8 @@ export function useColorAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã tạo màu mới',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-colors'] });
     },
     onMutate: () => {
       addToast({
@@ -84,6 +87,8 @@ export function useColorAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã chỉnh sửa màu',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-colors'] });
     },
     onMutate: () => {
       addToast({
@@ -106,6 +111,8 @@ export function useColorAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã xoá màu',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-colors'] });
     },
   });
 
@@ -116,6 +123,8 @@ export function useColorAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã khôi phục màu',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-colors'] });
     },
   });
 

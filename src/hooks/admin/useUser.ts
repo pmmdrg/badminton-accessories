@@ -1,5 +1,5 @@
 'use client';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   getAllActiveUser,
   getAllUserAdmin,
@@ -12,6 +12,7 @@ import { TOAST_TYPE } from '@/lib/constants';
 
 export function useUserAdmin() {
   const { addToast } = useToast();
+  const queryClient = useQueryClient();
 
   const getAll = useQuery({
     queryKey: ['admin-users'],
@@ -35,6 +36,8 @@ export function useUserAdmin() {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã khoá người dùng',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-suppliers'] });
     },
   });
 
@@ -45,6 +48,8 @@ export function useUserAdmin() {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã khôi phục người dùng',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-suppliers'] });
     },
   });
 

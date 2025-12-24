@@ -30,8 +30,23 @@ export async function vnpayPayment(payload: { amount: number }) {
   return res.data;
 }
 
-export async function vnpayPaymentReturn() {
-  const res = await api.get('/payment/vnpay');
+export async function vnpayPaymentReturn(
+  vnpAmount: string,
+  vnpBankCode: string,
+  vnpBankTranNo: string,
+  vnpCardType: string,
+  vnpOrderInfo: string,
+  vnpPayDate: string,
+  vnpResponseCode: string,
+  vnpTmnCode: string,
+  vnpTransactionNo: string,
+  vnpTransactionStatus: string,
+  vnpTxnRef: string,
+  vnpSecureHash: string
+) {
+  const res = await api.get(
+    `/payment/vnpay/return?vnp_Amount=${vnpAmount}&vnp_BankCode=${vnpBankCode}&vnp_BankTranNo=${vnpBankTranNo}&vnp_CardType=${vnpCardType}&vnp_OrderInfo=${vnpOrderInfo}&vnp_PayDate=${vnpPayDate}&vnp_ResponseCode=${vnpResponseCode}&vnp_TmnCode=${vnpTmnCode}&vnp_TransactionNo=${vnpTransactionNo}&vnp_TransactionStatus=${vnpTransactionStatus}&vnp_TxnRef=${vnpTxnRef}&vnp_SecureHash=${vnpSecureHash}`
+  );
 
   return res.data;
 }

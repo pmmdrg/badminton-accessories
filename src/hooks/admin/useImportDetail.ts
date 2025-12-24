@@ -1,5 +1,5 @@
 'use client';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createImportDetailAdmin,
   getAllImportDetailAdmin,
@@ -13,6 +13,7 @@ import { ApiError } from '@/types/apiError';
 
 export function useImportDetailAdmin(id?: string, importId?: string) {
   const { addToast } = useToast();
+  const queryClient = useQueryClient();
 
   const add = useMutation({
     mutationFn: createImportDetailAdmin,
@@ -21,6 +22,8 @@ export function useImportDetailAdmin(id?: string, importId?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã tạo hàng nhập mới',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-import-details'] });
     },
     onMutate: () => {
       addToast({

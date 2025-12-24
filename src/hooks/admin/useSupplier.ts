@@ -1,5 +1,5 @@
 'use client';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createSupplier,
   deleteSupplier,
@@ -18,6 +18,7 @@ import { ApiError } from '@/types/apiError';
 
 export function useSupplierAdmin(id?: string, name?: string) {
   const { addToast } = useToast();
+  const queryClient = useQueryClient();
 
   const add = useMutation({
     mutationFn: createSupplier,
@@ -26,6 +27,8 @@ export function useSupplierAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã tạo nhà cung cấp mới',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-suppliers'] });
     },
     onMutate: () => {
       addToast({
@@ -84,6 +87,8 @@ export function useSupplierAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã chỉnh sửa nhà cung cấp',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-suppliers'] });
     },
     onMutate: () => {
       addToast({
@@ -106,6 +111,8 @@ export function useSupplierAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã xoá nhà cung cấp',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-suppliers'] });
     },
   });
 
@@ -116,6 +123,8 @@ export function useSupplierAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã khôi phục nhà cung cấp',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-suppliers'] });
     },
   });
 

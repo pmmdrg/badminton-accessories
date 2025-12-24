@@ -54,6 +54,8 @@ export function useCartItem() {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã xoá sản phẩm ra khỏi giỏ hàng',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['cart'] });
     },
   });
 

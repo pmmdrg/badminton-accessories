@@ -9,7 +9,22 @@ import {
   vnpayPaymentReturn,
 } from '@/services/client/paymentService';
 
-export function usePaymentClient(id?: string, name?: string) {
+export function usePaymentClient(
+  id?: string,
+  name?: string,
+  vnpAmount?: string,
+  vnpBankCode?: string,
+  vnpBankTranNo?: string,
+  vnpCardType?: string,
+  vnpOrderInfo?: string,
+  vnpPayDate?: string,
+  vnpResponseCode?: string,
+  vnpTmnCode?: string,
+  vnpTransactionNo?: string,
+  vnpTransactionStatus?: string,
+  vnpTxnRef?: string,
+  vnpSecureHash?: string
+) {
   const getAll = useQuery({
     queryKey: ['payments'],
     queryFn: findAllPaymentActive,
@@ -34,14 +49,66 @@ export function usePaymentClient(id?: string, name?: string) {
   const vnpay = useMutation({
     mutationFn: vnpayPayment,
     onSuccess: (data) => {
-      console.log(data.data);
-
-      // window.location.href = data.data;
+      window.location.href = data.data;
     },
   });
 
-  const vnpayReturn = useMutation({
-    mutationFn: vnpayPaymentReturn,
+  const vnpayReturn = useQuery({
+    queryKey: [
+      'vn-pay-return',
+      vnpAmount,
+      vnpBankCode,
+      vnpBankTranNo,
+      vnpCardType,
+      vnpOrderInfo,
+      vnpPayDate,
+      vnpResponseCode,
+      vnpTmnCode,
+      vnpTransactionNo,
+      vnpTransactionStatus,
+      vnpTxnRef,
+      vnpSecureHash,
+    ],
+    queryFn: () =>
+      vnpayPaymentReturn(
+        vnpAmount!,
+        vnpBankCode!,
+        vnpBankTranNo!,
+        vnpCardType!,
+        vnpOrderInfo!,
+        vnpPayDate!,
+        vnpResponseCode!,
+        vnpTmnCode!,
+        vnpTransactionNo!,
+        vnpTransactionStatus!,
+        vnpTxnRef!,
+        vnpSecureHash!
+      ),
+    enabled:
+      vnpAmount !== undefined &&
+      vnpAmount !== '' &&
+      vnpBankCode !== undefined &&
+      vnpBankCode !== '' &&
+      vnpBankTranNo !== undefined &&
+      vnpBankTranNo !== '' &&
+      vnpCardType !== undefined &&
+      vnpCardType !== '' &&
+      vnpOrderInfo !== undefined &&
+      vnpOrderInfo !== '' &&
+      vnpPayDate !== undefined &&
+      vnpPayDate !== '' &&
+      vnpResponseCode !== undefined &&
+      vnpResponseCode !== '' &&
+      vnpTmnCode !== undefined &&
+      vnpTmnCode !== '' &&
+      vnpTransactionNo !== undefined &&
+      vnpTransactionNo !== '' &&
+      vnpTransactionStatus !== undefined &&
+      vnpTransactionStatus !== '' &&
+      vnpTxnRef !== undefined &&
+      vnpTxnRef !== '' &&
+      vnpSecureHash !== undefined &&
+      vnpSecureHash !== '',
   });
 
   return {

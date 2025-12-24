@@ -1,5 +1,5 @@
 'use client';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createSizeType,
   deleteSizeType,
@@ -18,6 +18,7 @@ import { ApiError } from '@/types/apiError';
 
 export function useSizeTypeAdmin(id?: string, name?: string) {
   const { addToast } = useToast();
+  const queryClient = useQueryClient();
 
   const add = useMutation({
     mutationFn: createSizeType,
@@ -26,6 +27,8 @@ export function useSizeTypeAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã tạo loại kích thước mới',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-size-types'] });
     },
     onMutate: () => {
       addToast({
@@ -84,6 +87,8 @@ export function useSizeTypeAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã chỉnh sửa loại kích thước',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-size-types'] });
     },
     onMutate: () => {
       addToast({
@@ -106,6 +111,8 @@ export function useSizeTypeAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã xoá loại kích thước',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-size-types'] });
     },
   });
 
@@ -116,6 +123,8 @@ export function useSizeTypeAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã khôi phục loại kích thước',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-size-types'] });
     },
   });
 

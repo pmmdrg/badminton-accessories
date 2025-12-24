@@ -1,5 +1,5 @@
 'use client';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createBrand,
   deleteBrand,
@@ -18,6 +18,7 @@ import { ApiError } from '@/types/apiError';
 
 export function useBrandAdmin(id?: string, name?: string) {
   const { addToast } = useToast();
+  const queryClient = useQueryClient();
 
   const add = useMutation({
     mutationFn: createBrand,
@@ -26,6 +27,8 @@ export function useBrandAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã tạo thương hiệu mới',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-brands'] });
     },
     onMutate: () => {
       addToast({
@@ -86,6 +89,8 @@ export function useBrandAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã chỉnh sửa thương hiệu',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-brands'] });
     },
     onMutate: () => {
       addToast({
@@ -108,6 +113,8 @@ export function useBrandAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã xoá thương hiệu',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-brands'] });
     },
   });
 
@@ -118,6 +125,8 @@ export function useBrandAdmin(id?: string, name?: string) {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã khôi phục thương hiệu',
       });
+
+      queryClient.invalidateQueries({ queryKey: ['admin-brands'] });
     },
   });
 
