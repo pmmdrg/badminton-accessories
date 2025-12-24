@@ -54,7 +54,7 @@ export function SelectString({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.15 }}
-            className='absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg overflow-y-scroll max-h-52'
+            className='absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg overflow-y-scroll max-h-40'
           >
             {options ? (
               options.map((opt, i) => (
@@ -132,7 +132,7 @@ export function SelectNumber({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.15 }}
-            className='absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg overflow-y-scroll max-h-52'
+            className='absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg overflow-y-scroll max-h-40'
           >
             {options ? (
               options.map((opt, i) => (

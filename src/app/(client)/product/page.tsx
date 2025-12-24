@@ -18,22 +18,47 @@ import { useColorClient } from '@/hooks/client/useColor';
 import { Color } from '@/models/color';
 
 export default function ProductListPage() {
-  const productItems = useProductItemClient();
-  const brands = useBrandClient();
-  const cates = useCateClient();
-  const colors = useColorClient();
-
   const [brand, setBrand] = useState('');
   const [category, setCategory] = useState('');
   const [sort, setSort] = useState('');
   const [search, setSearch] = useState('');
   const [color, setColor] = useState('');
+  const brands = useBrandClient();
+  const cates = useCateClient();
+  const colors = useColorClient();
+  const productItems = useProductItemClient(
+    '',
+    search,
+    brand,
+    category,
+    '',
+    '',
+    color
+  );
+
   const [currPage, setCurrPage] = useState(1);
 
-  const filteredProducts = productItems.getAll.data?.data?.filter(
-    (pi: ProductItem) =>
-      pi.nameProductItem.toLowerCase().includes(search.toLowerCase())
+  const filteredProducts: ProductItem[] = (
+    brand !== ''
+      ? productItems.getByBrandId
+      : category !== ''
+      ? productItems.getByCateId
+      : color !== ''
+      ? productItems.getByColorId
+      : productItems.getAll
+  ).data?.data?.filter((pi: ProductItem) =>
+    pi.nameProductItem.toLowerCase().includes(search.toLowerCase())
   );
+
+  const sortedProducts: () => ProductItem[] = () => {
+    if (sort === 'asc') {
+      return filteredProducts.sort((a, b) => a.price - b.price);
+    } else if (sort === 'desc') {
+      return filteredProducts.sort((a, b) => b.price - a.price);
+    } else {
+      return filteredProducts;
+    }
+  };
 
   const brandOptions = brands.getAll.data?.data
     ? [
@@ -79,21 +104,33 @@ export default function ProductListPage() {
         <SelectString
           label='Thương Hiệu'
           value={brand}
-          onChange={setBrand}
+          onChange={(value) => {
+            setCategory('');
+            setColor('');
+            setBrand(value);
+          }}
           options={brandOptions}
         />
 
         <SelectString
           label='Danh Mục'
           value={category}
-          onChange={setCategory}
+          onChange={(value) => {
+            setColor('');
+            setBrand('');
+            setCategory(value);
+          }}
           options={cateOptions}
         />
 
         <SelectString
           label='Màu'
           value={color}
-          onChange={setColor}
+          onChange={(value) => {
+            setBrand('');
+            setCategory('');
+            setColor(value);
+          }}
           options={colorOptions}
         />
 
@@ -103,8 +140,8 @@ export default function ProductListPage() {
           onChange={setSort}
           options={[
             { value: '', label: 'Mặc định' },
-            { value: 'price-asc', label: 'Giá tăng dần' },
-            { value: 'price-desc', label: 'Giá giảm dần' },
+            { value: 'asc', label: 'Giá tăng dần' },
+            { value: 'desc', label: 'Giá giảm dần' },
           ]}
         />
       </div>
@@ -113,7 +150,7 @@ export default function ProductListPage() {
         <Spinner size='lg' />
       ) : (
         <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 my-4 mx-4'>
-          {filteredProducts.map((productItem: ProductItem) => (
+          {sortedProducts().map((productItem: ProductItem) => (
             <ProdItemCard key={productItem._id} {...productItem} />
           ))}
         </div>

@@ -6,7 +6,7 @@ import {
   untickCartItem,
   updateCartTotal,
 } from '@/services/client/cartService';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useCart(
   toDistrictId?: number,
@@ -14,6 +14,8 @@ export function useCart(
   address?: string,
   phoneNumber?: string
 ) {
+  const queryClient = useQueryClient();
+
   const getByUserId = useQuery({
     queryKey: ['cart'],
     queryFn: getCartByUserId,
@@ -53,6 +55,7 @@ export function useCart(
     mutationFn: (id: string) => untickCartItem(id),
     onSuccess: () => {
       editTotal.mutate();
+      queryClient.invalidateQueries({ queryKey: ['total-fee'] });
     },
   });
 
@@ -60,6 +63,7 @@ export function useCart(
     mutationFn: (id: string) => tickCartItem(id),
     onSuccess: () => {
       editTotal.mutate();
+      queryClient.invalidateQueries({ queryKey: ['total-fee'] });
     },
   });
 

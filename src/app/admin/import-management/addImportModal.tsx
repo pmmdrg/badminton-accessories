@@ -17,15 +17,15 @@ export default function AddImportModal({
   setIsOpen,
   onConfirm,
 }: AddImportModalProps) {
-  const { getAll } = useSupplierAdmin();
+  const { getAllActive } = useSupplierAdmin();
   const [supplier, setSupplier] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-  const supplierOptions = getAll.data?.data
+  const supplierOptions = getAllActive.data?.data
     ? [
         { label: 'Chưa có', value: '' },
-        ...getAll.data.data.map((supplier: Supplier) =>
+        ...getAllActive.data.data.map((supplier: Supplier) =>
           normalizedSelectOptions(supplier.nameSupplier, supplier._id)
         ),
       ]

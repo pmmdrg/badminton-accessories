@@ -72,14 +72,20 @@ export default function CartPage() {
     <div className='flex justify-center items-center w-full'>
       <div className='max-w-5xl px-20 m-10 flex flex-col gap-6 border-r-2 border-r-rose-700'>
         <div className='flex flex-col gap-4'>
-          {getByUserId.data.data.items.map((item: CartItem) => (
-            <CartTile
-              key={item._id}
-              cartItem={item}
-              onQuantityChange={handleQuantityChange}
-              onRemove={handleRemove}
-            />
-          ))}
+          {getByUserId.data?.data?.items?.length > 0 ? (
+            getByUserId.data.data.items.map((item: CartItem) => (
+              <CartTile
+                key={item._id}
+                cartItem={item}
+                onQuantityChange={handleQuantityChange}
+                onRemove={handleRemove}
+              />
+            ))
+          ) : (
+            <div className='min-w-md h-32 flex items-center justify-center border rounded-2xl px-2'>
+              Chưa có sản phẩm trong giỏ hàng, hãy thêm sản phẩm vào giỏ hàng
+            </div>
+          )}
         </div>
 
         <div className='mt-6 p-6 border rounded-2xl shadow-sm flex flex-col bg-gray-50'>
@@ -136,7 +142,7 @@ export default function CartPage() {
       </div>
 
       <div className='px-10'>
-        <p className='font-semibold mb-4'>
+        <p className='font-semibold my-4'>
           Vui lòng chọn địa chỉ để tính phí ship và tổng tiền hàng
         </p>
         <div className='flex flex-col gap-4'>
