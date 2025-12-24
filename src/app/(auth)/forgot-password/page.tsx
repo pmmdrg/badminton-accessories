@@ -5,6 +5,7 @@ import TextField from '@/components/custom/textfield';
 import Button from '@/components/custom/button';
 import { EmailRegex } from '@/lib/constants';
 import useAuth from '@/hooks/useAuth';
+import Link from 'next/link';
 
 export default function ForgotPasswordPage() {
   const { requestChangePassword } = useAuth();
@@ -64,6 +65,12 @@ export default function ForgotPasswordPage() {
       >
         Yêu cầu đổi mật khẩu
       </Button>
+
+      <div className='flex justify-center mt-2'>
+        <Link href='/' className='hover:underline'>
+          Quay về Trang chủ
+        </Link>
+      </div>
     </form>
   );
 }

@@ -6,6 +6,7 @@ import Button from '@/components/custom/button';
 import { useSearchParams } from 'next/navigation';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import useAuth from '@/hooks/useAuth';
+import Link from 'next/link';
 
 export default function ResetPasswordPage() {
   const { resetPassword } = useAuth();
@@ -111,6 +112,12 @@ export default function ResetPasswordPage() {
       >
         Đổi mật khẩu
       </Button>
+
+      <div className='flex justify-center mt-2'>
+        <Link href='/' className='hover:underline'>
+          Quay về Trang chủ
+        </Link>
+      </div>
     </form>
   );
 }

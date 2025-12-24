@@ -7,7 +7,7 @@ export async function getAllOrder() {
 }
 
 export async function getDetailOrder(id: string) {
-  const res = await api.get(`/order/id?id=${id}`);
+  const res = await api.get(`/order/detail-order?id=${id}`);
 
   return res.data;
 }

@@ -170,6 +170,12 @@ export default function RegisterPage() {
           Đã có tài khoản? Đăng nhập
         </Link>
       </div>
+
+      <div className='flex justify-center mt-2'>
+        <Link href='/' className='hover:underline'>
+          Quay về Trang chủ
+        </Link>
+      </div>
     </form>
   );
 }

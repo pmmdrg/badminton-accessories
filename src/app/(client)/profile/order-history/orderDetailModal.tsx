@@ -1,7 +1,7 @@
 import { placeholderImage } from '@/assets/images';
 import Modal from '@/components/custom/modal';
 import { Spinner } from '@/components/custom/spinner';
-import { useOrderAdmin } from '@/hooks/admin/useOrder';
+import { useOrderClient } from '@/hooks/client/useOrder';
 import { COUNTRY_CODE } from '@/lib/constants';
 import { capitalizeFirst, isValidImageSrc } from '@/lib/utils';
 import { DetailOrder } from '@/models/detailOrder';
@@ -16,7 +16,7 @@ export default function DetailOrderModal({
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }) {
-  const { getDetail } = useOrderAdmin(orderId);
+  const { getDetail } = useOrderClient(orderId);
 
   return (
     <Modal

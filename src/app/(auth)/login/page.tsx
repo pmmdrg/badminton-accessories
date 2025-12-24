@@ -100,6 +100,12 @@ export default function LoginPage() {
           Chưa có tài khoản? Đăng ký
         </Link>
       </div>
+
+      <div className='flex justify-center mt-2'>
+        <Link href='/' className='hover:underline'>
+          Quay về Trang chủ
+        </Link>
+      </div>
     </form>
   );
 }

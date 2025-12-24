@@ -6,9 +6,12 @@ import { useOrderClient } from '@/hooks/client/useOrder';
 import { COUNTRY_CODE } from '@/lib/constants';
 import { capitalizeFirst } from '@/lib/utils';
 import { Order } from '@/models/order';
+import { useState } from 'react';
+import DetailOrderModal from './orderDetailModal';
 
 export default function OrderHistoryPage() {
   const { getAll, complete } = useOrderClient();
+  const [isOpen, setIsOpen] = useState(false);
 
   if (getAll.isLoading) return <Spinner />;
 
@@ -25,10 +28,18 @@ export default function OrderHistoryPage() {
               key={order._id}
               className='border rounded-2xl p-6 shadow-sm bg-white'
             >
+              <DetailOrderModal
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                orderId={order._id}
+              />
               <div className='flex justify-between items-center mb-4'>
                 <span className='font-medium text-rose-700'>
                   {capitalizeFirst(order.status)}
                 </span>
+                <Button variant='info' onClick={() => setIsOpen(true)}>
+                  Chi tiết
+                </Button>
               </div>
 
               <div className='grid grid-cols-2 gap-y-3 text-sm'>

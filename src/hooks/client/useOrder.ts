@@ -22,6 +22,12 @@ export function useOrderClient(id?: string) {
     queryFn: getAllOrder,
   });
 
+  const getDetail = useQuery({
+    queryKey: ['detail-order'],
+    queryFn: () => getDetailOrder(id!),
+    enabled: id !== undefined && id !== '',
+  });
+
   const getById = useQuery({
     queryKey: ['id', id],
     queryFn: () => getDetailOrder(id || ''),
@@ -68,6 +74,7 @@ export function useOrderClient(id?: string) {
   return {
     getAll,
     getById,
+    getDetail,
     // getAllShipped,
     getAllProcessing,
     getAllCompleted,
