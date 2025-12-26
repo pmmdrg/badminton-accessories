@@ -78,9 +78,6 @@ export function useProductItemAdmin(id?: string, name?: string) {
     }: {
       id: string;
       payload: {
-        productId?: string;
-        sizeId?: string;
-        colorId?: string;
         nameProductItem?: string;
         imageProductItem?: string[];
         description?: string;

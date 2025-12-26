@@ -17,9 +17,6 @@ interface EditProdModalProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   onConfirm: (
-    brand: string,
-    cate: string,
-    sizeType: string,
     nameProduct: string,
     description?: string,
     file?: File | null
@@ -110,7 +107,7 @@ export default function EditProdModal({
         resetState();
       }}
       onConfirm={() => {
-        onConfirm(brand, cate, sizeType, productName, description, file);
+        onConfirm(productName, description, file);
         resetState();
         setIsOpen(false);
       }}

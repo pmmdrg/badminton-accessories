@@ -87,9 +87,6 @@ export default function AdminProductItemPage() {
   };
 
   const handleConfirmEdit = async (
-    product: string,
-    size: string,
-    color: string,
     nameProductItem: string,
     files: File[],
     price: number,
@@ -127,9 +124,6 @@ export default function AdminProductItemPage() {
       edit.mutate({
         id: selectedId,
         payload: {
-          productId: product,
-          sizeId: size,
-          colorId: color,
           nameProductItem,
           imageProductItem: imageUrls,
           description: description || '',

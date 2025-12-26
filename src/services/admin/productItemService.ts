@@ -45,9 +45,6 @@ export async function getProductItemByNameAdmin(name: string) {
 export async function updateProductItem(
   id: string,
   payload: {
-    productId?: string;
-    sizeId?: string;
-    colorId?: string;
     nameProductItem?: string;
     imageProductItem?: string[];
     description?: string;

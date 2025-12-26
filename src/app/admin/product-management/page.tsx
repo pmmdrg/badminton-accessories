@@ -83,9 +83,6 @@ export default function AdminProductPage() {
   };
 
   const handleConfirmEdit = async (
-    brand: string,
-    cate: string,
-    sizeType: string,
     nameProduct: string,
     description?: string,
     file?: File | null
@@ -112,9 +109,6 @@ export default function AdminProductPage() {
         edit.mutate({
           id: selectedId,
           payload: {
-            brandId: brand,
-            cateId: cate,
-            sizeTypeId: sizeType,
             nameProduct,
             imageProduct: imageUrl,
             description: description || '',
@@ -125,9 +119,6 @@ export default function AdminProductPage() {
       edit.mutate({
         id: selectedId,
         payload: {
-          brandId: brand,
-          cateId: cate,
-          sizeTypeId: sizeType,
           nameProduct,
           imageProduct: '',
           description: description || '',

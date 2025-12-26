@@ -42,9 +42,6 @@ export async function getProductByNameAdmin(name: string) {
 export async function updateProduct(
   id: string,
   payload: {
-    brandId?: string;
-    cateId?: string;
-    sizeTypeId?: string;
     nameProduct?: string;
     imageProduct?: string;
     description?: string;

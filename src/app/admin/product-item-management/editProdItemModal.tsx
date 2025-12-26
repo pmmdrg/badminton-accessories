@@ -17,9 +17,6 @@ interface EditProdItemModalProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   onConfirm: (
-    product: string,
-    size: string,
-    color: string,
     nameProductItem: string,
     files: File[],
     price: number,
@@ -27,7 +24,7 @@ interface EditProdItemModalProps {
   ) => void;
 }
 
-export default function AddProdItemModal({
+export default function EditProdItemModal({
   prodItemId,
   isOpen,
   setIsOpen,
@@ -124,9 +121,6 @@ export default function AddProdItemModal({
     setPreview([]);
   };
 
-  console.log(size);
-  console.log(sizes.getAll.data?.data);
-
   return (
     <Modal
       isOpen={isOpen}
@@ -135,15 +129,7 @@ export default function AddProdItemModal({
         resetState();
       }}
       onConfirm={() => {
-        onConfirm(
-          productName,
-          size,
-          color,
-          productItemName,
-          files,
-          price,
-          description
-        );
+        onConfirm(productItemName, files, price, description);
         resetState();
         setIsOpen(false);
       }}

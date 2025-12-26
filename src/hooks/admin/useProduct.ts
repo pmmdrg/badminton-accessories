@@ -78,9 +78,6 @@ export function useProductAdmin(id?: string, name?: string) {
     }: {
       id: string;
       payload: {
-        brandId?: string;
-        cateId?: string;
-        sizeTypeId?: string;
         nameProduct?: string;
         imageProduct?: string;
         description?: string;
