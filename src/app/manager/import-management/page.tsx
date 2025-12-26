@@ -5,11 +5,11 @@ import { useState } from 'react';
 import { Spinner } from '@/components/custom/spinner';
 import TextField from '@/components/custom/textfield';
 import Button from '@/components/custom/button';
-import { COUNTRY_CODE } from '@/lib/constants';
 import Pagination from '@/components/custom/pagination';
 import { Import } from '@/models/import';
 import AddImportModal from './addImportModal';
 import { useImportManager } from '@/hooks/manager/useImport';
+import { normalizedDate } from '@/lib/utils';
 
 export default function ManagerImportPage() {
   const { getAll, add } = useImportManager();
@@ -75,9 +75,7 @@ export default function ManagerImportPage() {
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
                   {i.description}
                 </td>
-                <td className='px-4 py-2'>
-                  {new Date(i.importDate).toLocaleDateString(COUNTRY_CODE.VN)}
-                </td>
+                <td className='px-4 py-2'>{normalizedDate(i.importDate)}</td>
               </tr>
             ))}
           </tbody>

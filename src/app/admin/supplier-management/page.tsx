@@ -4,13 +4,13 @@ import { useState } from 'react';
 import { Spinner } from '@/components/custom/spinner';
 import TextField from '@/components/custom/textfield';
 import Button from '@/components/custom/button';
-import { COUNTRY_CODE, STATUS } from '@/lib/constants';
+import { STATUS } from '@/lib/constants';
 import Pagination from '@/components/custom/pagination';
 import { useSupplierAdmin } from '@/hooks/admin/useSupplier';
 import { Supplier } from '@/models/supplier';
 import EditSupplierModal from './editSupplierModal';
 import AddSupplierModal from './addSupplierModal';
-import { capitalizeFirst } from '@/lib/utils';
+import { capitalizeFirst, normalizedDate } from '@/lib/utils';
 
 export default function AdminSupplierPage() {
   const { getAll, add, edit, remove, restore } = useSupplierAdmin();
@@ -99,9 +99,7 @@ export default function AdminSupplierPage() {
                   {capitalizeFirst(supplier.status)}
                 </td>
                 <td className='px-4 py-2'>
-                  {new Date(supplier.created_at).toLocaleDateString(
-                    COUNTRY_CODE.VN
-                  )}
+                  {normalizedDate(supplier.created_at)}
                 </td>
                 <td className='px-4 py-2'>
                   <div className='flex gap-2'>

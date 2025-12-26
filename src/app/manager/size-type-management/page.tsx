@@ -3,8 +3,7 @@
 import { useState } from 'react';
 import { Spinner } from '@/components/custom/spinner';
 import TextField from '@/components/custom/textfield';
-import { COUNTRY_CODE } from '@/lib/constants';
-import { capitalizeFirst } from '@/lib/utils';
+import { capitalizeFirst, normalizedDate } from '@/lib/utils';
 import Pagination from '@/components/custom/pagination';
 import { SizeType } from '@/models/sizeType';
 import { useSizeTypeManager } from '@/hooks/manager/useSizeType';
@@ -55,9 +54,7 @@ export default function ManagerSizeTypePage() {
                   {capitalizeFirst(sizeType.status)}
                 </td>
                 <td className='px-4 py-2'>
-                  {new Date(sizeType.created_at).toLocaleDateString(
-                    COUNTRY_CODE.VN
-                  )}
+                  {normalizedDate(sizeType.created_at)}
                 </td>
               </tr>
             ))}

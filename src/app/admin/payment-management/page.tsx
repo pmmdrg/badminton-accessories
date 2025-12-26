@@ -4,13 +4,13 @@ import { useState } from 'react';
 import { Spinner } from '@/components/custom/spinner';
 import TextField from '@/components/custom/textfield';
 import Button from '@/components/custom/button';
-import { COUNTRY_CODE, STATUS } from '@/lib/constants';
+import { STATUS } from '@/lib/constants';
 import Pagination from '@/components/custom/pagination';
 import { usePaymentAdmin } from '@/hooks/admin/usePayment';
 import { Payment } from '@/models/payment';
 import EditPaymentModal from './editPaymentModal';
 import AddPaymentModal from './addPaymentModal';
-import { capitalizeFirst } from '@/lib/utils';
+import { capitalizeFirst, normalizedDate } from '@/lib/utils';
 
 export default function AdminPaymentPage() {
   const { getAll, add, edit, remove, restore } = usePaymentAdmin();
@@ -91,9 +91,7 @@ export default function AdminPaymentPage() {
                 <td className='px-4 py-2'>{payment.namePayment}</td>
                 <td className='px-4 py-2'>{capitalizeFirst(payment.status)}</td>
                 <td className='px-4 py-2'>
-                  {new Date(payment.created_at).toLocaleDateString(
-                    COUNTRY_CODE.VN
-                  )}
+                  {normalizedDate(payment.created_at)}
                 </td>
                 <td className='px-4 py-2'>
                   <div className='flex gap-2'>

@@ -40,31 +40,31 @@ export function useProductItemClient(
   const getByBrandId = useQuery({
     queryKey: ['brand-id', brandId],
     queryFn: () => findProductItemByBrandId(brandId || ''),
-    enabled: !!id,
+    enabled: !!brandId,
   });
 
   const getByColorId = useQuery({
     queryKey: ['color-id', colorId],
     queryFn: () => findProductItemByColorId(colorId || ''),
-    enabled: !!id,
+    enabled: !!colorId,
   });
 
   const getByCateId = useQuery({
     queryKey: ['cate-id', cateId],
     queryFn: () => findProductItemByCateId(cateId || ''),
-    enabled: !!id,
+    enabled: !!cateId,
   });
 
   const getBySizeId = useQuery({
     queryKey: ['size-id', sizeId],
     queryFn: () => findProductItemBySizeId(sizeId || ''),
-    enabled: !!id,
+    enabled: !!sizeId,
   });
 
   const getByProductId = useQuery({
     queryKey: ['product-id', productId],
     queryFn: () => findProductItemByProductId(productId || ''),
-    enabled: !!id,
+    enabled: !!productId,
   });
 
   return {

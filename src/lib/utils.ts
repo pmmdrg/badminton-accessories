@@ -28,3 +28,9 @@ export function capitalizeFirst(str: string, locale = COUNTRY_CODE.VN) {
   if (!str) return '';
   return str[0].toLocaleUpperCase(locale) + str.slice(1);
 }
+
+export function normalizedDate(dateStr?: string | null) {
+  if (dateStr) return new Date(dateStr).toLocaleDateString(COUNTRY_CODE.VN);
+
+  return '';
+}

@@ -4,8 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Spinner } from '@/components/custom/spinner';
 import TextField from '@/components/custom/textfield';
-import { COUNTRY_CODE } from '@/lib/constants';
-import { capitalizeFirst, isValidImageSrc } from '@/lib/utils';
+import { capitalizeFirst, isValidImageSrc, normalizedDate } from '@/lib/utils';
 import { placeholderImage } from '@/assets/images';
 import Pagination from '@/components/custom/pagination';
 import { User } from '@/models/user';
@@ -75,11 +74,7 @@ export default function ManagerUserPage() {
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
                   {user.email}
                 </td>
-                <td className='px-4 py-2'>
-                  {new Date(user.created_at).toLocaleDateString(
-                    COUNTRY_CODE.VN
-                  )}
-                </td>
+                <td className='px-4 py-2'>{normalizedDate(user.created_at)}</td>
                 <td className='px-4 py-2'>{capitalizeFirst(user.status)}</td>
                 <td className='px-4 py-2'>{capitalizeFirst(user.role)}</td>
               </tr>

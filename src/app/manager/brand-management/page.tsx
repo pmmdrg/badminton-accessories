@@ -4,8 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Spinner } from '@/components/custom/spinner';
 import TextField from '@/components/custom/textfield';
-import { COUNTRY_CODE } from '@/lib/constants';
-import { capitalizeFirst, isValidImageSrc } from '@/lib/utils';
+import { capitalizeFirst, isValidImageSrc, normalizedDate } from '@/lib/utils';
 import { placeholderImage } from '@/assets/images';
 import Pagination from '@/components/custom/pagination';
 import { Brand } from '@/models/brand';
@@ -72,9 +71,7 @@ export default function ManagerBrandPage() {
                 <td className='px-4 py-2'>{brand.country}</td>
                 <td className='px-4 py-2'>{capitalizeFirst(brand.status)}</td>
                 <td className='px-4 py-2'>
-                  {new Date(brand.created_at).toLocaleDateString(
-                    COUNTRY_CODE.VN
-                  )}
+                  {normalizedDate(brand.created_at)}
                 </td>
               </tr>
             ))}

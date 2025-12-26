@@ -150,7 +150,7 @@ export default function ProductListPage() {
         <Spinner size='lg' />
       ) : (
         <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 my-4 mx-4'>
-          {sortedProducts().map((productItem: ProductItem) => (
+          {sortedProducts()?.map((productItem: ProductItem) => (
             <ProdItemCard key={productItem._id} {...productItem} />
           ))}
         </div>

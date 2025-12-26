@@ -9,6 +9,7 @@ export default function TextField({
   placeholder,
   value,
   onChange,
+  onChangeForMultiline,
   error,
   errorColor,
   startIcon,
@@ -20,6 +21,7 @@ export default function TextField({
   accept,
   fullWidth,
   multiple,
+  multiline = 1,
   className,
 }: TextFieldProps) {
   const sizeClasses = {
@@ -59,16 +61,27 @@ export default function TextField({
             {startIcon}
           </span>
         )}
-        <input
-          name={name}
-          type={type}
-          className='flex-1 outline-none bg-transparent placeholder-gray-400'
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-          accept={type === 'file' ? accept : undefined}
-          multiple={type === 'file' && multiple}
-        />
+        {multiline && multiline > 1 ? (
+          <textarea
+            name={name}
+            className='flex-1 outline-none bg-transparent placeholder-gray-400'
+            placeholder={placeholder}
+            value={value}
+            onChange={onChangeForMultiline}
+            rows={multiline}
+          />
+        ) : (
+          <input
+            name={name}
+            type={type}
+            className='flex-1 outline-none bg-transparent placeholder-gray-400'
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+            accept={type === 'file' ? accept : undefined}
+            multiple={type === 'file' && multiple}
+          />
+        )}
         {endIcon && (
           <span
             className={clsx(

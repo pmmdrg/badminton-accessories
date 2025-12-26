@@ -5,8 +5,7 @@ import Image from 'next/image';
 
 import { Spinner } from '@/components/custom/spinner';
 import TextField from '@/components/custom/textfield';
-import { COUNTRY_CODE } from '@/lib/constants';
-import { capitalizeFirst, isValidImageSrc } from '@/lib/utils';
+import { capitalizeFirst, isValidImageSrc, normalizedDate } from '@/lib/utils';
 import { placeholderImage } from '@/assets/images';
 import Pagination from '@/components/custom/pagination';
 import { Cate } from '@/models/cate';
@@ -72,11 +71,7 @@ export default function ManagerCategoryPage() {
                   {cate.description}
                 </td>
                 <td className='px-4 py-2'>{capitalizeFirst(cate.status)}</td>
-                <td className='px-4 py-2'>
-                  {new Date(cate.created_at).toLocaleDateString(
-                    COUNTRY_CODE.VN
-                  )}
-                </td>
+                <td className='px-4 py-2'>{normalizedDate(cate.created_at)}</td>
               </tr>
             ))}
           </tbody>

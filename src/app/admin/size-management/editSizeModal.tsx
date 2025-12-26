@@ -1,10 +1,6 @@
 import Modal from '@/components/custom/modal';
-import { SelectString } from '@/components/custom/select';
 import TextField from '@/components/custom/textfield';
 import { useSizeAdmin } from '@/hooks/admin/useSize';
-import { useSizeTypeAdmin } from '@/hooks/admin/useSizeType';
-import { normalizedSelectOptions } from '@/lib/utils';
-import { SizeType } from '@/models/sizeType';
 import { useEffect, useState } from 'react';
 
 interface EditSizeModalProps {
@@ -25,7 +21,6 @@ export default function EditSizeModal({
   onConfirm,
 }: EditSizeModalProps) {
   const sizes = useSizeAdmin(sizeId);
-  const sizeTypes = useSizeTypeAdmin();
 
   const [size, setSize] = useState('');
   const [description, setDescription] = useState('');
@@ -38,15 +33,6 @@ export default function EditSizeModal({
     setDescription(sizes.getById.data.data.description);
     setSizeTypeId(sizes.getById.data.data.sizeTypeId);
   }, [isOpen, sizes.getById.data]);
-
-  const sizeTypeOptions = sizeTypes.getAll.data?.data
-    ? [
-        { label: 'Chưa có', value: '' },
-        ...sizeTypes.getAll.data.data.map((st: SizeType) =>
-          normalizedSelectOptions(st.description, st._id)
-        ),
-      ]
-    : [{ label: 'Chưa có', value: '' }];
 
   const resetState = () => {
     setSize('');
@@ -68,14 +54,6 @@ export default function EditSizeModal({
       }}
       title='Chỉnh Sửa Kích Thước'
     >
-      <SelectString
-        label='Loại kích thước'
-        value={sizeTypeId}
-        onChange={setSizeTypeId}
-        options={sizeTypeOptions}
-        className='ml-2'
-      />
-
       <TextField
         name='size-name'
         label='Tên kích thước'
@@ -91,7 +69,8 @@ export default function EditSizeModal({
         name='description'
         placeholder='Nhập mô tả'
         value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        multiline={5}
+        onChangeForMultiline={(e) => setDescription(e.target.value)}
         fullWidth
       />
     </Modal>

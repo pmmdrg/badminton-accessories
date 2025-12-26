@@ -4,13 +4,13 @@ import { useState } from 'react';
 import { Spinner } from '@/components/custom/spinner';
 import TextField from '@/components/custom/textfield';
 import Button from '@/components/custom/button';
-import { COUNTRY_CODE, STATUS } from '@/lib/constants';
+import { STATUS } from '@/lib/constants';
 import Pagination from '@/components/custom/pagination';
 import { useColorAdmin } from '@/hooks/admin/useColor';
 import { Color } from '@/models/color';
 import EditColorModal from './editColorModal';
 import AddColorModal from './addColorModal';
-import { capitalizeFirst } from '@/lib/utils';
+import { capitalizeFirst, normalizedDate } from '@/lib/utils';
 
 export default function AdminColorPage() {
   const { getAll, add, edit, remove, restore } = useColorAdmin();
@@ -95,9 +95,7 @@ export default function AdminColorPage() {
                 </td>
                 <td className='px-4 py-2'>{capitalizeFirst(color.status)}</td>
                 <td className='px-4 py-2'>
-                  {new Date(color.created_at).toLocaleDateString(
-                    COUNTRY_CODE.VN
-                  )}
+                  {normalizedDate(color.created_at)}
                 </td>
                 <td className='px-4 py-2'>
                   <div className='flex gap-2'>

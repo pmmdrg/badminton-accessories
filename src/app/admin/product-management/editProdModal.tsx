@@ -154,7 +154,8 @@ export default function EditProdModal({
         name='desctiption'
         placeholder='Nhập mô tả'
         value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        multiline={5}
+        onChangeForMultiline={(e) => setDescription(e.target.value)}
         fullWidth
       />
 

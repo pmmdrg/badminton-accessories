@@ -4,13 +4,13 @@ import { useState } from 'react';
 import { Spinner } from '@/components/custom/spinner';
 import TextField from '@/components/custom/textfield';
 import Button from '@/components/custom/button';
-import { COUNTRY_CODE, STATUS } from '@/lib/constants';
+import { STATUS } from '@/lib/constants';
 import Pagination from '@/components/custom/pagination';
 import { useSizeAdmin } from '@/hooks/admin/useSize';
 import { Size } from '@/models/size';
 import EditSizeModal from './editSizeModal';
 import AddSizeModal from './addSizeModal';
-import { capitalizeFirst } from '@/lib/utils';
+import { capitalizeFirst, normalizedDate } from '@/lib/utils';
 
 export default function AdminSizePage() {
   const { getAll, add, edit, remove, restore } = useSizeAdmin();
@@ -47,7 +47,6 @@ export default function AdminSizePage() {
       id: selectedId,
       payload: {
         nameSize: sizeName,
-        sizeTypeId,
         description,
       },
     });
@@ -104,11 +103,7 @@ export default function AdminSizePage() {
                   {size.description}
                 </td>
                 <td className='px-4 py-2'>{capitalizeFirst(size.status)}</td>
-                <td className='px-4 py-2'>
-                  {new Date(size.created_at).toLocaleDateString(
-                    COUNTRY_CODE.VN
-                  )}
-                </td>
+                <td className='px-4 py-2'>{normalizedDate(size.created_at)}</td>
                 <td className='px-4 py-2'>
                   <div className='flex gap-2'>
                     <Button

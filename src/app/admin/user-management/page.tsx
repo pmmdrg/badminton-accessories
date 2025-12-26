@@ -6,8 +6,8 @@ import { useUserAdmin } from '@/hooks/admin/useUser';
 import { Spinner } from '@/components/custom/spinner';
 import TextField from '@/components/custom/textfield';
 import Button from '@/components/custom/button';
-import { COUNTRY_CODE, STATUS } from '@/lib/constants';
-import { capitalizeFirst, isValidImageSrc } from '@/lib/utils';
+import { STATUS } from '@/lib/constants';
+import { capitalizeFirst, isValidImageSrc, normalizedDate } from '@/lib/utils';
 import { placeholderImage } from '@/assets/images';
 import Pagination from '@/components/custom/pagination';
 import { User } from '@/models/user';
@@ -111,11 +111,7 @@ export default function AdminUserPage() {
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
                   {user.email}
                 </td>
-                <td className='px-4 py-2'>
-                  {new Date(user.created_at).toLocaleDateString(
-                    COUNTRY_CODE.VN
-                  )}
-                </td>
+                <td className='px-4 py-2'>{normalizedDate(user.created_at)}</td>
                 <td className='px-4 py-2'>{capitalizeFirst(user.status)}</td>
                 <td className='px-4 py-2'>{capitalizeFirst(user.role)}</td>
                 <td className='px-4 py-2'>

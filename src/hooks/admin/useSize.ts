@@ -98,7 +98,6 @@ export function useSizeAdmin(
       id: string;
       payload: {
         nameSize?: string;
-        sizeTypeId?: string;
         description?: string;
       };
     }) => updateSize(id, payload),

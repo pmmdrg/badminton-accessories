@@ -4,8 +4,7 @@ import { useState } from 'react';
 
 import { Spinner } from '@/components/custom/spinner';
 import TextField from '@/components/custom/textfield';
-import { COUNTRY_CODE } from '@/lib/constants';
-import { capitalizeFirst } from '@/lib/utils';
+import { capitalizeFirst, normalizedDate } from '@/lib/utils';
 import Pagination from '@/components/custom/pagination';
 import { Color } from '@/models/color';
 import { useColorManager } from '@/hooks/manager/useColor';
@@ -54,9 +53,7 @@ export default function ManagerColorPage() {
                 <td className='px-4 py-2'>{color.description}</td>
                 <td className='px-4 py-2'>{capitalizeFirst(color.status)}</td>
                 <td className='px-4 py-2'>
-                  {new Date(color.created_at).toLocaleDateString(
-                    COUNTRY_CODE.VN
-                  )}
+                  {normalizedDate(color.created_at)}
                 </td>
               </tr>
             ))}

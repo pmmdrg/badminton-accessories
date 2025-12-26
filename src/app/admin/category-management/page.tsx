@@ -6,8 +6,8 @@ import Image from 'next/image';
 import { Spinner } from '@/components/custom/spinner';
 import TextField from '@/components/custom/textfield';
 import Button from '@/components/custom/button';
-import { COUNTRY_CODE, STATUS } from '@/lib/constants';
-import { capitalizeFirst, isValidImageSrc } from '@/lib/utils';
+import { STATUS } from '@/lib/constants';
+import { capitalizeFirst, isValidImageSrc, normalizedDate } from '@/lib/utils';
 import { placeholderImage } from '@/assets/images';
 import Pagination from '@/components/custom/pagination';
 import { useCateAdmin } from '@/hooks/admin/useCate';
@@ -187,11 +187,7 @@ export default function AdminCategoryPage() {
                 </td>
 
                 <td className='px-4 py-2'>{capitalizeFirst(cate.status)}</td>
-                <td className='px-4 py-2'>
-                  {new Date(cate.created_at).toLocaleDateString(
-                    COUNTRY_CODE.VN
-                  )}
-                </td>
+                <td className='px-4 py-2'>{normalizedDate(cate.created_at)}</td>
                 <td className='px-4 py-2'>
                   <div className='flex gap-2'>
                     <Button

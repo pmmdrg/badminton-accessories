@@ -3,7 +3,7 @@ import Modal from '@/components/custom/modal';
 import { Spinner } from '@/components/custom/spinner';
 import { useOrderManager } from '@/hooks/manager/useOrder';
 import { COUNTRY_CODE } from '@/lib/constants';
-import { capitalizeFirst, isValidImageSrc } from '@/lib/utils';
+import { capitalizeFirst, isValidImageSrc, normalizedDate } from '@/lib/utils';
 import { DetailOrder } from '@/models/detailOrder';
 import Image from 'next/image';
 
@@ -102,29 +102,17 @@ export default function DetailOrderModal({
 
           <div className='my-4 flex gap-2'>
             <p className='font-medium'>Ngày đặt hàng:</p>
-            <p>
-              {new Date(getDetail.data?.data[0].created_at).toLocaleDateString(
-                COUNTRY_CODE.VN
-              )}
-            </p>
+            <p>{normalizedDate(getDetail.data?.data[0].created_at)}</p>
           </div>
 
           <div className='my-4 flex gap-2'>
             <p className='font-medium'>Ngày vận chuyển:</p>
-            <p>
-              {new Date(
-                getDetail.data?.data[0].delivered_at
-              ).toLocaleDateString(COUNTRY_CODE.VN)}
-            </p>
+            <p>{normalizedDate(getDetail.data?.data[0].delivered_at)}</p>
           </div>
 
           <div className='my-4 flex gap-2'>
             <p className='font-medium'>Ngày hoàn tất đơn hàng:</p>
-            <p>
-              {new Date(
-                getDetail.data?.data[0].completed_at
-              ).toLocaleDateString(COUNTRY_CODE.VN)}
-            </p>
+            <p>{normalizedDate(getDetail.data?.data[0].completed_at)}</p>
           </div>
 
           {getDetail.data?.data[0].orderdetail.map(

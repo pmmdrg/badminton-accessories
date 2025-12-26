@@ -3,11 +3,10 @@
 import { useState } from 'react';
 import { Spinner } from '@/components/custom/spinner';
 import TextField from '@/components/custom/textfield';
-import { COUNTRY_CODE } from '@/lib/constants';
 import Pagination from '@/components/custom/pagination';
 import { Supplier } from '@/models/supplier';
 import { useSupplierManager } from '@/hooks/manager/useSupplier';
-import { capitalizeFirst } from '@/lib/utils';
+import { capitalizeFirst, normalizedDate } from '@/lib/utils';
 
 export default function ManagerSupplierPage() {
   const { getAll } = useSupplierManager();
@@ -59,9 +58,7 @@ export default function ManagerSupplierPage() {
                   {capitalizeFirst(supplier.status)}
                 </td>
                 <td className='px-4 py-2'>
-                  {new Date(supplier.created_at).toLocaleDateString(
-                    COUNTRY_CODE.VN
-                  )}
+                  {normalizedDate(supplier.created_at)}
                 </td>
               </tr>
             ))}

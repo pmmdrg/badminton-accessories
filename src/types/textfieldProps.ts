@@ -5,7 +5,8 @@ export interface TextFieldProps {
   label?: string;
   placeholder?: string;
   value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onChangeForMultiline?: React.ChangeEventHandler<HTMLTextAreaElement>;
   error?: string;
   errorColor?: string;
   startIcon?: ReactNode;
@@ -18,4 +19,5 @@ export interface TextFieldProps {
   accept?: string;
   multiple?: boolean;
   className?: string;
+  multiline?: number;
 }

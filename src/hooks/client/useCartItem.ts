@@ -14,7 +14,20 @@ export function useCartItem() {
 
   const getByUserId = useQuery({
     queryKey: ['cart-item'],
-    queryFn: () => getCartItemByUserId(),
+    queryFn: () => {
+      if (
+        localStorage.getItem('access_token') &&
+        localStorage.getItem('access_token')
+      )
+        return getCartItemByUserId();
+
+      addToast({
+        type: TOAST_TYPE.INFO,
+        message: 'Đăng nhập để thêm sản phẩm vào giỏ hàng',
+      });
+
+      return null;
+    },
   });
 
   const insert = useMutation({

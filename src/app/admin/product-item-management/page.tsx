@@ -7,7 +7,7 @@ import { Spinner } from '@/components/custom/spinner';
 import TextField from '@/components/custom/textfield';
 import Button from '@/components/custom/button';
 import { COUNTRY_CODE, STATUS } from '@/lib/constants';
-import { capitalizeFirst, isValidImageSrc } from '@/lib/utils';
+import { capitalizeFirst, isValidImageSrc, normalizedDate } from '@/lib/utils';
 import { placeholderImage } from '@/assets/images';
 import Pagination from '@/components/custom/pagination';
 import AddProdItemModal from './addProdItemModal';
@@ -217,9 +217,7 @@ export default function AdminProductItemPage() {
                     {capitalizeFirst(productItem.status)}
                   </td>
                   <td className='px-4 py-2'>
-                    {new Date(productItem.created_at).toLocaleDateString(
-                      COUNTRY_CODE.VN
-                    )}
+                    {normalizedDate(productItem.created_at)}
                   </td>
                   <td className='px-4 py-2'>
                     <div className='flex gap-2'>

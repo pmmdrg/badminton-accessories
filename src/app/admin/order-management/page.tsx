@@ -5,7 +5,7 @@ import { Spinner } from '@/components/custom/spinner';
 import TextField from '@/components/custom/textfield';
 import Button from '@/components/custom/button';
 import { COUNTRY_CODE } from '@/lib/constants';
-import { capitalizeFirst } from '@/lib/utils';
+import { capitalizeFirst, normalizedDate } from '@/lib/utils';
 import Pagination from '@/components/custom/pagination';
 import { useOrderAdmin } from '@/hooks/admin/useOrder';
 import { Order } from '@/models/order';
@@ -78,19 +78,13 @@ export default function AdminOrderPage() {
                 <td className='px-4 py-2'>{order.phonenumber}</td>
                 <td className='px-4 py-2'>{capitalizeFirst(order.status)}</td>
                 <td className='px-4 py-2'>
-                  {new Date(order.created_at).toLocaleDateString(
-                    COUNTRY_CODE.VN
-                  )}
+                  {normalizedDate(order.created_at)}
                 </td>
                 <td className='px-4 py-2'>
-                  {new Date(order.delivered_at).toLocaleDateString(
-                    COUNTRY_CODE.VN
-                  )}
+                  {normalizedDate(order.delivered_at)}
                 </td>
                 <td className='px-4 py-2'>
-                  {new Date(order.completed_at).toLocaleDateString(
-                    COUNTRY_CODE.VN
-                  )}
+                  {normalizedDate(order.completed_at)}
                 </td>
                 <td className='px-4 py-2'>
                   {order.status === 'processing' && (
