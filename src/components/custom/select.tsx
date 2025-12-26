@@ -12,6 +12,7 @@ export function SelectString({
   value,
   onChange,
   options,
+  disable = false,
   className = '',
 }: SelectStringProps) {
   const [open, setOpen] = useState(false);
@@ -37,8 +38,10 @@ export function SelectString({
 
       <button
         type='button'
-        onClick={() => setOpen(!open)}
-        className='w-full flex justify-between items-center bg-white border border-gray-300 rounded-lg px-4 py-2 text-gray-800 shadow-sm'
+        onClick={disable ? undefined : () => setOpen(!open)}
+        className={`w-full flex justify-between items-center ${
+          disable ? 'bg-gray-200 ' : 'bg-white'
+        } border border-gray-300 rounded-lg px-4 py-2 text-gray-800 shadow-sm`}
       >
         <span>{selectedLabel}</span>
 
@@ -90,6 +93,7 @@ export function SelectNumber({
   value,
   onChange,
   options,
+  disable = false,
   className = '',
 }: SelectNumberProps) {
   const [open, setOpen] = useState(false);
@@ -115,7 +119,7 @@ export function SelectNumber({
 
       <button
         type='button'
-        onClick={() => setOpen(!open)}
+        onClick={disable ? undefined : () => setOpen(!open)}
         className='w-full flex justify-between items-center bg-white border border-gray-300 rounded-lg px-4 py-2 text-gray-800 shadow-sm'
       >
         <span>{selectedLabel}</span>

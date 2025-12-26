@@ -122,12 +122,14 @@ export default function EditProdModal({
           value={brand}
           options={brandOptions}
           onChange={setBrand}
+          disable
         />
         <SelectString
           label='Danh mục'
           value={cate}
           options={cateOptions}
           onChange={setCate}
+          disable
         />
       </div>
 
@@ -137,6 +139,7 @@ export default function EditProdModal({
         options={sizeTypeOptions}
         onChange={setSizeType}
         className='mx-2'
+        disable
       />
 
       <TextField

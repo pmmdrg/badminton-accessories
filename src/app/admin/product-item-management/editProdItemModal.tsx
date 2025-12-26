@@ -165,12 +165,14 @@ export default function AddProdItemModal({
               setProduct(foundProd[0]);
             }
           }}
+          disable
         />
         <SelectString
           label='Kích thước'
           value={size}
           options={sizeOptions}
           onChange={setSize}
+          disable
         />
       </div>
 
@@ -180,6 +182,7 @@ export default function AddProdItemModal({
         options={colorOptions}
         onChange={setColor}
         className='mx-2'
+        disable
       />
 
       <TextField
