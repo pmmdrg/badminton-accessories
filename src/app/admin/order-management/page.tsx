@@ -92,7 +92,10 @@ export default function AdminOrderPage() {
                       <Button
                         variant='danger'
                         className='px-2 py-1'
-                        onClick={() => cancel.mutate(order._id)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          cancel.mutate(order._id);
+                        }}
                       >
                         Huỷ
                       </Button>
@@ -100,7 +103,10 @@ export default function AdminOrderPage() {
                       <Button
                         variant='success'
                         className='px-2 py-1'
-                        onClick={() => deliver.mutate(order._id)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deliver.mutate(order._id);
+                        }}
                       >
                         Vận chuyển
                       </Button>

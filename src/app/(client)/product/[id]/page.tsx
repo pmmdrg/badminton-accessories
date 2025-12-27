@@ -1,7 +1,7 @@
 'use client';
 import Button from '@/components/custom/button';
 import Section from '@/components/custom/section';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useProductItemClient } from '@/hooks/client/useProductItem';
 import { Spinner } from '@/components/custom/spinner';
@@ -15,7 +15,14 @@ import { useCart } from '@/hooks/client/useCart';
 
 export default function ProductDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const { getAll, getById } = useProductItemClient(id);
+  const [prod, setProd] = useState('');
+  const { getByProductId, getById } = useProductItemClient(
+    id,
+    '',
+    '',
+    '',
+    prod
+  );
   const { getByUserId } = useCart();
   const { insert } = useCartItem();
   const [quantity, setQuantity] = useState(0);
@@ -49,6 +56,12 @@ export default function ProductDetailPage() {
 
     router.push('/cart');
   };
+
+  useEffect(() => {
+    if (getById.data?.data) {
+      setProd(getById.data.data?.productId);
+    }
+  }, [getById.data]);
 
   if (getById.isLoading)
     return (
@@ -135,9 +148,11 @@ export default function ProductDetailPage() {
 
       <Section title='Sản phẩm liên quan' className='mt-14'>
         <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6'>
-          {getAll.data?.data.slice(0, 5).map((prodItem: ProductItem) => (
-            <ProdItemCard key={prodItem._id} {...prodItem} />
-          ))}
+          {getByProductId.data?.data
+            ?.slice(0, 5)
+            .map((prodItem: ProductItem) => (
+              <ProdItemCard key={prodItem._id} {...prodItem} />
+            ))}
         </div>
       </Section>
     </div>
