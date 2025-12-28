@@ -11,6 +11,8 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import useAuth from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
+import { useToast } from './toast';
+import { TOAST_TYPE } from '@/lib/constants';
 
 export default function Header() {
   const [isLogin, setIsLogin] = useState(false);
@@ -20,6 +22,7 @@ export default function Header() {
   const userMenuRef = useRef<HTMLDivElement>(null);
   const { logout } = useAuth();
   const router = useRouter();
+  const { addToast } = useToast();
 
   useEffect(() => {
     const accessToken = localStorage.getItem('access_token');
@@ -66,9 +69,23 @@ export default function Header() {
             Về chúng tôi
           </Link>
 
-          <Link href='/cart'>
+          <button
+            className='text-white hover:text-rose-300'
+            onClick={() => {
+              if (
+                localStorage.getItem('access_token') &&
+                localStorage.getItem('access_token') !== ''
+              )
+                router.push('/cart');
+              else
+                addToast({
+                  type: TOAST_TYPE.INFO,
+                  message: 'Vui lòng đăng nhập để xem giỏ hàng',
+                });
+            }}
+          >
             <ShoppingCartIcon className='w-6 h-6 text-white hover:text-rose-300' />
-          </Link>
+          </button>
 
           <div className='relative flex items-center' ref={userMenuRef}>
             <button

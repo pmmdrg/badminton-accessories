@@ -1,5 +1,3 @@
-import { useToast } from '@/components/custom/toast';
-import { TOAST_TYPE } from '@/lib/constants';
 import {
   calculateShippingFee,
   calculateTotalFee,
@@ -16,7 +14,6 @@ export function useCart(
   address?: string,
   phoneNumber?: string
 ) {
-  const { addToast } = useToast();
   const queryClient = useQueryClient();
 
   const getByUserId = useQuery({
@@ -24,14 +21,9 @@ export function useCart(
     queryFn: () => {
       if (
         localStorage.getItem('access_token') &&
-        localStorage.getItem('access_token')
+        localStorage.getItem('access_token') !== ''
       )
         return getCartByUserId();
-
-      addToast({
-        type: TOAST_TYPE.INFO,
-        message: 'Đăng nhập để thêm sản phẩm vào giỏ hàng',
-      });
 
       return null;
     },

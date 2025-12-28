@@ -9,9 +9,10 @@ import { ProductItem } from '@/models/productItem';
 import ProdItemCard from '@/components/custom/prodItemCard';
 import Carousel from '@/components/custom/carousel';
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
-import { COUNTRY_CODE } from '@/lib/constants';
+import { COUNTRY_CODE, TOAST_TYPE } from '@/lib/constants';
 import { useCartItem } from '@/hooks/client/useCartItem';
 import { useCart } from '@/hooks/client/useCart';
+import { useToast } from '@/components/custom/toast';
 
 export default function ProductDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -27,12 +28,22 @@ export default function ProductDetailPage() {
   const { insert } = useCartItem();
   const [quantity, setQuantity] = useState(0);
   const router = useRouter();
+  const { addToast } = useToast();
 
   const foundProductItem: ProductItem = getById.data?.data;
   const cartId = getByUserId.data?.data?._id;
 
   const handleAddToCart = () => {
-    if (cartId && foundProductItem)
+    if (!cartId) {
+      addToast({
+        type: TOAST_TYPE.INFO,
+        message: 'Vui lòng đăng nhập để thêm vào giỏ hàng',
+      });
+
+      return;
+    }
+
+    if (foundProductItem)
       insert.mutate({
         cartId,
         productItemId: id,
@@ -44,15 +55,7 @@ export default function ProductDetailPage() {
   };
 
   const handleBuyNow = () => {
-    if (cartId && foundProductItem)
-      insert.mutate({
-        cartId,
-        productItemId: id,
-        nameProductItem: foundProductItem.nameProductItem,
-        price: foundProductItem.price,
-        imageProductItem: foundProductItem?.imageProductItem?.[0] || '',
-        quantity,
-      });
+    handleAddToCart();
 
     router.push('/cart');
   };

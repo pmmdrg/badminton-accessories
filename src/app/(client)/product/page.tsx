@@ -100,7 +100,7 @@ export default function ProductListPage() {
         />
       </div>
 
-      <div className='max-w-5xl mx-auto rounded-2xl shadow-lg p-4 flex flex-wrap items-center justify-between gap-4'>
+      <div className='max-w-5xl mx-auto rounded-2xl shadow-lg p-4 flex flex-wrap items-center justify-between gap-4 mb-4'>
         <SelectString
           label='Thương Hiệu'
           value={brand}

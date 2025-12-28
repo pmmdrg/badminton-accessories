@@ -6,10 +6,11 @@ import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { placeholderImage } from '@/assets/images';
 import { isValidImageSrc } from '@/lib/utils';
-import { COUNTRY_CODE } from '@/lib/constants';
+import { COUNTRY_CODE, TOAST_TYPE } from '@/lib/constants';
 import { ProductItem } from '@/models/productItem';
 import { useCartItem } from '@/hooks/client/useCartItem';
 import { useCart } from '@/hooks/client/useCart';
+import { useToast } from './toast';
 
 export default function ProdItemCard({
   _id,
@@ -22,6 +23,7 @@ export default function ProdItemCard({
   const { getByUserId } = useCart();
   const { insert } = useCartItem();
   const router = useRouter();
+  const { addToast } = useToast();
 
   const inStock = quantity > 0;
 
@@ -37,6 +39,11 @@ export default function ProdItemCard({
           imageProductItem && imageProductItem.length > 0
             ? imageProductItem[0]
             : '',
+      });
+    } else {
+      addToast({
+        type: TOAST_TYPE.INFO,
+        message: 'Vui lòng đăng nhập để thêm vào giỏ hàng',
       });
     }
   };
