@@ -44,26 +44,23 @@ export default function AdminCategoryPage() {
     if (file) {
       await getIKToken.mutateAsync(file);
 
-      if (getIKToken.isSuccess) {
-        const res = await upload({
-          file,
-          fileName: file.name,
-          signature: getIKToken.data.signature,
-          token: getIKToken.data.token,
-          expire: getIKToken.data.expire,
-          publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_PUBLIC_KEY || '',
-          onProgress: (e) =>
-            setProgress(Math.round((e.loaded / e.total) * 100)),
-        });
+      const res = await upload({
+        file,
+        fileName: file.name,
+        signature: getIKToken.data.signature,
+        token: getIKToken.data.token,
+        expire: getIKToken.data.expire,
+        publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_PUBLIC_KEY || '',
+        onProgress: (e) => setProgress(Math.round((e.loaded / e.total) * 100)),
+      });
 
-        imageUrl = res.url ?? '';
+      imageUrl = res.url ?? '';
 
-        add.mutate({
-          nameCate: cateName,
-          imageCate: imageUrl,
-          description: description || '',
-        });
-      }
+      add.mutate({
+        nameCate: cateName,
+        imageCate: imageUrl,
+        description: description || '',
+      });
     } else {
       add.mutate({
         nameCate: cateName,
@@ -83,29 +80,26 @@ export default function AdminCategoryPage() {
     if (file) {
       await getIKToken.mutateAsync(file);
 
-      if (getIKToken.isSuccess) {
-        const res = await upload({
-          file,
-          fileName: file.name,
-          signature: getIKToken.data.signature,
-          token: getIKToken.data.token,
-          expire: getIKToken.data.expire,
-          publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_PUBLIC_KEY || '',
-          onProgress: (e) =>
-            setProgress(Math.round((e.loaded / e.total) * 100)),
-        });
+      const res = await upload({
+        file,
+        fileName: file.name,
+        signature: getIKToken.data.signature,
+        token: getIKToken.data.token,
+        expire: getIKToken.data.expire,
+        publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_PUBLIC_KEY || '',
+        onProgress: (e) => setProgress(Math.round((e.loaded / e.total) * 100)),
+      });
 
-        imageUrl = res.url ?? '';
+      imageUrl = res.url ?? '';
 
-        edit.mutate({
-          id: selectedId,
-          payload: {
-            nameCate: cateName,
-            imageCate: imageUrl,
-            description: description || '',
-          },
-        });
-      }
+      edit.mutate({
+        id: selectedId,
+        payload: {
+          nameCate: cateName,
+          imageCate: imageUrl,
+          description: description || '',
+        },
+      });
     } else {
       edit.mutate({
         id: selectedId,

@@ -38,7 +38,7 @@ export default function EditBrandModal({
     setBrand(getById.data.data.nameBrand);
     setCountry(getById.data.data.country);
     setDescription(getById.data.data.description);
-    setPreview(getById.data.data.imageProduct);
+    setPreview(getById.data.data.imageBrand);
   }, [isOpen, getById.data]);
 
   const handleSelectImage = (e: React.ChangeEvent<HTMLInputElement>) => {

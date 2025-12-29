@@ -35,26 +35,23 @@ export default function PersonalInformationPage() {
     if (file) {
       await getIKToken.mutateAsync(file);
 
-      if (getIKToken.isSuccess) {
-        const res = await upload({
-          file,
-          fileName: file.name,
-          signature: getIKToken.data.signature,
-          token: getIKToken.data.token,
-          expire: getIKToken.data.expire,
-          publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_PUBLIC_KEY || '',
-          onProgress: (e) =>
-            setProgress(Math.round((e.loaded / e.total) * 100)),
-        });
+      const res = await upload({
+        file,
+        fileName: file.name,
+        signature: getIKToken.data.signature,
+        token: getIKToken.data.token,
+        expire: getIKToken.data.expire,
+        publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_PUBLIC_KEY || '',
+        onProgress: (e) => setProgress(Math.round((e.loaded / e.total) * 100)),
+      });
 
-        imageUrl = res.url ?? '';
+      imageUrl = res.url ?? '';
 
-        editUser.mutate({
-          avatar: imageUrl,
-          bio,
-          fullname,
-        });
-      }
+      editUser.mutate({
+        avatar: imageUrl,
+        bio,
+        fullname,
+      });
     } else {
       editUser.mutate({
         avatar: imageUrl,

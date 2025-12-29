@@ -36,7 +36,7 @@ export default function EditCateModal({
 
     setCate(getById.data.data.nameCate);
     setDescription(getById.data.data.description);
-    setPreview(getById.data.data.imageProduct);
+    setPreview(getById.data.data.imageCate);
   }, [isOpen, getById.data]);
 
   const handleSelectImage = (e: React.ChangeEvent<HTMLInputElement>) => {
