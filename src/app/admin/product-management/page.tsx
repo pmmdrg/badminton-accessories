@@ -45,14 +45,14 @@ export default function AdminProductPage() {
     let imageUrl = '';
 
     if (file) {
-      await getIKToken.mutateAsync(file);
+      const tokenRes = await getIKToken.mutateAsync(file);
 
       const res = await upload({
         file,
         fileName: file.name,
-        signature: getIKToken.data.signature,
-        token: getIKToken.data.token,
-        expire: getIKToken.data.expire,
+        signature: tokenRes.signature,
+        token: tokenRes.token,
+        expire: tokenRes.expire,
         publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_PUBLIC_KEY || '',
         onProgress: (e) => setProgress(Math.round((e.loaded / e.total) * 100)),
       });
@@ -87,14 +87,14 @@ export default function AdminProductPage() {
     let imageUrl = '';
 
     if (file) {
-      await getIKToken.mutateAsync(file);
+      const tokenRes = await getIKToken.mutateAsync(file);
 
       const res = await upload({
         file,
         fileName: file.name,
-        signature: getIKToken.data.signature,
-        token: getIKToken.data.token,
-        expire: getIKToken.data.expire,
+        signature: tokenRes.signature,
+        token: tokenRes.token,
+        expire: tokenRes.expire,
         publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_PUBLIC_KEY || '',
         onProgress: (e) => setProgress(Math.round((e.loaded / e.total) * 100)),
       });
