@@ -23,7 +23,7 @@ export function useOrderClient(id?: string) {
   });
 
   const getDetail = useQuery({
-    queryKey: ['detail-order'],
+    queryKey: ['detail-order', id],
     queryFn: () => getDetailOrder(id!),
     enabled: id !== undefined && id !== '',
   });

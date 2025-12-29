@@ -61,8 +61,8 @@ export function useProductItemAdmin(id?: string, name?: string) {
 
   const getById = useQuery({
     queryKey: ['id', id],
-    queryFn: () => getProductItemByIdAdmin(id || ''),
-    enabled: !!id,
+    queryFn: () => getProductItemByIdAdmin(id!),
+    enabled: id !== undefined && id !== '',
   });
 
   const getByName = useQuery({
@@ -85,13 +85,16 @@ export function useProductItemAdmin(id?: string, name?: string) {
         quantity?: number;
       };
     }) => updateProductItem(id, payload),
-    onSuccess: () => {
+    onSuccess: (data, variables) => {
       addToast({
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã chỉnh sửa mặt hàng sản phẩm',
       });
 
       queryClient.invalidateQueries({ queryKey: ['admin-product-items'] });
+      queryClient.invalidateQueries({
+        queryKey: ['prod-item-id', variables.id],
+      });
     },
     onMutate: () => {
       addToast({
