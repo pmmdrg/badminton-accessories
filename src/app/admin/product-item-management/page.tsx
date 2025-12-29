@@ -45,45 +45,41 @@ export default function AdminProductItemPage() {
   ) => {
     let imageUrls: string[] = [];
 
-    try {
-      if (files.length > 0) {
-        const uploadPromises = files.map(async (file) => {
-          const tokenRes = await getIKToken.mutateAsync(file);
+    if (files.length > 0) {
+      const uploadPromises = files.map(async (file) => {
+        const tokenRes = await getIKToken.mutateAsync(file);
 
-          if (tokenRes?.signature && tokenRes?.token) {
-            const uploadRes = await upload({
-              file,
-              fileName: file.name,
-              signature: tokenRes.signature,
-              token: tokenRes.token,
-              expire: tokenRes.expire,
-              publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_PUBLIC_KEY || '',
-              onProgress: (e) =>
-                setProgress(Math.round((e.loaded / e.total) * 100)),
-            });
+        if (tokenRes?.signature && tokenRes?.token) {
+          const uploadRes = await upload({
+            file,
+            fileName: file.name,
+            signature: tokenRes.signature,
+            token: tokenRes.token,
+            expire: tokenRes.expire,
+            publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_PUBLIC_KEY || '',
+            onProgress: (e) =>
+              setProgress(Math.round((e.loaded / e.total) * 100)),
+          });
 
-            return uploadRes.url ?? null;
-          }
-          return null;
-        });
-
-        const results = await Promise.all(uploadPromises);
-
-        imageUrls = results.filter((url): url is string => url !== null);
-      }
-
-      add.mutate({
-        productId: product,
-        sizeId: size,
-        colorId: color,
-        nameProductItem,
-        imageProductItem: imageUrls,
-        description: description || '',
-        price: price,
+          return uploadRes.url ?? null;
+        }
+        return null;
       });
-    } catch (err) {
-      console.error('Lỗi trong quá trình xử lý:', err);
+
+      const results = await Promise.all(uploadPromises);
+
+      imageUrls = results.filter((url): url is string => url !== null);
     }
+
+    add.mutate({
+      productId: product,
+      sizeId: size,
+      colorId: color,
+      nameProductItem,
+      imageProductItem: imageUrls,
+      description: description || '',
+      price: price,
+    });
   };
 
   const handleConfirmEdit = async (
@@ -94,45 +90,41 @@ export default function AdminProductItemPage() {
   ) => {
     let imageUrls: string[] = [];
 
-    try {
-      if (files.length > 0) {
-        const uploadPromises = files.map(async (file) => {
-          const tokenRes = await getIKToken.mutateAsync(file);
+    if (files.length > 0) {
+      const uploadPromises = files.map(async (file) => {
+        const tokenRes = await getIKToken.mutateAsync(file);
 
-          if (tokenRes?.signature && tokenRes?.token) {
-            const uploadRes = await upload({
-              file,
-              fileName: file.name,
-              signature: tokenRes.signature,
-              token: tokenRes.token,
-              expire: tokenRes.expire,
-              publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_PUBLIC_KEY || '',
-              onProgress: (e) =>
-                setProgress(Math.round((e.loaded / e.total) * 100)),
-            });
+        if (tokenRes?.signature && tokenRes?.token) {
+          const uploadRes = await upload({
+            file,
+            fileName: file.name,
+            signature: tokenRes.signature,
+            token: tokenRes.token,
+            expire: tokenRes.expire,
+            publicKey: process.env.NEXT_PUBLIC_IMAGE_KIT_PUBLIC_KEY || '',
+            onProgress: (e) =>
+              setProgress(Math.round((e.loaded / e.total) * 100)),
+          });
 
-            return uploadRes.url ?? null;
-          }
-          return null;
-        });
-
-        const results = await Promise.all(uploadPromises);
-
-        imageUrls = results.filter((url): url is string => url !== null);
-      }
-
-      edit.mutate({
-        id: selectedId,
-        payload: {
-          nameProductItem,
-          imageProductItem: imageUrls,
-          description: description || '',
-          price: price,
-        },
+          return uploadRes.url ?? null;
+        }
+        return null;
       });
-    } catch (err) {
-      console.error('Lỗi trong quá trình xử lý:', err);
+
+      const results = await Promise.all(uploadPromises);
+
+      imageUrls = results.filter((url): url is string => url !== null);
     }
+
+    edit.mutate({
+      id: selectedId,
+      payload: {
+        nameProductItem,
+        imageProductItem: imageUrls.length > 0 ? imageUrls : undefined,
+        description: description || '',
+        price: price,
+      },
+    });
   };
 
   if (getAll.isLoading) return <Spinner />;

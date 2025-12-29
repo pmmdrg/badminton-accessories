@@ -114,7 +114,6 @@ export default function AdminProductPage() {
         id: selectedId,
         payload: {
           nameProduct,
-          imageProduct: '',
           description: description || '',
         },
       });

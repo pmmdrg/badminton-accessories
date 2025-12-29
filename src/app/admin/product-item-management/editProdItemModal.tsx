@@ -30,14 +30,14 @@ export default function EditProdItemModal({
   setIsOpen,
   onConfirm,
 }: EditProdItemModalProps) {
-  const productItems = useProductItemAdmin(prodItemId);
-  const products = useProductAdmin(productItems.getById.data?.data?.productId);
+  const { getById } = useProductItemAdmin(prodItemId);
+  const products = useProductAdmin(getById.data?.data?.productId);
   const colors = useColorAdmin();
 
   const [product, setProduct] = useState<Product | null>(null);
 
   const sizes = useSizeAdmin(
-    productItems.getById.data?.data?.sizeId,
+    getById.data?.data?.sizeId,
     '',
     product?.sizeTypeId
   );
@@ -53,26 +53,21 @@ export default function EditProdItemModal({
   const [preview, setPreview] = useState<string[]>([]);
 
   useEffect(() => {
-    if (!productItems.getById.data?.data) return;
+    if (!getById.data?.data) return;
 
-    setColor(productItems.getById.data.data.colorId);
-    setProductItemName(productItems.getById.data.data.nameProductItem);
-    setDescription(productItems.getById.data.data.description);
-    setPreview(productItems.getById.data.data.imageProductItem);
-    setPrice(productItems.getById.data.data.price);
+    setColor(getById.data.data.colorId);
+    setProductItemName(getById.data.data.nameProductItem);
+    setDescription(getById.data.data.description);
+    setPreview(getById.data.data.imageProductItem);
+    setPrice(getById.data.data.price);
 
     if (!products.getById.data?.data) return;
     setProduct(products.getById.data.data);
     setProductName(products.getById.data.data._id);
 
     if (!sizes.getBySizeTypeId.data?.data) return;
-    setSize(productItems.getById.data.data.sizeId);
-  }, [
-    isOpen,
-    productItems.getById.data,
-    sizes.getBySizeTypeId.data,
-    products.getById.data,
-  ]);
+    setSize(getById.data.data.sizeId);
+  }, [isOpen, getById.data, sizes.getBySizeTypeId.data, products.getById.data]);
 
   const productNameOptions = products.getAll.data?.data
     ? [

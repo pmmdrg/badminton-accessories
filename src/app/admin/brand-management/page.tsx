@@ -110,7 +110,6 @@ export default function AdminBrandPage() {
         payload: {
           nameBrand: brandName,
           country,
-          imageBrand: '',
           description: description || '',
         },
       });

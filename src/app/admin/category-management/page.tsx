@@ -105,7 +105,6 @@ export default function AdminCategoryPage() {
         id: selectedId,
         payload: {
           nameCate: cateName,
-          imageCate: '',
           description: description || '',
         },
       });
