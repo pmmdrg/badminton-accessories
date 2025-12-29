@@ -6,6 +6,7 @@ import {
   insertCartItem,
   updateCartItem,
 } from '@/services/client/cartItemService';
+import { updateCartTotal } from '@/services/client/cartService';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useCartItem() {
@@ -46,6 +47,8 @@ export function useCartItem() {
       };
     }) => updateCartItem(id, payload),
     onSuccess: () => {
+      updateCartTotal();
+
       addToast({
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã cập nhật giỏ hàng',
@@ -58,6 +61,8 @@ export function useCartItem() {
   const remove = useMutation({
     mutationFn: (id: string) => deleteCartItem(id),
     onSuccess: () => {
+      updateCartTotal();
+
       addToast({
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã xoá sản phẩm ra khỏi giỏ hàng',
