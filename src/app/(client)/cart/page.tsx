@@ -139,6 +139,9 @@ export default function CartPage() {
             Đặt hàng
           </Button>
         </div>
+        {totalFee.isError && (
+          <p className='text-red-500 text-sm'>{`* Xảy ra lỗi: ${totalFee.error?.message}`}</p>
+        )}
       </div>
 
       <div className='px-10'>

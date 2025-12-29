@@ -1,4 +1,5 @@
 import api from '@/lib/api';
+import { isAxiosError } from 'axios';
 
 export async function getCartByUserId() {
   const res = await api.get('/cart');
@@ -31,9 +32,17 @@ export async function calculateTotalFee(payload: {
   address: string;
   phonenumber: string;
 }) {
-  const res = await api.post('cart/calculate-total-cart', payload);
+  try {
+    const res = await api.post('cart/calculate-total-cart', payload);
 
-  return res.data;
+    return res.data;
+  } catch (err) {
+    if (isAxiosError(err)) {
+      throw new Error(err.response?.data?.message || 'Lỗi chưa rõ');
+    }
+
+    throw err;
+  }
 }
 
 export async function untickCartItem(id: string) {
