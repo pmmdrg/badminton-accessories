@@ -55,6 +55,7 @@ export function useCartItem() {
       });
 
       queryClient.invalidateQueries({ queryKey: ['cart'] });
+      queryClient.invalidateQueries({ queryKey: ['total-fee'] });
     },
   });
 
@@ -69,6 +70,7 @@ export function useCartItem() {
       });
 
       queryClient.invalidateQueries({ queryKey: ['cart'] });
+      queryClient.invalidateQueries({ queryKey: ['total-fee'] });
     },
   });
 

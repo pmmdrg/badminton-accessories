@@ -4,14 +4,10 @@ import Image from 'next/image';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { placeholderImage } from '@/assets/images';
-import { Product } from '@/models/product';
 import { isValidImageSrc } from '@/lib/utils';
+import { CardProps } from '@/types/cardProps';
 
-export default function ProdCard({
-  nameProduct,
-  description,
-  imageProduct,
-}: Product) {
+export default function Card({ title, description, image }: CardProps) {
   const router = useRouter();
 
   return (
@@ -21,17 +17,11 @@ export default function ProdCard({
     >
       <div className='relative w-full h-56 md:h-64 overflow-hidden rounded-t-xl'>
         <Image
-          src={
-            imageProduct && isValidImageSrc(imageProduct)
-              ? imageProduct
-              : placeholderImage
-          }
-          alt={nameProduct}
+          src={image && isValidImageSrc(image) ? image : placeholderImage}
+          alt={title}
           fill
           className={clsx(
-            imageProduct && isValidImageSrc(imageProduct)
-              ? 'object-cover'
-              : 'object-contain',
+            image && isValidImageSrc(image) ? 'object-cover' : 'object-contain',
             'transition-transform duration-500 group-hover:scale-105'
           )}
           sizes='(max-width: 768px) 100vw, 25vw'
@@ -40,7 +30,7 @@ export default function ProdCard({
 
       <div className='p-4 flex flex-col gap-2'>
         <h3 className='text-gray-800 font-medium text-base line-clamp-2'>
-          {nameProduct}
+          {title}
         </h3>
 
         <p className='line-clamp-3 text-gray-500'>{description}</p>

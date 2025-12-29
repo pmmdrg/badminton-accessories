@@ -1,18 +1,23 @@
 'use client';
 
-import Card from '@/components/custom/prodCard';
 import Carousel from '@/components/custom/carousel';
 import Section from '@/components/custom/section';
 import { Spinner } from '@/components/custom/spinner';
 import { useProductClient } from '@/hooks/client/useProduct';
 import { Product } from '@/models/product';
-import ProdCard from '@/components/custom/prodCard';
+import Card from '@/components/custom/card';
+import { useBrandClient } from '@/hooks/client/useBrand';
+import { useCateClient } from '@/hooks/client/useCate';
+import { Brand } from '@/models/brand';
+import { Cate } from '@/models/cate';
 
 export default function Homepage() {
-  const { getAll } = useProductClient();
+  const products = useProductClient();
+  const brands = useBrandClient();
+  const cates = useCateClient();
 
-  const productsReversed = getAll.data?.data
-    ? [...getAll.data.data].reverse()
+  const productsReversed = products.getAll.data?.data
+    ? [...products.getAll.data.data].reverse()
     : [];
 
   const banners = [
@@ -27,7 +32,11 @@ export default function Homepage() {
     'https://www.racquetpoint.com/cdn/shop/articles/badminton-the-ultimate-guide-to-the-racquet-sport-460186.jpg',
   ];
 
-  if (getAll.isLoading)
+  if (
+    products.getAll.isLoading ||
+    brands.getAll.isLoading ||
+    cates.getAll.isLoading
+  )
     return (
       <div className='flex justify-center h-screen'>
         <Spinner />
@@ -38,26 +47,41 @@ export default function Homepage() {
     <>
       <Carousel images={banners} />
 
-      <Section title='Sản phẩm nổi bật'>
-        <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6'>
-          {getAll.data?.data.slice(0, 5).map((product: Product) => (
-            <ProdCard key={product._id} {...product} />
-          ))}
-        </div>
-      </Section>
-
       <Section title='Sản phẩm mới'>
         <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6'>
           {productsReversed.slice(0, 5).map((product: Product) => (
-            <Card key={product._id} {...product} />
+            <Card
+              key={product._id}
+              title={product.nameProduct}
+              description={product.description}
+              image={product.imageProduct}
+            />
           ))}
         </div>
       </Section>
 
-      <Section title='Xu hướng'>
+      <Section title='Thương hiệu'>
         <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6'>
-          {getAll.data.data.map((product: Product) => (
-            <ProdCard key={product._id} {...product} />
+          {brands.getAll.data?.data?.slice(0, 5).map((brand: Brand) => (
+            <Card
+              key={brand._id}
+              title={brand.nameBrand}
+              description={brand.description}
+              image={brand.imageBrand}
+            />
+          ))}
+        </div>
+      </Section>
+
+      <Section title='Danh mục'>
+        <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6'>
+          {cates.getAll.data?.data?.slice(0, 5).map((cate: Cate) => (
+            <Card
+              key={cate._id}
+              title={cate.nameCate}
+              description={cate.description}
+              image={cate.imageCate}
+            />
           ))}
         </div>
       </Section>
