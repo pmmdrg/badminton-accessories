@@ -29,7 +29,7 @@ export default function AdminCategoryPage() {
   const [progress, setProgress] = useState(0);
 
   const filteredCates = getAll.data?.data?.filter((c: Cate) =>
-    c.nameCate.toLowerCase().includes(search.toLowerCase())
+    c.nameCate.toLowerCase().includes(search.toLowerCase()),
   );
 
   const totalPages = Math.ceil((filteredCates || []).length / 20);
@@ -37,7 +37,7 @@ export default function AdminCategoryPage() {
   const handleConfirmAdd = async (
     cateName: string,
     description?: string,
-    file?: File | null
+    file?: File | null,
   ) => {
     let imageUrl = '';
 
@@ -73,7 +73,7 @@ export default function AdminCategoryPage() {
   const handleConfirmEdit = async (
     cateName: string,
     description?: string,
-    file?: File | null
+    file?: File | null,
   ) => {
     let imageUrl = '';
 
@@ -158,7 +158,7 @@ export default function AdminCategoryPage() {
           </thead>
           <tbody className='divide-y divide-gray-200'>
             {filteredCates?.map((cate: Cate) => (
-              <tr key={cate._id}>
+              <tr key={cate.id}>
                 <td className='px-4 py-2'>
                   <div className='w-16 h-16 relative'>
                     <Image
@@ -187,7 +187,7 @@ export default function AdminCategoryPage() {
                       variant='info'
                       className='px-2 py-1'
                       onClick={() => {
-                        setSelectedId(cate._id);
+                        setSelectedId(cate.id);
                         setIsOpenEdit(true);
                       }}
                     >
@@ -197,7 +197,7 @@ export default function AdminCategoryPage() {
                       <Button
                         variant='danger'
                         className='px-2 py-1'
-                        onClick={() => remove.mutate(cate._id)}
+                        onClick={() => remove.mutate(cate.id)}
                       >
                         Xoá
                       </Button>
@@ -205,7 +205,7 @@ export default function AdminCategoryPage() {
                       <Button
                         variant='success'
                         className='px-2 py-1'
-                        onClick={() => restore.mutate(cate._id)}
+                        onClick={() => restore.mutate(cate.id)}
                       >
                         Khôi phục
                       </Button>

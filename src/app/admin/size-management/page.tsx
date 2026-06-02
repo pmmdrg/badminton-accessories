@@ -21,7 +21,7 @@ export default function AdminSizePage() {
   const [isOpenEdit, setIsOpenEdit] = useState(false);
 
   const filteredSizes = getAll.data?.data?.filter((s: Size) =>
-    s.nameSize.toLowerCase().includes(search.toLowerCase())
+    s.nameSize.toLowerCase().includes(search.toLowerCase()),
   );
 
   const totalPages = Math.ceil((filteredSizes || []).length / 20);
@@ -29,7 +29,7 @@ export default function AdminSizePage() {
   const handleConfirmAdd = async (
     sizeName: string,
     sizeTypeId: string,
-    description: string
+    description: string,
   ) => {
     add.mutate({
       nameSize: sizeName,
@@ -41,7 +41,7 @@ export default function AdminSizePage() {
   const handleConfirmEdit = async (
     sizeName: string,
     sizeTypeId: string,
-    description: string
+    description: string,
   ) => {
     edit.mutate({
       id: selectedId,
@@ -97,7 +97,7 @@ export default function AdminSizePage() {
           </thead>
           <tbody className='divide-y divide-gray-200'>
             {filteredSizes?.map((size: Size) => (
-              <tr key={size._id}>
+              <tr key={size.id}>
                 <td className='px-4 py-2'>{size.nameSize}</td>
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
                   {size.description}
@@ -110,7 +110,7 @@ export default function AdminSizePage() {
                       variant='info'
                       className='px-2 py-1'
                       onClick={() => {
-                        setSelectedId(size._id);
+                        setSelectedId(size.id);
                         setIsOpenEdit(true);
                       }}
                     >
@@ -120,7 +120,7 @@ export default function AdminSizePage() {
                       <Button
                         variant='danger'
                         className='px-2 py-1'
-                        onClick={() => remove.mutate(size._id)}
+                        onClick={() => remove.mutate(size.id)}
                       >
                         Xoá
                       </Button>
@@ -128,7 +128,7 @@ export default function AdminSizePage() {
                       <Button
                         variant='success'
                         className='px-2 py-1'
-                        onClick={() => restore.mutate(size._id)}
+                        onClick={() => restore.mutate(size.id)}
                       >
                         Khôi phục
                       </Button>

@@ -21,7 +21,7 @@ export default function AdminColorPage() {
   const [isOpenEdit, setIsOpenEdit] = useState(false);
 
   const filteredColors = getAll.data?.data?.filter((s: Color) =>
-    s.nameColor.toLowerCase().includes(search.toLowerCase())
+    s.nameColor.toLowerCase().includes(search.toLowerCase()),
   );
 
   const totalPages = Math.ceil((filteredColors || []).length / 20);
@@ -88,7 +88,7 @@ export default function AdminColorPage() {
           </thead>
           <tbody className='divide-y divide-gray-200'>
             {filteredColors?.map((color: Color) => (
-              <tr key={color._id}>
+              <tr key={color.id}>
                 <td className='px-4 py-2'>{color.nameColor}</td>
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
                   {color.description}
@@ -103,7 +103,7 @@ export default function AdminColorPage() {
                       variant='info'
                       className='px-2 py-1'
                       onClick={() => {
-                        setSelectedId(color._id);
+                        setSelectedId(color.id);
                         setIsOpenEdit(true);
                       }}
                     >
@@ -113,7 +113,7 @@ export default function AdminColorPage() {
                       <Button
                         variant='danger'
                         className='px-2 py-1'
-                        onClick={() => remove.mutate(color._id)}
+                        onClick={() => remove.mutate(color.id)}
                       >
                         Xoá
                       </Button>
@@ -121,7 +121,7 @@ export default function AdminColorPage() {
                       <Button
                         variant='success'
                         className='px-2 py-1'
-                        onClick={() => restore.mutate(color._id)}
+                        onClick={() => restore.mutate(color.id)}
                       >
                         Khôi phục
                       </Button>

@@ -33,7 +33,7 @@ export default function ProductListPage() {
     category,
     '',
     '',
-    color
+    color,
   );
 
   const [currPage, setCurrPage] = useState(1);
@@ -42,12 +42,12 @@ export default function ProductListPage() {
     brand !== ''
       ? productItems.getByBrandId
       : category !== ''
-      ? productItems.getByCateId
-      : color !== ''
-      ? productItems.getByColorId
-      : productItems.getAll
+        ? productItems.getByCateId
+        : color !== ''
+          ? productItems.getByColorId
+          : productItems.getAll
   ).data?.data?.filter((pi: ProductItem) =>
-    pi.nameProductItem.toLowerCase().includes(search.toLowerCase())
+    pi.nameProductItem.toLowerCase().includes(search.toLowerCase()),
   );
 
   const sortedProducts: () => ProductItem[] = () => {
@@ -64,7 +64,7 @@ export default function ProductListPage() {
     ? [
         { label: 'Tất cả', value: '' },
         ...brands.getAll.data.data.map((brand: Brand) =>
-          normalizedSelectOptions(brand.nameBrand, brand._id)
+          normalizedSelectOptions(brand.nameBrand, brand.id),
         ),
       ]
     : [{ label: 'Tất cả', value: '' }];
@@ -73,7 +73,7 @@ export default function ProductListPage() {
     ? [
         { label: 'Tất cả', value: '' },
         ...cates.getAll.data.data.map((cate: Cate) =>
-          normalizedSelectOptions(cate.nameCate, cate._id)
+          normalizedSelectOptions(cate.nameCate, cate.id),
         ),
       ]
     : [{ label: 'Tất cả', value: '' }];
@@ -82,7 +82,7 @@ export default function ProductListPage() {
     ? [
         { label: 'Tất cả', value: '' },
         ...colors.getAll.data.data.map((color: Color) =>
-          normalizedSelectOptions(color.description, color._id)
+          normalizedSelectOptions(color.description, color.id),
         ),
       ]
     : [{ label: 'Tất cả', value: '' }];
@@ -151,7 +151,7 @@ export default function ProductListPage() {
       ) : (
         <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 my-4 mx-4'>
           {sortedProducts()?.map((productItem: ProductItem) => (
-            <ProdItemCard key={productItem._id} {...productItem} />
+            <ProdItemCard key={productItem.id} {...productItem} />
           ))}
         </div>
       )}

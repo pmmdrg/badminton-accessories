@@ -12,7 +12,7 @@ export function useCart(
   toDistrictId?: number,
   toWardCode?: string,
   address?: string,
-  phoneNumber?: string
+  phoneNumber?: string,
 ) {
   const queryClient = useQueryClient();
 
@@ -41,9 +41,9 @@ export function useCart(
     queryKey: ['total-fee', toDistrictId, toWardCode, address, phoneNumber],
     queryFn: () =>
       calculateTotalFee({
-        from_district_id: 3695,
+        from_districtid: 3695,
         from_ward_code: '90764',
-        to_district_id: toDistrictId!,
+        to_districtid: toDistrictId!,
         to_ward_code: toWardCode!,
         address: address!,
         phonenumber: phoneNumber!,

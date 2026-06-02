@@ -17,7 +17,7 @@ export default function ManagerCategoryPage() {
   const [search, setSearch] = useState('');
 
   const filteredCates = getAll.data?.data?.filter((c: Cate) =>
-    c.nameCate.toLowerCase().includes(search.toLowerCase())
+    c.nameCate.toLowerCase().includes(search.toLowerCase()),
   );
 
   const totalPages = Math.ceil((filteredCates || []).length / 20);
@@ -51,7 +51,7 @@ export default function ManagerCategoryPage() {
           </thead>
           <tbody className='divide-y divide-gray-200'>
             {filteredCates?.map((cate: Cate) => (
-              <tr key={cate._id}>
+              <tr key={cate.id}>
                 <td className='px-4 py-2'>
                   <div className='w-16 h-16 relative'>
                     <Image

@@ -13,7 +13,7 @@ import { useCart } from '@/hooks/client/useCart';
 import { useToast } from './toast';
 
 export default function ProdItemCard({
-  _id,
+  id,
   nameProductItem,
   imageProductItem,
   price,
@@ -31,7 +31,7 @@ export default function ProdItemCard({
     if (getByUserId.data?.data) {
       insert.mutate({
         cartId: getByUserId.data.data,
-        productItemId: _id,
+        productItemId: id,
         nameProductItem,
         price,
         quantity: 1,
@@ -51,7 +51,7 @@ export default function ProdItemCard({
   return (
     <div
       className='group cursor-pointer rounded-xl border border-gray-200 bg-white shadow-sm transition-transform duration-300 hover:scale-[1.03] hover:shadow-md'
-      onClick={() => router.push(`/product/${_id}`)}
+      onClick={() => router.push(`/product/${id}`)}
     >
       <div className='relative w-full h-56 md:h-64 overflow-hidden rounded-t-xl'>
         <Image
@@ -66,7 +66,7 @@ export default function ProdItemCard({
             imageProductItem && isValidImageSrc(imageProductItem[0])
               ? 'object-cover'
               : 'object-contain',
-            'transition-transform duration-500 group-hover:scale-105'
+            'transition-transform duration-500 group-hover:scale-105',
           )}
           sizes='(max-width: 768px) 100vw, 25vw'
         />

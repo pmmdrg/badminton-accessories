@@ -14,9 +14,9 @@ export async function updateCartTotal() {
 }
 
 export async function calculateShippingFee(payload: {
-  from_district_id: number;
+  from_districtid: number;
   from_ward_code: string;
-  to_district_id: number;
+  to_districtid: number;
   to_ward_code: string;
 }) {
   const res = await api.post('cart/calculate-shipping-fee', payload);
@@ -25,9 +25,9 @@ export async function calculateShippingFee(payload: {
 }
 
 export async function calculateTotalFee(payload: {
-  from_district_id: number;
+  from_districtid: number;
   from_ward_code: string;
-  to_district_id: number;
+  to_districtid: number;
   to_ward_code: string;
   address: string;
   phonenumber: string;

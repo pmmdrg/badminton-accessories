@@ -19,7 +19,7 @@ interface EditProdModalProps {
   onConfirm: (
     nameProduct: string,
     description?: string,
-    file?: File | null
+    file?: File | null,
   ) => void;
 }
 
@@ -58,7 +58,7 @@ export default function EditProdModal({
     ? [
         { label: 'Chưa có', value: '' },
         ...brands.getAll.data.data.map((brand: Brand) =>
-          normalizedSelectOptions(brand.nameBrand, brand._id)
+          normalizedSelectOptions(brand.nameBrand, brand.id),
         ),
       ]
     : [{ label: 'Chưa có', value: '' }];
@@ -67,7 +67,7 @@ export default function EditProdModal({
     ? [
         { label: 'Chưa có', value: '' },
         ...cates.getAll.data.data.map((cate: Cate) =>
-          normalizedSelectOptions(cate.nameCate, cate._id)
+          normalizedSelectOptions(cate.nameCate, cate.id),
         ),
       ]
     : [{ label: 'Chưa có', value: '' }];
@@ -76,7 +76,7 @@ export default function EditProdModal({
     ? [
         { label: 'Chưa có', value: '' },
         ...sizeTypes.getAll.data.data.map((sizeType: SizeType) =>
-          normalizedSelectOptions(sizeType.description, sizeType._id)
+          normalizedSelectOptions(sizeType.description, sizeType.id),
         ),
       ]
     : [{ label: 'Chưa có', value: '' }];

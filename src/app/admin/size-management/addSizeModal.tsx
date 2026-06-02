@@ -12,7 +12,7 @@ interface AddSizeModalProps {
   onConfirm: (
     nameSize: string,
     sizeTypeId: string,
-    description: string
+    description: string,
   ) => void;
 }
 
@@ -30,7 +30,7 @@ export default function AddSizeModal({
     ? [
         { label: 'Chưa có', value: '' },
         ...getAll.data.data.map((st: SizeType) =>
-          normalizedSelectOptions(st.description, st._id)
+          normalizedSelectOptions(st.description, st.id),
         ),
       ]
     : [{ label: 'Chưa có', value: '' }];

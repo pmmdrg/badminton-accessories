@@ -21,7 +21,7 @@ export default function AdminOrderPage() {
   const filteredOrders = getAll.data?.data?.filter(
     (o: Order) =>
       o.fullname.toLowerCase().includes(search.toLowerCase()) ||
-      o.phonenumber.toLowerCase().includes(search.toLowerCase())
+      o.phonenumber.toLowerCase().includes(search.toLowerCase()),
   );
 
   const totalPages = Math.ceil((filteredOrders || []).length / 20);
@@ -61,10 +61,10 @@ export default function AdminOrderPage() {
           <tbody className='divide-y divide-gray-200'>
             {filteredOrders?.map((order: Order) => (
               <tr
-                key={order._id}
+                key={order.id}
                 onClick={(e) => {
                   e.stopPropagation();
-                  setSelectedId(order._id);
+                  setSelectedId(order.id);
                   setIsOpen(true);
                 }}
                 className='cursor-pointer'
@@ -94,7 +94,7 @@ export default function AdminOrderPage() {
                         className='px-2 py-1'
                         onClick={(e) => {
                           e.stopPropagation();
-                          cancel.mutate(order._id);
+                          cancel.mutate(order.id);
                         }}
                       >
                         Huỷ
@@ -105,7 +105,7 @@ export default function AdminOrderPage() {
                         className='px-2 py-1'
                         onClick={(e) => {
                           e.stopPropagation();
-                          deliver.mutate(order._id);
+                          deliver.mutate(order.id);
                         }}
                       >
                         Vận chuyển

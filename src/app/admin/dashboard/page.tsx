@@ -105,21 +105,21 @@ export default function DashboardPage() {
                     </thead>
                     <tbody>
                       {general.data.data.revenueByPayment.map(
-                        (payment: { _id: string; totalRevenue: number }) => (
+                        (payment: { id: string; totalRevenue: number }) => (
                           <tr
-                            key={payment._id}
+                            key={payment.id}
                             className='border-b border-gray-400'
                           >
                             <td className='text-lg font-bold text-rose-700 p-2'>
-                              {payment._id}
+                              {payment.id}
                             </td>
                             <td className='text-lg font-bold text-rose-700 p-2'>
                               {payment.totalRevenue.toLocaleString(
-                                COUNTRY_CODE.VN
+                                COUNTRY_CODE.VN,
                               )}
                             </td>
                           </tr>
-                        )
+                        ),
                       )}
                     </tbody>
                   </table>
@@ -136,24 +136,24 @@ export default function DashboardPage() {
                     <tbody>
                       {general.data.data.revenueByMonth.map(
                         (month: {
-                          _id: { month: number; year: number };
+                          id: { month: number; year: number };
                           totalRevenue: number;
                         }) => (
                           <tr
-                            key={month._id.month}
+                            key={month.id.month}
                             className='border-b border-gray-400'
                           >
                             <td className='text-lg font-bold text-rose-700 p-2'>
-                              {month._id.month}/{month._id.year}
+                              {month.id.month}/{month.id.year}
                             </td>
                             <td className='text-lg font-bold text-rose-700 p-2'>
                               {month.totalRevenue.toLocaleString(
-                                COUNTRY_CODE.VN
+                                COUNTRY_CODE.VN,
                               )}
                               ₫
                             </td>
                           </tr>
-                        )
+                        ),
                       )}
                     </tbody>
                   </table>
@@ -193,7 +193,7 @@ export default function DashboardPage() {
                         <td className='p-2'>{pi.nameProductItem}</td>
                         <td className='p-2'>{pi.totalQuantitySold}</td>
                       </tr>
-                    )
+                    ),
                   )
                 )}
               </tbody>
@@ -228,7 +228,7 @@ export default function DashboardPage() {
                           {pi.totalRevenue.toLocaleString(COUNTRY_CODE.VN)}₫
                         </td>
                       </tr>
-                    )
+                    ),
                   )
                 )}
               </tbody>
@@ -273,7 +273,7 @@ export default function DashboardPage() {
                         {brand.totalRevenue.toLocaleString(COUNTRY_CODE.VN)}₫
                       </td>
                     </tr>
-                  )
+                  ),
                 )
               )}
             </tbody>
@@ -312,7 +312,7 @@ export default function DashboardPage() {
                         {cate.totalRevenue.toLocaleString(COUNTRY_CODE.VN)}₫
                       </td>
                     </tr>
-                  )
+                  ),
                 )
               )}
             </tbody>

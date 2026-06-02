@@ -22,7 +22,7 @@ export default function ProductDetailPage() {
     '',
     '',
     '',
-    prod
+    prod,
   );
   const { getByUserId } = useCart();
   const { insert } = useCartItem();
@@ -31,7 +31,7 @@ export default function ProductDetailPage() {
   const { addToast } = useToast();
 
   const foundProductItem: ProductItem = getById.data?.data;
-  const cartId = getByUserId.data?.data?._id;
+  const cartId = getByUserId.data?.data?.id;
 
   const handleAddToCart = () => {
     if (!cartId) {
@@ -154,7 +154,7 @@ export default function ProductDetailPage() {
           {getByProductId.data?.data
             ?.slice(0, 5)
             .map((prodItem: ProductItem) => (
-              <ProdItemCard key={prodItem._id} {...prodItem} />
+              <ProdItemCard key={prodItem.id} {...prodItem} />
             ))}
         </div>
       </Section>

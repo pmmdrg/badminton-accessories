@@ -1,5 +1,5 @@
 export interface Import {
-  _id: string;
+  id: string;
   supplierId: string;
   title: string;
   description?: string;

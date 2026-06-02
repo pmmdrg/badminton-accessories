@@ -14,7 +14,7 @@ interface EditSizeModalProps {
   onConfirm: (
     nameSize: string,
     sizeTypeId: string,
-    description: string
+    description: string,
   ) => void;
 }
 
@@ -43,7 +43,7 @@ export default function EditSizeModal({
     ? [
         { label: 'Chưa có', value: '' },
         ...sizeTypes.getAll.data.data.map((st: SizeType) =>
-          normalizedSelectOptions(st.description, st._id)
+          normalizedSelectOptions(st.description, st.id),
         ),
       ]
     : [{ label: 'Chưa có', value: '' }];

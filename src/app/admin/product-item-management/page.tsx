@@ -29,7 +29,7 @@ export default function AdminProductItemPage() {
   const [progress, setProgress] = useState(0);
 
   const filteredProductItems = getAll.data?.data?.filter((pi: ProductItem) =>
-    pi.nameProductItem.toLowerCase().includes(search.toLowerCase())
+    pi.nameProductItem.toLowerCase().includes(search.toLowerCase()),
   );
 
   const totalPages = Math.ceil((filteredProductItems || []).length / 20);
@@ -41,7 +41,7 @@ export default function AdminProductItemPage() {
     nameProductItem: string,
     files: File[],
     price: number,
-    description?: string
+    description?: string,
   ) => {
     let imageUrls: string[] = [];
 
@@ -86,7 +86,7 @@ export default function AdminProductItemPage() {
     nameProductItem: string,
     files: File[],
     price: number,
-    description?: string
+    description?: string,
   ) => {
     let imageUrls: string[] = [];
 
@@ -177,7 +177,7 @@ export default function AdminProductItemPage() {
             {filteredProductItems
               ?.slice((currPage - 1) * 20, (currPage - 1) * 20 + 20)
               .map((productItem: ProductItem) => (
-                <tr key={productItem._id}>
+                <tr key={productItem.id}>
                   <td className='px-4 py-2'>
                     <div className='w-16 h-16 relative'>
                       <Image
@@ -194,7 +194,7 @@ export default function AdminProductItemPage() {
                     </div>
                   </td>
                   <td className='px-4 py-2'>{productItem.nameProductItem}</td>
-                  <td className='px-4 py-2'>{productItem._id}</td>
+                  <td className='px-4 py-2'>{productItem.id}</td>
                   <td className='px-4 py-2 text-rose-700 font-semibold'>
                     {productItem.price.toLocaleString(COUNTRY_CODE.VN)}₫
                   </td>
@@ -211,7 +211,7 @@ export default function AdminProductItemPage() {
                         variant='info'
                         className='px-2 py-1'
                         onClick={() => {
-                          setSelectedId(productItem._id);
+                          setSelectedId(productItem.id);
                           setIsOpenEdit(true);
                         }}
                       >
@@ -221,7 +221,7 @@ export default function AdminProductItemPage() {
                         <Button
                           variant='danger'
                           className='px-2 py-1'
-                          onClick={() => remove.mutate(productItem._id)}
+                          onClick={() => remove.mutate(productItem.id)}
                         >
                           Xoá
                         </Button>
@@ -229,7 +229,7 @@ export default function AdminProductItemPage() {
                         <Button
                           variant='success'
                           className='px-2 py-1'
-                          onClick={() => restore.mutate(productItem._id)}
+                          onClick={() => restore.mutate(productItem.id)}
                         >
                           Khôi phục
                         </Button>

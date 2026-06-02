@@ -17,7 +17,7 @@ export default function ManagerProductPage() {
   const [search, setSearch] = useState('');
 
   const filteredProducts = getAllActive.data?.data?.filter((p: Product) =>
-    p.nameProduct.toLowerCase().includes(search.toLowerCase())
+    p.nameProduct.toLowerCase().includes(search.toLowerCase()),
   );
 
   const totalPages = Math.ceil((filteredProducts || []).length / 20);
@@ -52,7 +52,7 @@ export default function ManagerProductPage() {
           </thead>
           <tbody className='divide-y divide-gray-200'>
             {filteredProducts?.map((product: Product) => (
-              <tr key={product._id}>
+              <tr key={product.id}>
                 <td className='px-4 py-2'>
                   <div className='w-16 h-16 relative'>
                     <Image
@@ -69,7 +69,7 @@ export default function ManagerProductPage() {
                   </div>
                 </td>
                 <td className='px-4 py-2'>{product.nameProduct}</td>
-                <td className='px-4 py-2'>{product._id}</td>
+                <td className='px-4 py-2'>{product.id}</td>
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
                   {product.description}
                 </td>

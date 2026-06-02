@@ -1,7 +1,7 @@
 import { ROLE, STATUS } from '@/lib/constants';
 
 export interface User {
-  _id: string;
+  id: string;
   username: string;
   fullname: string;
   email: string;

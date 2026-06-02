@@ -24,7 +24,7 @@ export default function AdminUserPage() {
   const filteredUsers = getAll.data?.data?.filter(
     (u: User) =>
       u.fullname.toLowerCase().includes(search.toLowerCase()) ||
-      u.username.toLowerCase().includes(search.toLowerCase())
+      u.username.toLowerCase().includes(search.toLowerCase()),
   );
 
   const totalPages = Math.ceil((filteredUsers || []).length / 20);
@@ -33,7 +33,7 @@ export default function AdminUserPage() {
     username: string,
     fullname: string,
     email: string,
-    password: string
+    password: string,
   ) => {
     if (username === '' || fullname === '' || email === '' || password === '')
       return false;
@@ -44,7 +44,7 @@ export default function AdminUserPage() {
     username: string,
     fullname: string,
     email: string,
-    password: string
+    password: string,
   ) => {
     if (!validateForm) return;
 
@@ -91,7 +91,7 @@ export default function AdminUserPage() {
           </thead>
           <tbody className='divide-y divide-gray-200'>
             {filteredUsers?.map((user: User) => (
-              <tr key={user._id}>
+              <tr key={user.id}>
                 <td className='px-4 py-2'>
                   <div className='w-16 h-16 relative'>
                     <Image
@@ -120,7 +120,7 @@ export default function AdminUserPage() {
                       <Button
                         variant='danger'
                         className='px-2 py-1'
-                        onClick={() => lock.mutate(user._id)}
+                        onClick={() => lock.mutate(user.id)}
                       >
                         Khoá
                       </Button>
@@ -128,7 +128,7 @@ export default function AdminUserPage() {
                       <Button
                         variant='success'
                         className='px-2 py-1'
-                        onClick={() => restore.mutate(user._id)}
+                        onClick={() => restore.mutate(user.id)}
                       >
                         Khôi phục
                       </Button>

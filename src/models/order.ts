@@ -1,5 +1,5 @@
 export interface Order {
-  _id: string;
+  id: string;
   userId: string;
   fullname: string;
   totalQuantity: number;
@@ -10,9 +10,9 @@ export interface Order {
   phonenumber: string;
   status: 'processing' | 'shipped' | 'delivered' | 'cancelled' | 'completed';
   namePayment: string;
-  from_district_id: number;
+  from_districtid: number;
   from_ward_code: string;
-  to_district_id: number;
+  to_districtid: number;
   to_ward_code: string;
   cod_amount: number;
   created_at: string;

@@ -44,7 +44,7 @@ export async function updateBrand(
     imageBrand?: string;
     country?: string;
     description?: string;
-  }
+  },
 ) {
   const res = await api.put(`/admin/brand/update?id=${id}`, payload);
   return res.data;

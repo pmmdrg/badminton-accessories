@@ -18,7 +18,7 @@ export default function AdminImportPage() {
   const [isOpen, setIsOpen] = useState(false);
 
   const filteredImports = getAll.data?.data?.filter((i: Import) =>
-    i.title.toLowerCase().includes(search.toLowerCase())
+    i.title.toLowerCase().includes(search.toLowerCase()),
   );
 
   const totalPages = Math.ceil((filteredImports || []).length / 20);
@@ -26,7 +26,7 @@ export default function AdminImportPage() {
   const handleConfirmAdd = async (
     supplierId: string,
     title: string,
-    description?: string
+    description?: string,
   ) => {
     add.mutate({
       supplierId,
@@ -70,7 +70,7 @@ export default function AdminImportPage() {
           </thead>
           <tbody className='divide-y divide-gray-200'>
             {filteredImports?.map((i: Import) => (
-              <tr key={i._id}>
+              <tr key={i.id}>
                 <td className='px-4 py-2'>{i.title}</td>
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
                   {i.description}

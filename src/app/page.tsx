@@ -51,7 +51,7 @@ export default function Homepage() {
         <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6'>
           {productsReversed.slice(0, 5).map((product: Product) => (
             <Card
-              key={product._id}
+              key={product.id}
               title={product.nameProduct}
               description={product.description}
               image={product.imageProduct}
@@ -64,7 +64,7 @@ export default function Homepage() {
         <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6'>
           {brands.getAll.data?.data?.slice(0, 5).map((brand: Brand) => (
             <Card
-              key={brand._id}
+              key={brand.id}
               title={brand.nameBrand}
               description={brand.description}
               image={brand.imageBrand}
@@ -77,7 +77,7 @@ export default function Homepage() {
         <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6'>
           {cates.getAll.data?.data?.slice(0, 5).map((cate: Cate) => (
             <Card
-              key={cate._id}
+              key={cate.id}
               title={cate.nameCate}
               description={cate.description}
               image={cate.imageCate}

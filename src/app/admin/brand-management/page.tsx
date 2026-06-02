@@ -28,7 +28,7 @@ export default function AdminBrandPage() {
   const [progress, setProgress] = useState(0);
 
   const filteredBrands = getAll.data?.data?.filter((b: Brand) =>
-    b.nameBrand.toLowerCase().includes(search.toLowerCase())
+    b.nameBrand.toLowerCase().includes(search.toLowerCase()),
   );
 
   const totalPages = Math.ceil((filteredBrands || []).length / 20);
@@ -37,7 +37,7 @@ export default function AdminBrandPage() {
     brandName: string,
     country: string,
     description?: string,
-    file?: File | null
+    file?: File | null,
   ) => {
     let imageUrl = '';
 
@@ -76,7 +76,7 @@ export default function AdminBrandPage() {
     brandName: string,
     country: string,
     description?: string,
-    file?: File | null
+    file?: File | null,
   ) => {
     let imageUrl = '';
 
@@ -164,7 +164,7 @@ export default function AdminBrandPage() {
           </thead>
           <tbody className='divide-y divide-gray-200'>
             {filteredBrands?.map((brand: Brand) => (
-              <tr key={brand._id}>
+              <tr key={brand.id}>
                 <td className='px-4 py-2'>
                   <div className='w-16 h-16 relative'>
                     <Image
@@ -192,7 +192,7 @@ export default function AdminBrandPage() {
                       variant='info'
                       className='px-2 py-1'
                       onClick={() => {
-                        setSelectedId(brand._id);
+                        setSelectedId(brand.id);
                         setIsOpenEdit(true);
                       }}
                     >
@@ -202,7 +202,7 @@ export default function AdminBrandPage() {
                       <Button
                         variant='danger'
                         className='px-2 py-1'
-                        onClick={() => remove.mutate(brand._id)}
+                        onClick={() => remove.mutate(brand.id)}
                       >
                         Xoá
                       </Button>
@@ -210,7 +210,7 @@ export default function AdminBrandPage() {
                       <Button
                         variant='success'
                         className='px-2 py-1 bg-red-500 hover:bg-red-700 text-white'
-                        onClick={() => restore.mutate(brand._id)}
+                        onClick={() => restore.mutate(brand.id)}
                       >
                         Khôi phục
                       </Button>

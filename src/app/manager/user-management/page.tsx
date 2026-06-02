@@ -18,7 +18,7 @@ export default function ManagerUserPage() {
   const filteredUsers = getAll.data?.data?.filter(
     (u: User) =>
       u.fullname.toLowerCase().includes(search.toLowerCase()) ||
-      u.username.toLowerCase().includes(search.toLowerCase())
+      u.username.toLowerCase().includes(search.toLowerCase()),
   );
 
   const totalPages = Math.ceil((filteredUsers || []).length / 20);
@@ -54,7 +54,7 @@ export default function ManagerUserPage() {
           </thead>
           <tbody className='divide-y divide-gray-200'>
             {filteredUsers?.map((user: User) => (
-              <tr key={user._id}>
+              <tr key={user.id}>
                 <td className='px-4 py-2'>
                   <div className='w-16 h-16 relative'>
                     <Image

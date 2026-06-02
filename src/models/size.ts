@@ -1,7 +1,7 @@
 import { STATUS } from '@/lib/constants';
 
 export interface Size {
-  _id: string;
+  id: string;
   sizeTypeId: string;
   nameSize: string;
   description: string;

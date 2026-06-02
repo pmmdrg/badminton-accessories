@@ -56,7 +56,7 @@ export default function DetailOrderModal({
 
               <p className='text-rose-600 font-bold'>
                 {getDetail.data?.data[0].totalCart?.toLocaleString(
-                  COUNTRY_CODE.VN
+                  COUNTRY_CODE.VN,
                 )}
                 ₫
               </p>
@@ -67,7 +67,7 @@ export default function DetailOrderModal({
 
               <p className='text-rose-600 font-bold'>
                 {getDetail.data?.data[0].shippingFee.toLocaleString(
-                  COUNTRY_CODE.VN
+                  COUNTRY_CODE.VN,
                 )}
                 ₫
               </p>
@@ -79,7 +79,7 @@ export default function DetailOrderModal({
 
             <p className='text-rose-600 font-bold'>
               {getDetail.data?.data[0].totalCartOrder.toLocaleString(
-                COUNTRY_CODE.VN
+                COUNTRY_CODE.VN,
               )}
               ₫
             </p>
@@ -119,7 +119,7 @@ export default function DetailOrderModal({
             (detail: DetailOrder, index: number) => (
               <>
                 <div className='h-px bg-black' />
-                <div key={detail._id} className='flex gap-8 items-center'>
+                <div key={detail.id} className='flex gap-8 items-center'>
                   <p className='text-lg font-semibold'>{index + 1}</p>
                   <Image
                     src={
@@ -151,7 +151,7 @@ export default function DetailOrderModal({
                       <p className='font-medium'>Tổng giá trị mặt hàng:</p>
                       <p className='text-rose-600 font-bold'>
                         {detail.totalPriceCartItem.toLocaleString(
-                          COUNTRY_CODE.VN
+                          COUNTRY_CODE.VN,
                         )}
                         ₫
                       </p>
@@ -159,7 +159,7 @@ export default function DetailOrderModal({
                   </div>
                 </div>
               </>
-            )
+            ),
           )}
         </div>
       )}

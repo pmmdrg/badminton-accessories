@@ -26,7 +26,7 @@ export default function AddImportModal({
     ? [
         { label: 'Chưa có', value: '' },
         ...getAll.data.data.map((supplier: Supplier) =>
-          normalizedSelectOptions(supplier.nameSupplier, supplier._id)
+          normalizedSelectOptions(supplier.nameSupplier, supplier.id),
         ),
       ]
     : [{ label: 'Chưa có', value: '' }];

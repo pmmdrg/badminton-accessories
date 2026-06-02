@@ -2,6 +2,7 @@ import api from '@/lib/api';
 
 export async function findAllProductItemActive() {
   const res = await api.get('/productitem');
+
   return res.data;
 }
 

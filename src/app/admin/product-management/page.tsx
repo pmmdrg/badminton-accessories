@@ -29,7 +29,7 @@ export default function AdminProductPage() {
   const [progress, setProgress] = useState(0);
 
   const filteredProducts = getAll.data?.data?.filter((p: Product) =>
-    p.nameProduct.toLowerCase().includes(search.toLowerCase())
+    p.nameProduct.toLowerCase().includes(search.toLowerCase()),
   );
 
   const totalPages = Math.ceil((filteredProducts || []).length / 20);
@@ -40,7 +40,7 @@ export default function AdminProductPage() {
     sizeType: string,
     nameProduct: string,
     description?: string,
-    file?: File | null
+    file?: File | null,
   ) => {
     let imageUrl = '';
 
@@ -82,7 +82,7 @@ export default function AdminProductPage() {
   const handleConfirmEdit = async (
     nameProduct: string,
     description?: string,
-    file?: File | null
+    file?: File | null,
   ) => {
     let imageUrl = '';
 
@@ -168,7 +168,7 @@ export default function AdminProductPage() {
           </thead>
           <tbody className='divide-y divide-gray-200'>
             {filteredProducts?.map((product: Product) => (
-              <tr key={product._id}>
+              <tr key={product.id}>
                 <td className='px-4 py-2'>
                   <div className='w-16 h-16 relative'>
                     <Image
@@ -185,7 +185,7 @@ export default function AdminProductPage() {
                   </div>
                 </td>
                 <td className='px-4 py-2'>{product.nameProduct}</td>
-                <td className='px-4 py-2'>{product._id}</td>
+                <td className='px-4 py-2'>{product.id}</td>
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
                   {product.description}
                 </td>
@@ -199,7 +199,7 @@ export default function AdminProductPage() {
                       variant='info'
                       className='px-2 py-1'
                       onClick={() => {
-                        setSelectedId(product._id);
+                        setSelectedId(product.id);
                         setIsOpenEdit(true);
                       }}
                     >
@@ -209,7 +209,7 @@ export default function AdminProductPage() {
                       <Button
                         variant='danger'
                         className='px-2 py-1'
-                        onClick={() => remove.mutate(product._id)}
+                        onClick={() => remove.mutate(product.id)}
                       >
                         Xoá
                       </Button>
@@ -217,7 +217,7 @@ export default function AdminProductPage() {
                       <Button
                         variant='success'
                         className='px-2 py-1'
-                        onClick={() => restore.mutate(product._id)}
+                        onClick={() => restore.mutate(product.id)}
                       >
                         Khôi phục
                       </Button>

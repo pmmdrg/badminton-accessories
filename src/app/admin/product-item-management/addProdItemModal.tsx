@@ -21,7 +21,7 @@ interface AddProdItemModalProps {
     nameProductItem: string,
     files: File[],
     price: number,
-    description?: string
+    description?: string,
   ) => void;
 }
 
@@ -51,7 +51,7 @@ export default function AddProdItemModal({
     ? [
         { label: 'Chưa có', value: '' },
         ...products.getAll.data.data.map((product: Product) =>
-          normalizedSelectOptions(product.nameProduct, product._id)
+          normalizedSelectOptions(product.nameProduct, product.id),
         ),
       ]
     : [{ label: 'Chưa có', value: '' }];
@@ -60,7 +60,7 @@ export default function AddProdItemModal({
     ? [
         { label: 'Chưa có', value: '' },
         ...getBySizeTypeId.data.data.map((size: Size) =>
-          normalizedSelectOptions(size.nameSize, size._id)
+          normalizedSelectOptions(size.nameSize, size.id),
         ),
       ]
     : [{ label: 'Chưa có', value: '' }];
@@ -69,7 +69,7 @@ export default function AddProdItemModal({
     ? [
         { label: 'Chưa có', value: '' },
         ...colors.getAll.data.data.map((color: Color) =>
-          normalizedSelectOptions(color.description, color._id)
+          normalizedSelectOptions(color.description, color.id),
         ),
       ]
     : [{ label: 'Chưa có', value: '' }];
@@ -109,7 +109,7 @@ export default function AddProdItemModal({
           productItemName,
           files,
           price,
-          description
+          description,
         );
         resetState();
         setIsOpen(false);
@@ -125,7 +125,7 @@ export default function AddProdItemModal({
             setProductName(value);
 
             const foundProd = products.getAll.data?.data?.filter(
-              (product: Product) => product._id === value
+              (product: Product) => product.id === value,
             );
 
             if (foundProd.length > 0) {

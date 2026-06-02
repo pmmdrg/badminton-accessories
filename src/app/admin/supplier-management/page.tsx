@@ -21,7 +21,7 @@ export default function AdminSupplierPage() {
   const [isOpenEdit, setIsOpenEdit] = useState(false);
 
   const filteredSuppliers = getAll.data?.data?.filter((s: Supplier) =>
-    s.nameSupplier.toLowerCase().includes(search.toLowerCase())
+    s.nameSupplier.toLowerCase().includes(search.toLowerCase()),
   );
 
   const totalPages = Math.ceil((filteredSuppliers || []).length / 20);
@@ -88,7 +88,7 @@ export default function AdminSupplierPage() {
           </thead>
           <tbody className='divide-y divide-gray-200'>
             {filteredSuppliers?.map((supplier: Supplier) => (
-              <tr key={supplier._id}>
+              <tr key={supplier.id}>
                 <td className='px-4 py-2'>{supplier.nameSupplier}</td>
 
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
@@ -107,7 +107,7 @@ export default function AdminSupplierPage() {
                       variant='info'
                       className='px-2 py-1'
                       onClick={() => {
-                        setSelectedId(supplier._id);
+                        setSelectedId(supplier.id);
                         setIsOpenEdit(true);
                       }}
                     >
@@ -117,7 +117,7 @@ export default function AdminSupplierPage() {
                       <Button
                         variant='danger'
                         className='px-2 py-1'
-                        onClick={() => remove.mutate(supplier._id)}
+                        onClick={() => remove.mutate(supplier.id)}
                       >
                         Xoá
                       </Button>
@@ -125,7 +125,7 @@ export default function AdminSupplierPage() {
                       <Button
                         variant='success'
                         className='px-2 py-1'
-                        onClick={() => restore.mutate(supplier._id)}
+                        onClick={() => restore.mutate(supplier.id)}
                       >
                         Khôi phục
                       </Button>

@@ -31,7 +31,7 @@ export default function OrderHistoryPage() {
       ) : (
         <div className='flex flex-col gap-6'>
           {getAll.data?.data?.map((order: Order) => (
-            <div key={order._id}>
+            <div key={order.id}>
               <div className='border rounded-2xl p-6 shadow-sm bg-white'>
                 <div className='flex justify-between items-center mb-4'>
                   <span className='font-medium text-rose-700'>
@@ -40,7 +40,7 @@ export default function OrderHistoryPage() {
                   <Button
                     variant='info'
                     onClick={() => {
-                      setSelected(order._id);
+                      setSelected(order.id);
                       setIsOpen(true);
                     }}
                   >
@@ -71,7 +71,7 @@ export default function OrderHistoryPage() {
                   <div className='font-medium'>{order.namePayment}</div>
 
                   {order.status === 'delivered' && (
-                    <Button onClick={() => complete.mutate(order._id)}>
+                    <Button onClick={() => complete.mutate(order.id)}>
                       Đã nhận được hàng
                     </Button>
                   )}

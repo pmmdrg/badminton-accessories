@@ -19,7 +19,7 @@ export default function ManagerProductItemPage() {
 
   const filteredProductItems = getAllActive.data?.data?.filter(
     (pi: ProductItem) =>
-      pi.nameProductItem.toLowerCase().includes(search.toLowerCase())
+      pi.nameProductItem.toLowerCase().includes(search.toLowerCase()),
   );
 
   const totalPages = Math.ceil((filteredProductItems || []).length / 20);
@@ -58,7 +58,7 @@ export default function ManagerProductItemPage() {
             {filteredProductItems
               ?.slice((currPage - 1) * 20, (currPage - 1) * 20 + 20)
               .map((productItem: ProductItem) => (
-                <tr key={productItem._id}>
+                <tr key={productItem.id}>
                   <td className='px-4 py-2'>
                     <div className='w-16 h-16 relative'>
                       <Image
@@ -75,7 +75,7 @@ export default function ManagerProductItemPage() {
                     </div>
                   </td>
                   <td className='px-4 py-2'>{productItem.nameProductItem}</td>
-                  <td className='px-4 py-2'>{productItem._id}</td>
+                  <td className='px-4 py-2'>{productItem.id}</td>
                   <td className='px-4 py-2 text-rose-700 font-semibold'>
                     {productItem.price.toLocaleString(COUNTRY_CODE.VN)}₫
                   </td>

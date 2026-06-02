@@ -21,7 +21,7 @@ export default function AdminPaymentPage() {
   const [isOpenEdit, setIsOpenEdit] = useState(false);
 
   const filteredPayments = getAll.data?.data?.filter((s: Payment) =>
-    s.namePayment.toLowerCase().includes(search.toLowerCase())
+    s.namePayment.toLowerCase().includes(search.toLowerCase()),
   );
 
   const totalPages = Math.ceil((filteredPayments || []).length / 20);
@@ -87,7 +87,7 @@ export default function AdminPaymentPage() {
           </thead>
           <tbody className='divide-y divide-gray-200'>
             {filteredPayments?.map((payment: Payment) => (
-              <tr key={payment._id}>
+              <tr key={payment.id}>
                 <td className='px-4 py-2'>{payment.namePayment}</td>
                 <td className='px-4 py-2'>{capitalizeFirst(payment.status)}</td>
                 <td className='px-4 py-2'>
@@ -99,7 +99,7 @@ export default function AdminPaymentPage() {
                       variant='info'
                       className='px-2 py-1'
                       onClick={() => {
-                        setSelectedId(payment._id);
+                        setSelectedId(payment.id);
                         setIsOpenEdit(true);
                       }}
                     >
@@ -109,7 +109,7 @@ export default function AdminPaymentPage() {
                       <Button
                         variant='danger'
                         className='px-2 py-1'
-                        onClick={() => remove.mutate(payment._id)}
+                        onClick={() => remove.mutate(payment.id)}
                       >
                         Xoá
                       </Button>
@@ -117,7 +117,7 @@ export default function AdminPaymentPage() {
                       <Button
                         variant='success'
                         className='px-2 py-1'
-                        onClick={() => restore.mutate(payment._id)}
+                        onClick={() => restore.mutate(payment.id)}
                       >
                         Khôi phục
                       </Button>

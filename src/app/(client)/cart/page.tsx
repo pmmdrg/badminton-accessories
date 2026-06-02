@@ -24,7 +24,7 @@ export default function CartPage() {
     district,
     ward,
     address,
-    phoneNumber
+    phoneNumber,
   );
   const { edit, remove } = useCartItem();
   const router = useRouter();
@@ -34,7 +34,7 @@ export default function CartPage() {
         { label: 'Tỉnh/Thành phố', value: 0 },
         ...getProvince.data.data.map(
           (p: { ProvinceName: string; ProvinceID: number }) =>
-            normalizedSelectOptions(p.ProvinceName, p.ProvinceID)
+            normalizedSelectOptions(p.ProvinceName, p.ProvinceID),
         ),
       ]
     : [{ label: 'Tỉnh/Thành phố', value: 0 }];
@@ -44,7 +44,7 @@ export default function CartPage() {
         { label: 'Quận/Huyện', value: 0 },
         ...getDistrict.data.data.map(
           (d: { DistrictName: string; DistrictID: number }) =>
-            normalizedSelectOptions(d.DistrictName, d.DistrictID)
+            normalizedSelectOptions(d.DistrictName, d.DistrictID),
         ),
       ]
     : [{ label: 'Quận/Huyện', value: 0 }];
@@ -53,7 +53,7 @@ export default function CartPage() {
     ? [
         { label: 'Phường/Xã', value: '' },
         ...getWard.data.data.map((w: { WardName: string; WardCode: string }) =>
-          normalizedSelectOptions(w.WardName, w.WardCode)
+          normalizedSelectOptions(w.WardName, w.WardCode),
         ),
       ]
     : [{ label: 'Phường/Xã', value: '' }];
@@ -75,7 +75,7 @@ export default function CartPage() {
           {getByUserId.data?.data?.items?.length > 0 ? (
             getByUserId.data.data.items.map((item: CartItem) => (
               <CartTile
-                key={item._id}
+                key={item.id}
                 cartItem={item}
                 onQuantityChange={handleQuantityChange}
                 onRemove={handleRemove}
@@ -104,7 +104,7 @@ export default function CartPage() {
             {totalFee.data && (
               <span className='text-2xl font-bold text-rose-700'>
                 {totalFee.data.data?.shippingFee?.toLocaleString(
-                  COUNTRY_CODE.VN
+                  COUNTRY_CODE.VN,
                 )}
                 ₫
               </span>
@@ -118,7 +118,7 @@ export default function CartPage() {
             {totalFee.data && (
               <span className='text-2xl font-bold text-rose-700'>
                 {totalFee.data.data?.totalCartOrder?.toLocaleString(
-                  COUNTRY_CODE.VN
+                  COUNTRY_CODE.VN,
                 )}
                 ₫
               </span>
@@ -129,8 +129,8 @@ export default function CartPage() {
             onClick={() =>
               router.push(
                 `/checkout?district=${district}&ward=${ward}&address=${encodeURIComponent(
-                  address
-                )}&phone=${phoneNumber}`
+                  address,
+                )}&phone=${phoneNumber}`,
               )
             }
             className='mt-2 self-end'

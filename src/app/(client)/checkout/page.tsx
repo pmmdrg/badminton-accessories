@@ -38,7 +38,7 @@ export default function CheckoutPage() {
     districtId,
     wardCode,
     addressUser,
-    phoneNumber
+    phoneNumber,
   );
   const { getAll, vnpayReturn, cod, vnpay } = usePaymentClient(
     '',
@@ -54,7 +54,7 @@ export default function CheckoutPage() {
     vnpTransactionNo,
     vnpTransactionStatus,
     vnpTxnRef,
-    vnpSecureHash
+    vnpSecureHash,
   );
   const [paymentMethod, setPaymentMethod] = useState('');
 
@@ -62,7 +62,7 @@ export default function CheckoutPage() {
     ? [
         { label: 'Phương thức thanh toán', value: '' },
         ...getAll.data.data.map((p: Payment) =>
-          normalizedSelectOptions(p.namePayment, p.namePayment)
+          normalizedSelectOptions(p.namePayment, p.namePayment),
         ),
       ]
     : [{ label: 'Phương thức thanh toán', value: '' }];
@@ -96,7 +96,7 @@ export default function CheckoutPage() {
                   return (
                     ci.status === 'tick' && (
                       <div
-                        key={ci._id}
+                        key={ci.id}
                         className='border border-gray-200 rounded-lg p-4 space-y-4'
                       >
                         <div className='flex items-center justify-between'>
@@ -124,7 +124,7 @@ export default function CheckoutPage() {
                           </div>
                           <p className='font-semibold'>
                             {ci.totalPriceCartItem.toLocaleString(
-                              COUNTRY_CODE.VN
+                              COUNTRY_CODE.VN,
                             )}
                             ₫
                           </p>
@@ -141,7 +141,7 @@ export default function CheckoutPage() {
               {totalFee.data && (
                 <span>
                   {totalFee.data.data?.totalCart?.toLocaleString(
-                    COUNTRY_CODE.VN
+                    COUNTRY_CODE.VN,
                   )}
                   ₫
                 </span>
@@ -153,7 +153,7 @@ export default function CheckoutPage() {
               {totalFee.data && (
                 <span>
                   {totalFee.data.data?.shippingFee?.toLocaleString(
-                    COUNTRY_CODE.VN
+                    COUNTRY_CODE.VN,
                   )}
                   ₫
                 </span>
@@ -165,7 +165,7 @@ export default function CheckoutPage() {
               {totalFee.data && (
                 <span>
                   {totalFee.data.data?.totalCartOrder?.toLocaleString(
-                    COUNTRY_CODE.VN
+                    COUNTRY_CODE.VN,
                   )}
                   ₫
                 </span>

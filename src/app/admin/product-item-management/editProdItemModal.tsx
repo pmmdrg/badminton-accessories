@@ -20,7 +20,7 @@ interface EditProdItemModalProps {
     nameProductItem: string,
     files: File[],
     price: number,
-    description?: string
+    description?: string,
   ) => void;
 }
 
@@ -39,7 +39,7 @@ export default function EditProdItemModal({
   const sizes = useSizeAdmin(
     getById.data?.data?.sizeId,
     '',
-    product?.sizeTypeId
+    product?.sizeTypeId,
   );
 
   const [productName, setProductName] = useState('');
@@ -63,7 +63,7 @@ export default function EditProdItemModal({
 
     if (!products.getById.data?.data) return;
     setProduct(products.getById.data.data);
-    setProductName(products.getById.data.data._id);
+    setProductName(products.getById.data.data.id);
 
     if (!sizes.getBySizeTypeId.data?.data) return;
     setSize(getById.data.data.sizeId);
@@ -73,7 +73,7 @@ export default function EditProdItemModal({
     ? [
         { label: 'Chưa có', value: '' },
         ...products.getAll.data.data.map((product: Product) =>
-          normalizedSelectOptions(product.nameProduct, product._id)
+          normalizedSelectOptions(product.nameProduct, product.id),
         ),
       ]
     : [{ label: 'Chưa có', value: '' }];
@@ -82,7 +82,7 @@ export default function EditProdItemModal({
     ? [
         { label: 'Chưa có', value: '' },
         ...sizes.getBySizeTypeId.data.data.map((size: Size) =>
-          normalizedSelectOptions(size.nameSize, size._id)
+          normalizedSelectOptions(size.nameSize, size.id),
         ),
       ]
     : [{ label: 'Chưa có', value: '' }];
@@ -91,7 +91,7 @@ export default function EditProdItemModal({
     ? [
         { label: 'Chưa có', value: '' },
         ...colors.getAll.data.data.map((color: Color) =>
-          normalizedSelectOptions(color.description, color._id)
+          normalizedSelectOptions(color.description, color.id),
         ),
       ]
     : [{ label: 'Chưa có', value: '' }];
@@ -139,7 +139,7 @@ export default function EditProdItemModal({
             setProductName(value);
 
             const foundProd = products.getAll.data?.data?.filter(
-              (product: Product) => product._id === value
+              (product: Product) => product.id === value,
             );
 
             if (foundProd.length > 0) {
@@ -212,7 +212,7 @@ export default function EditProdItemModal({
                   alt='Preview'
                   className='object-cover rounded-lg'
                 />
-              )
+              ),
           )}
         </div>
       </div>

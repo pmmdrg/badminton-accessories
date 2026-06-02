@@ -16,7 +16,7 @@ export default function ManagerBrandPage() {
   const [search, setSearch] = useState('');
 
   const filteredBrands = getAll.data?.data?.filter((b: Brand) =>
-    b.nameBrand.toLowerCase().includes(search.toLowerCase())
+    b.nameBrand.toLowerCase().includes(search.toLowerCase()),
   );
 
   const totalPages = Math.ceil((filteredBrands || []).length / 20);
@@ -51,7 +51,7 @@ export default function ManagerBrandPage() {
           </thead>
           <tbody className='divide-y divide-gray-200'>
             {filteredBrands?.map((brand: Brand) => (
-              <tr key={brand._id}>
+              <tr key={brand.id}>
                 <td className='px-4 py-2'>
                   <div className='w-16 h-16 relative'>
                     <Image

@@ -14,7 +14,7 @@ interface AddImportDetailModalProps {
   onConfirm: (
     importId: string,
     quantity: number,
-    productItem: ProductItem | null
+    productItem: ProductItem | null,
   ) => void;
 }
 
@@ -34,7 +34,7 @@ export default function AddImportModal({
     ? [
         { label: 'Chưa có', value: '' },
         ...imports.getAll.data.data.map((imp: Import) =>
-          normalizedSelectOptions(imp.title, imp._id)
+          normalizedSelectOptions(imp.title, imp.id),
         ),
       ]
     : [{ label: 'Chưa có', value: '' }];
@@ -43,7 +43,7 @@ export default function AddImportModal({
     ? [
         { label: 'Chưa có', value: '' },
         ...productItems.getAll.data.data.map((pi: ProductItem) =>
-          normalizedSelectOptions(pi.nameProductItem, pi._id)
+          normalizedSelectOptions(pi.nameProductItem, pi.id),
         ),
       ]
     : [{ label: 'Chưa có', value: '' }];
@@ -86,7 +86,7 @@ export default function AddImportModal({
             setProductItemName(value);
 
             const foundProdItem = productItems.getAll.data?.data?.filter(
-              (pi: ProductItem) => pi._id === value
+              (pi: ProductItem) => pi.id === value,
             );
 
             if (foundProdItem.length > 0) {

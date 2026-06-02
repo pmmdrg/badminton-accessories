@@ -21,7 +21,7 @@ export default function ManagerOrderPage() {
   const filteredOrders = getAll.data?.data?.filter(
     (o: Order) =>
       o.fullname.toLowerCase().includes(search.toLowerCase()) ||
-      o.phonenumber.toLowerCase().includes(search.toLowerCase())
+      o.phonenumber.toLowerCase().includes(search.toLowerCase()),
   );
 
   const totalPages = Math.ceil((filteredOrders || []).length / 20);
@@ -61,10 +61,10 @@ export default function ManagerOrderPage() {
           <tbody className='divide-y divide-gray-200'>
             {filteredOrders?.map((order: Order) => (
               <tr
-                key={order._id}
+                key={order.id}
                 onClick={(e) => {
                   e.stopPropagation();
-                  setSelectedId(order._id);
+                  setSelectedId(order.id);
                   setIsOpen(true);
                 }}
                 className='cursor-pointer'
@@ -91,7 +91,7 @@ export default function ManagerOrderPage() {
                     <Button
                       variant='success'
                       className='px-2 py-1'
-                      onClick={() => deliver.mutate(order._id)}
+                      onClick={() => deliver.mutate(order.id)}
                     >
                       Vận chuyển
                     </Button>

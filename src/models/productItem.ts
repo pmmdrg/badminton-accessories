@@ -1,7 +1,7 @@
 import { STATUS } from '@/lib/constants';
 
 export interface ProductItem {
-  _id: string;
+  id: string;
   productId: string;
   sizeId: string;
   colorId: string;

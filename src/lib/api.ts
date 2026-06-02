@@ -8,11 +8,11 @@ interface FailedRequest {
 }
 
 const refreshApi = axios.create({
-  baseURL: process.env.API_URL || 'http://localhost:8080',
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080',
 });
 
 const api = axios.create({
-  baseURL: process.env.API_URL || 'http://localhost:8080',
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -62,7 +62,7 @@ api.interceptors.response.use(
           const decode = jwtDecode<DecodePayload>(accessToken);
 
           console.log(
-            `prepare to get new access token for role ${decode.role} with refresh token ${refreshToken}`
+            `prepare to get new access token for role ${decode.role} with refresh token ${refreshToken}`,
           );
 
           const { data } = await refreshApi.get(`/${decode.role}/renew`, {
@@ -96,7 +96,7 @@ api.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export default api;

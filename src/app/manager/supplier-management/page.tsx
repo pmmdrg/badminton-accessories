@@ -14,7 +14,7 @@ export default function ManagerSupplierPage() {
   const [search, setSearch] = useState('');
 
   const filteredSuppliers = getAll.data?.data?.filter((s: Supplier) =>
-    s.nameSupplier.toLowerCase().includes(search.toLowerCase())
+    s.nameSupplier.toLowerCase().includes(search.toLowerCase()),
   );
 
   const totalPages = Math.ceil((filteredSuppliers || []).length / 20);
@@ -47,7 +47,7 @@ export default function ManagerSupplierPage() {
           </thead>
           <tbody className='divide-y divide-gray-200'>
             {filteredSuppliers?.map((supplier: Supplier) => (
-              <tr key={supplier._id}>
+              <tr key={supplier.id}>
                 <td className='px-4 py-2'>{supplier.nameSupplier}</td>
 
                 <td className='px-4 py-2 text-rose-700 font-semibold'>

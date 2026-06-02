@@ -1,5 +1,5 @@
 export interface ImportDetail {
-  _id: string;
+  id: string;
   importId: string;
   productItemId: string;
   colorId: string;

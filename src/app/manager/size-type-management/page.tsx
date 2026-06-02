@@ -14,7 +14,7 @@ export default function ManagerSizeTypePage() {
   const [search, setSearch] = useState('');
 
   const filteredSizeTypes = getAll.data?.data?.filter((b: SizeType) =>
-    b.nameSizeType.toLowerCase().includes(search.toLowerCase())
+    b.nameSizeType.toLowerCase().includes(search.toLowerCase()),
   );
 
   const totalPages = Math.ceil((filteredSizeTypes || []).length / 20);
@@ -47,7 +47,7 @@ export default function ManagerSizeTypePage() {
           </thead>
           <tbody className='divide-y divide-gray-200'>
             {filteredSizeTypes?.map((sizeType: SizeType) => (
-              <tr key={sizeType._id}>
+              <tr key={sizeType.id}>
                 <td className='px-4 py-2'>{sizeType.nameSizeType}</td>
                 <td className='px-4 py-2'>{sizeType.description}</td>
                 <td className='px-4 py-2'>

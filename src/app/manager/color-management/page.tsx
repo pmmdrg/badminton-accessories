@@ -15,7 +15,7 @@ export default function ManagerColorPage() {
   const [search, setSearch] = useState('');
 
   const filteredColors = getAll.data?.data?.filter((b: Color) =>
-    b.nameColor.toLowerCase().includes(search.toLowerCase())
+    b.nameColor.toLowerCase().includes(search.toLowerCase()),
   );
 
   const totalPages = Math.ceil((filteredColors || []).length / 20);
@@ -48,7 +48,7 @@ export default function ManagerColorPage() {
           </thead>
           <tbody className='divide-y divide-gray-200'>
             {filteredColors?.map((color: Color) => (
-              <tr key={color._id}>
+              <tr key={color.id}>
                 <td className='px-4 py-2'>{color.nameColor}</td>
                 <td className='px-4 py-2'>{color.description}</td>
                 <td className='px-4 py-2'>{capitalizeFirst(color.status)}</td>

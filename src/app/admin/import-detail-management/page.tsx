@@ -20,7 +20,7 @@ export default function AdminImportDetailPage() {
   const [isOpen, setIsOpen] = useState(false);
 
   const filteredImportDetails = getAll.data?.data?.filter((i: ImportDetail) =>
-    i.productItemName.toLowerCase().includes(search.toLowerCase())
+    i.productItemName.toLowerCase().includes(search.toLowerCase()),
   );
 
   const totalPages = Math.ceil((filteredImportDetails || []).length / 20);
@@ -28,12 +28,12 @@ export default function AdminImportDetailPage() {
   const handleConfirmAdd = async (
     importId: string,
     quantity: number,
-    productItem: ProductItem | null
+    productItem: ProductItem | null,
   ) => {
     if (productItem)
       add.mutate({
         importId,
-        productItemId: productItem._id,
+        productItemId: productItem.id,
         productItemName: productItem.nameProductItem,
         colorId: productItem.colorId,
         sizeId: productItem.sizeId,
@@ -81,7 +81,7 @@ export default function AdminImportDetailPage() {
           </thead>
           <tbody className='divide-y divide-gray-200'>
             {filteredImportDetails?.map((iDetail: ImportDetail) => (
-              <tr key={iDetail._id}>
+              <tr key={iDetail.id}>
                 <td className='px-4 py-2'>
                   <div className='w-16 h-16 relative'>
                     <Image

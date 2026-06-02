@@ -6,5 +6,5 @@ export interface DetailOrder {
   productItemId: string;
   quantity: number;
   totalPriceCartItem: number;
-  _id: string;
+  id: string;
 }

@@ -20,20 +20,20 @@ export default function CartTile({
   const { tick, untick } = useCart();
 
   const increase = () => {
-    onQuantityChange(cartItem._id, cartItem.quantity + 1);
+    onQuantityChange(cartItem.id, cartItem.quantity + 1);
   };
 
   const decrease = () => {
-    onQuantityChange(cartItem._id, cartItem.quantity - 1);
+    onQuantityChange(cartItem.id, cartItem.quantity - 1);
   };
 
   const handleTick = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
       setIsChecked(true);
-      tick.mutate(cartItem._id);
+      tick.mutate(cartItem.id);
     } else {
       setIsChecked(false);
-      untick.mutate(cartItem._id);
+      untick.mutate(cartItem.id);
     }
   };
 
@@ -63,7 +63,7 @@ export default function CartTile({
               isValidImageSrc(cartItem.imageProductItem)
               ? 'object-cover'
               : 'object-contain',
-            'transition-transform duration-500 group-hover:scale-105'
+            'transition-transform duration-500 group-hover:scale-105',
           )}
         />
       </div>
@@ -97,7 +97,7 @@ export default function CartTile({
           đ
         </p>
 
-        <Button variant='ghost' onClick={() => onRemove(cartItem._id)}>
+        <Button variant='ghost' onClick={() => onRemove(cartItem.id)}>
           Xoá
         </Button>
       </div>

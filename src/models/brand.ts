@@ -1,7 +1,7 @@
 import { STATUS } from '@/lib/constants';
 
 export interface Brand {
-  _id: string;
+  id: string;
   nameBrand: string;
   imageBrand?: string;
   description?: string;
