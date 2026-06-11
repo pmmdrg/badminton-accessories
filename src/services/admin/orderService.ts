@@ -44,10 +44,10 @@ export async function getAllOrderCancelled() {
 
 export async function getAllOrderCreatedByTime(
   startDate: string,
-  endDate: string
+  endDate: string,
 ) {
   const res = await api.get(
-    `/admin/order/order-created/time?startDate=${startDate}&endDate=${endDate}`
+    `/admin/order/order-created/time?startDate=${startDate}&endDate=${endDate}`,
   );
 
   return res.data;
@@ -55,10 +55,10 @@ export async function getAllOrderCreatedByTime(
 
 export async function getAllOrderShippedByTime(
   startDate: string,
-  endDate: string
+  endDate: string,
 ) {
   const res = await api.get(
-    `/admin/order/order-shipped/time?startDate=${startDate}&endDate=${endDate}`
+    `/admin/order/order-shipped/time?startDate=${startDate}&endDate=${endDate}`,
   );
 
   return res.data;
@@ -66,10 +66,10 @@ export async function getAllOrderShippedByTime(
 
 export async function getAllOrderDeliveredByTime(
   startDate: string,
-  endDate: string
+  endDate: string,
 ) {
   const res = await api.get(
-    `/admin/order/order-delivered/time?startDate=${startDate}&endDate=${endDate}`
+    `/admin/order/order-delivered/time?startDate=${startDate}&endDate=${endDate}`,
   );
 
   return res.data;
@@ -77,10 +77,10 @@ export async function getAllOrderDeliveredByTime(
 
 export async function getAllOrderCompletedByTime(
   startDate: string,
-  endDate: string
+  endDate: string,
 ) {
   const res = await api.get(
-    `/admin/order/order-completed/time?startDate=${startDate}&endDate=${endDate}`
+    `/admin/order/order-completed/time?startDate=${startDate}&endDate=${endDate}`,
   );
 
   return res.data;

@@ -1,6 +1,8 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+
 import {
   loginUser,
   logOut,
@@ -22,11 +24,30 @@ export default function useAuth() {
   const router = useRouter();
   const { addToast } = useToast();
 
+  const [userId, setUserId] = useState('');
+
+  useEffect(() => {
+    const token = localStorage.getItem('access_token');
+
+    if (!token) {
+      setUserId('');
+      return;
+    }
+
+    try {
+      const decode = jwtDecode<DecodePayload>(token);
+      setUserId(decode?.sub || '');
+    } catch {
+      setUserId('');
+    }
+  }, []);
+
   const login = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
       if (data?.data?.access_token && data?.data?.refresh_token) {
         const decode = jwtDecode<DecodePayload>(data.data.access_token);
+        setUserId(decode?.sub || '');
 
         localStorage.setItem('access_token', data.data.access_token);
         localStorage.setItem('refresh_token', data.data.refresh_token);
@@ -191,6 +212,7 @@ export default function useAuth() {
   });
 
   return {
+    userId,
     login,
     registerUser,
     registerAdmin,

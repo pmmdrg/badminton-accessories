@@ -36,18 +36,18 @@ export default function DetailOrderModal({
           <div className='flex gap-40'>
             <div className='flex gap-2'>
               <p className='font-medium'>Người đặt hàng:</p>
-              {getDetail.data?.data[0].fullname}
+              {getDetail.data?.data.fullname}
             </div>
 
             <div className='flex gap-2'>
               <p className='font-medium'>SĐT:</p>
-              {getDetail.data?.data[0].phonenumber}
+              {getDetail.data?.data.phonenumber}
             </div>
           </div>
 
           <div className='my-4 flex gap-2'>
             <p className='font-medium'>Số lượng sản phẩm:</p>
-            {getDetail.data?.data[0].totalQuantity}
+            {getDetail.data?.data.totalQuantity}
           </div>
 
           <div className='flex gap-40 my-4'>
@@ -55,7 +55,7 @@ export default function DetailOrderModal({
               <p className='font-medium'>Giá trị giỏ hàng:</p>
 
               <p className='text-rose-600 font-bold'>
-                {getDetail.data?.data[0].totalCart?.toLocaleString(
+                {getDetail.data?.data.totalCart?.toLocaleString(
                   COUNTRY_CODE.VN,
                 )}
                 ₫
@@ -66,7 +66,7 @@ export default function DetailOrderModal({
               <p className='font-medium'>Phí ship:</p>
 
               <p className='text-rose-600 font-bold'>
-                {getDetail.data?.data[0].shippingFee.toLocaleString(
+                {getDetail.data?.data.shippingFee.toLocaleString(
                   COUNTRY_CODE.VN,
                 )}
                 ₫
@@ -78,7 +78,7 @@ export default function DetailOrderModal({
             <p className='font-medium'>Tổng giá trị đơn hàng:</p>
 
             <p className='text-rose-600 font-bold'>
-              {getDetail.data?.data[0].totalCartOrder.toLocaleString(
+              {getDetail.data?.data.totalCartOrder.toLocaleString(
                 COUNTRY_CODE.VN,
               )}
               ₫
@@ -87,35 +87,35 @@ export default function DetailOrderModal({
 
           <div className='my-4 flex gap-2'>
             <p className='font-medium'>Địa chỉ đặt hàng:</p>{' '}
-            {getDetail.data?.data[0].address}
+            {getDetail.data?.data.address}
           </div>
 
           <div className='my-4 flex gap-2'>
             <p className='font-medium'>Trạng thái đơn hàng:</p>
-            {capitalizeFirst(getDetail.data?.data[0].status)}
+            {capitalizeFirst(getDetail.data?.data.status)}
           </div>
 
           <div className='my-4 flex gap-2'>
             <p className='font-medium'>Phương thức thanh toán:</p>
-            {getDetail.data?.data[0].namePayment}
+            {getDetail.data?.data.namePayment}
           </div>
 
           <div className='my-4 flex gap-2'>
             <p className='font-medium'>Ngày đặt hàng:</p>
-            <p>{normalizedDate(getDetail.data?.data[0].created_at)}</p>
+            <p>{normalizedDate(getDetail.data?.data.created_at)}</p>
           </div>
 
           <div className='my-4 flex gap-2'>
             <p className='font-medium'>Ngày vận chuyển:</p>
-            <p>{normalizedDate(getDetail.data?.data[0].delivered_at)}</p>
+            <p>{normalizedDate(getDetail.data?.data.delivered_at)}</p>
           </div>
 
           <div className='my-4 flex gap-2'>
             <p className='font-medium'>Ngày hoàn tất đơn hàng:</p>
-            <p>{normalizedDate(getDetail.data?.data[0].completed_at)}</p>
+            <p>{normalizedDate(getDetail.data?.data.completed_at)}</p>
           </div>
 
-          {getDetail.data?.data[0].orderdetail.map(
+          {getDetail.data?.data.orderdetail?.map(
             (detail: DetailOrder, index: number) => (
               <>
                 <div className='h-px bg-black' />

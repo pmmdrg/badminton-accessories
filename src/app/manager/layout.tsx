@@ -6,7 +6,7 @@ import {
   ArchiveBoxIcon,
   ArrowRightStartOnRectangleIcon,
   ArrowsPointingOutIcon,
-  InboxArrowDownIcon,
+  ChatBubbleLeftRightIcon,
   InboxStackIcon,
   RectangleGroupIcon,
   RectangleStackIcon,
@@ -17,6 +17,7 @@ import {
   UserIcon,
   ViewfinderCircleIcon,
 } from '@heroicons/react/24/outline';
+
 import Link from 'next/link';
 import { ReactNode } from 'react';
 
@@ -111,11 +112,11 @@ export default function ManagerLayout({ children }: { children: ReactNode }) {
           </Link>
 
           <Link
-            href='/manager/import-detail-management'
+            href='/manager/chat'
             className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-rose-500 transition font-medium'
           >
-            <InboxArrowDownIcon strokeWidth={2} className='h-5 w-5' /> Chi tiết
-            nhập hàng
+            <ChatBubbleLeftRightIcon strokeWidth={2} className='h-5 w-5' /> Trò
+            chuyện
           </Link>
 
           <div className='border-t inset-0.5 border-white my-10' />

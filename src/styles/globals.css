@@ -1,3 +1,4 @@
+@import '@sendbird/uikit-react/dist/index.css';
 @import 'tailwindcss';
 
 .swiper-button-prev,

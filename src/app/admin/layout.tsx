@@ -6,7 +6,7 @@ import {
   ArchiveBoxIcon,
   ArrowRightStartOnRectangleIcon,
   ArrowsPointingOutIcon,
-  InboxArrowDownIcon,
+  ChatBubbleLeftRightIcon,
   InboxStackIcon,
   RectangleGroupIcon,
   RectangleStackIcon,
@@ -127,11 +127,11 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
           </Link>
 
           <Link
-            href='/admin/import-detail-management'
+            href='/admin/chat'
             className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-rose-500 transition font-medium'
           >
-            <InboxArrowDownIcon strokeWidth={2} className='h-5 w-5' /> Chi tiết
-            nhập hàng
+            <ChatBubbleLeftRightIcon strokeWidth={2} className='h-5 w-5' /> Trò
+            chuyện
           </Link>
 
           <div className='border-t inset-0.5 border-white my-10' />
