@@ -105,18 +105,25 @@ export default function DashboardPage() {
                     </thead>
                     <tbody>
                       {general.data.data.revenueByPayment.map(
-                        (payment: { id: string; totalRevenue: number }) => (
+                        (
+                          payment: {
+                            namePayment: string;
+                            totalRevenue: number;
+                          },
+                          index: number,
+                        ) => (
                           <tr
-                            key={payment.id}
+                            key={`payment-${payment.namePayment || index}`}
                             className='border-b border-gray-400'
                           >
                             <td className='text-lg font-bold text-rose-700 p-2'>
-                              {payment.id}
+                              {payment.namePayment}
                             </td>
                             <td className='text-lg font-bold text-rose-700 p-2'>
                               {payment.totalRevenue.toLocaleString(
                                 COUNTRY_CODE.VN,
                               )}
+                              ₫
                             </td>
                           </tr>
                         ),
@@ -135,12 +142,15 @@ export default function DashboardPage() {
                     </thead>
                     <tbody>
                       {general.data.data.revenueByMonth.map(
-                        (month: {
-                          id: { month: number; year: number };
-                          totalRevenue: number;
-                        }) => (
+                        (
+                          month: {
+                            id: { month: number; year: number };
+                            totalRevenue: number;
+                          },
+                          index: number,
+                        ) => (
                           <tr
-                            key={month.id.month}
+                            key={`month-${month.id.year}-${month.id.month}-${index}`}
                             className='border-b border-gray-400'
                           >
                             <td className='text-lg font-bold text-rose-700 p-2'>
@@ -181,13 +191,16 @@ export default function DashboardPage() {
                   </tr>
                 ) : (
                   getBySellingProductItem.data.data.topByQuantity.map(
-                    (pi: {
-                      productItemId: string;
-                      nameProductItem: string;
-                      totalQuantitySold: number;
-                    }) => (
+                    (
+                      pi: {
+                        productItemId: string;
+                        nameProductItem: string;
+                        totalQuantitySold: number;
+                      },
+                      index: number,
+                    ) => (
                       <tr
-                        key={pi.productItemId}
+                        key={`quantity-${pi.productItemId || index}`}
                         className='border-b border-gray-400'
                       >
                         <td className='p-2'>{pi.nameProductItem}</td>
@@ -214,13 +227,16 @@ export default function DashboardPage() {
                   </tr>
                 ) : (
                   getBySellingProductItem.data.data.topByRevenue.map(
-                    (pi: {
-                      productItemId: string;
-                      nameProductItem: string;
-                      totalRevenue: number;
-                    }) => (
+                    (
+                      pi: {
+                        productItemId: string;
+                        nameProductItem: string;
+                        totalRevenue: number;
+                      },
+                      index: number,
+                    ) => (
                       <tr
-                        key={pi.productItemId}
+                        key={`revenue-${pi.productItemId || index}`}
                         className='border-b border-gray-400'
                       >
                         <td className='p-2'>{pi.nameProductItem}</td>
@@ -257,14 +273,17 @@ export default function DashboardPage() {
                 </tr>
               ) : (
                 getByBrand.data.data.map(
-                  (brand: {
-                    brandId: string;
-                    nameBrand: string;
-                    totalQuantitySold: number;
-                    totalRevenue: number;
-                  }) => (
+                  (
+                    brand: {
+                      brandId: string;
+                      nameBrand: string;
+                      totalQuantitySold: number;
+                      totalRevenue: number;
+                    },
+                    index: number,
+                  ) => (
                     <tr
-                      key={brand.brandId}
+                      key={`brand-${brand.brandId || index}`}
                       className='border-b border-gray-400'
                     >
                       <td className='p-2'>{brand.nameBrand}</td>
@@ -299,13 +318,19 @@ export default function DashboardPage() {
                 </tr>
               ) : (
                 getByCate.data.data.map(
-                  (cate: {
-                    cateId: string;
-                    nameCate: string;
-                    totalQuantitySold: number;
-                    totalRevenue: number;
-                  }) => (
-                    <tr key={cate.cateId} className='border-b border-gray-400'>
+                  (
+                    cate: {
+                      cateId: string;
+                      nameCate: string;
+                      totalQuantitySold: number;
+                      totalRevenue: number;
+                    },
+                    index: number,
+                  ) => (
+                    <tr
+                      key={`cate-${cate.cateId || index}`}
+                      className='border-b border-gray-400'
+                    >
                       <td className='p-2'>{cate.nameCate}</td>
                       <td className='p-2'>{cate.totalQuantitySold}</td>
                       <td className='p-2'>
