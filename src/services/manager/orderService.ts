@@ -7,7 +7,7 @@ export async function getAllOrderManager() {
 }
 
 export async function getDetailOrder(id: string) {
-  const res = await api.get(`/manager/order/detail-order?id=${id}`);
+  const res = await api.get(`/manager/order/detail-order?orderId=${id}`);
 
   return res.data;
 }
@@ -44,10 +44,10 @@ export async function getAllOrderCancelled() {
 
 export async function getAllOrderCreatedByTime(
   startDate: string,
-  endDate: string
+  endDate: string,
 ) {
   const res = await api.get(
-    `/manager/order/order-created/time?startDate=${startDate}&endDate=${endDate}`
+    `/manager/order/order-created/time?startDate=${startDate}&endDate=${endDate}`,
   );
 
   return res.data;
@@ -55,10 +55,10 @@ export async function getAllOrderCreatedByTime(
 
 export async function getAllOrderShippedByTime(
   startDate: string,
-  endDate: string
+  endDate: string,
 ) {
   const res = await api.get(
-    `/manager/order/order-shipped/time?startDate=${startDate}&endDate=${endDate}`
+    `/manager/order/order-shipped/time?startDate=${startDate}&endDate=${endDate}`,
   );
 
   return res.data;
@@ -66,10 +66,10 @@ export async function getAllOrderShippedByTime(
 
 export async function getAllOrderDeliveredByTime(
   startDate: string,
-  endDate: string
+  endDate: string,
 ) {
   const res = await api.get(
-    `/manager/order/order-delivered/time?startDate=${startDate}&endDate=${endDate}`
+    `/manager/order/order-delivered/time?startDate=${startDate}&endDate=${endDate}`,
   );
 
   return res.data;
@@ -77,10 +77,10 @@ export async function getAllOrderDeliveredByTime(
 
 export async function getAllOrderCompletedByTime(
   startDate: string,
-  endDate: string
+  endDate: string,
 ) {
   const res = await api.get(
-    `/manager/order/order-completed/time?startDate=${startDate}&endDate=${endDate}`
+    `/manager/order/order-completed/time?startDate=${startDate}&endDate=${endDate}`,
   );
 
   return res.data;
@@ -88,7 +88,7 @@ export async function getAllOrderCompletedByTime(
 
 export async function getAllOrderByNameUser(fullname: string) {
   const res = await api.get(
-    `/manager/order/search-by-name?fullname=${fullname}`
+    `/manager/order/search-by-name?fullname=${fullname}`,
   );
 
   return res.data;
@@ -101,7 +101,7 @@ export async function getAllOrderByUserId(id: string) {
 }
 
 export async function getOrderByOrderId(id: string) {
-  const res = await api.get(`/manager/order/search-by-orderid?id=${id}`);
+  const res = await api.get(`/manager/order/order-id?id=${id}`);
 
   return res.data;
 }

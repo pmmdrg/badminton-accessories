@@ -33,7 +33,7 @@ export function useOrderAdmin(
   completeStartDate?: string,
   completeEndDate?: string,
   fullname?: string,
-  userId?: string
+  userId?: string,
 ) {
   const { addToast } = useToast();
   const queryClient = useQueryClient();
@@ -100,7 +100,7 @@ export function useOrderAdmin(
     queryFn: () =>
       getAllOrderCompletedByTime(
         completeStartDate || '',
-        completeEndDate || ''
+        completeEndDate || '',
       ),
     enabled: !!completeStartDate && !!completeEndDate,
   });
@@ -118,7 +118,7 @@ export function useOrderAdmin(
   });
 
   const getByOrderId = useQuery({
-    queryKey: ['id', id],
+    queryKey: ['order-id', id],
     queryFn: () => getOrderByOrderId(id || ''),
     enabled: !!id,
   });
@@ -173,8 +173,8 @@ export function useOrderAdmin(
     getAllShippedByTime,
     getAllDeliveredByTime,
     getAllCompletedByTime,
+    getByOrderId,
     deliver,
     cancel,
-    getByOrderId,
   };
 }

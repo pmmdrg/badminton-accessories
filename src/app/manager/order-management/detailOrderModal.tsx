@@ -16,7 +16,7 @@ export default function DetailOrderModal({
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }) {
-  const { getDetail } = useOrderManager(orderId);
+  const { getByOrderId } = useOrderManager(orderId);
 
   return (
     <Modal
@@ -29,25 +29,25 @@ export default function DetailOrderModal({
       }}
       title='Chi Tiết Đơn Hàng'
     >
-      {getDetail.isLoading ? (
+      {getByOrderId.isLoading ? (
         <Spinner />
       ) : (
         <div className='px-5'>
           <div className='flex gap-40'>
             <div className='flex gap-2'>
               <p className='font-medium'>Người đặt hàng:</p>
-              {getDetail.data?.data[0].fullname}
+              {getByOrderId.data?.data.fullname}
             </div>
 
             <div className='flex gap-2'>
               <p className='font-medium'>SĐT:</p>
-              {getDetail.data?.data[0].phonenumber}
+              {getByOrderId.data?.data.phonenumber}
             </div>
           </div>
 
           <div className='my-4 flex gap-2'>
             <p className='font-medium'>Số lượng sản phẩm:</p>
-            {getDetail.data?.data[0].totalQuantity}
+            {getByOrderId.data?.data.totalQuantity}
           </div>
 
           <div className='flex gap-40 my-4'>
@@ -55,7 +55,7 @@ export default function DetailOrderModal({
               <p className='font-medium'>Giá trị giỏ hàng:</p>
 
               <p className='text-rose-600 font-bold'>
-                {getDetail.data?.data[0].totalCart.toLocaleString(
+                {getByOrderId.data?.data.totalCart?.toLocaleString(
                   COUNTRY_CODE.VN,
                 )}
                 ₫
@@ -66,7 +66,7 @@ export default function DetailOrderModal({
               <p className='font-medium'>Phí ship:</p>
 
               <p className='text-rose-600 font-bold'>
-                {getDetail.data?.data[0].shippingFee.toLocaleString(
+                {getByOrderId.data?.data.shippingFee?.toLocaleString(
                   COUNTRY_CODE.VN,
                 )}
                 ₫
@@ -78,7 +78,7 @@ export default function DetailOrderModal({
             <p className='font-medium'>Tổng giá trị đơn hàng:</p>
 
             <p className='text-rose-600 font-bold'>
-              {getDetail.data?.data[0].totalCartOrder.toLocaleString(
+              {getByOrderId.data?.data.totalCartOrder?.toLocaleString(
                 COUNTRY_CODE.VN,
               )}
               ₫
@@ -87,35 +87,35 @@ export default function DetailOrderModal({
 
           <div className='my-4 flex gap-2'>
             <p className='font-medium'>Địa chỉ đặt hàng:</p>{' '}
-            {getDetail.data?.data[0].address}
+            {getByOrderId.data?.data.address}
           </div>
 
           <div className='my-4 flex gap-2'>
             <p className='font-medium'>Trạng thái đơn hàng:</p>
-            {capitalizeFirst(getDetail.data?.data[0].status)}
+            {capitalizeFirst(getByOrderId.data?.data.status)}
           </div>
 
           <div className='my-4 flex gap-2'>
             <p className='font-medium'>Phương thức thanh toán:</p>
-            {getDetail.data?.data[0].namePayment}
+            {getByOrderId.data?.data.namePayment}
           </div>
 
           <div className='my-4 flex gap-2'>
             <p className='font-medium'>Ngày đặt hàng:</p>
-            <p>{normalizedDate(getDetail.data?.data[0].created_at)}</p>
+            <p>{normalizedDate(getByOrderId.data?.data.created_at)}</p>
           </div>
 
           <div className='my-4 flex gap-2'>
             <p className='font-medium'>Ngày vận chuyển:</p>
-            <p>{normalizedDate(getDetail.data?.data[0].delivered_at)}</p>
+            <p>{normalizedDate(getByOrderId.data?.data.delivered_at)}</p>
           </div>
 
           <div className='my-4 flex gap-2'>
             <p className='font-medium'>Ngày hoàn tất đơn hàng:</p>
-            <p>{normalizedDate(getDetail.data?.data[0].completed_at)}</p>
+            <p>{normalizedDate(getByOrderId.data?.data.completed_at)}</p>
           </div>
 
-          {getDetail.data?.data[0].orderdetail.map(
+          {getByOrderId.data?.data.orderdetail?.map(
             (detail: DetailOrder, index: number) => (
               <>
                 <div className='h-px bg-black' />

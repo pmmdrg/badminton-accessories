@@ -7,7 +7,7 @@ export async function getAllOrderAdmin() {
 }
 
 export async function getDetailOrder(id: string) {
-  const res = await api.get(`/admin/order/detail-order?id=${id}`);
+  const res = await api.get(`/admin/order/order-detail?orderId=${id}`);
 
   return res.data;
 }
@@ -99,7 +99,7 @@ export async function getAllOrderByUserId(id: string) {
 }
 
 export async function getOrderByOrderId(id: string) {
-  const res = await api.get(`/admin/order/search-by-orderid?id=${id}`);
+  const res = await api.get(`/admin/order/search/id?id=${id}`);
 
   return res.data;
 }
