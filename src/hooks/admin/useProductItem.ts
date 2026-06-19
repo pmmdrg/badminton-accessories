@@ -10,6 +10,8 @@ import {
   getProductItemByNameAdmin,
   restoreProductItem,
   updateProductItem,
+  addDiscountToProductItem,
+  deleteDiscountFromProductItem,
 } from '@/services/admin/productItemService';
 import { useToast } from '@/components/custom/toast';
 import { TOAST_TYPE } from '@/lib/constants';
@@ -134,6 +136,28 @@ export function useProductItemAdmin(id?: string, name?: string) {
     },
   });
 
+  const addDiscount = useMutation({
+    mutationFn: ({ id, discountId }: { id: string; discountId: string }) =>
+      addDiscountToProductItem(id, discountId),
+    onSuccess: () => {
+      addToast({
+        type: TOAST_TYPE.SUCCESS,
+        message: 'Đã thêm khuyến mãi cho mặt hàng sản phẩm',
+      });
+    },
+  });
+
+  const removeDiscount = useMutation({
+    mutationFn: ({ id, discountId }: { id: string; discountId: string }) =>
+      deleteDiscountFromProductItem(id, discountId),
+    onSuccess: () => {
+      addToast({
+        type: TOAST_TYPE.SUCCESS,
+        message: 'Đã xóa khuyến mãi khỏi mặt hàng sản phẩm',
+      });
+    },
+  });
+
   return {
     add,
     getAll,
@@ -144,5 +168,7 @@ export function useProductItemAdmin(id?: string, name?: string) {
     edit,
     remove,
     restore,
+    addDiscount,
+    removeDiscount,
   };
 }

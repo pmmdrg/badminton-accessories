@@ -36,7 +36,7 @@ export async function getProductItemByIdAdmin(id: string) {
 
 export async function getProductItemByNameAdmin(name: string) {
   const res = await api.get(
-    `/admin/productitem/search/name?nameProductItem=${name}`
+    `/admin/productitem/search/name?nameProductItem=${name}`,
   );
 
   return res.data;
@@ -50,7 +50,7 @@ export async function updateProductItem(
     description?: string;
     price?: number;
     quantity?: number;
-  }
+  },
 ) {
   const res = await api.put(`/admin/productitem/update?id=${id}`, payload);
   return res.data;
@@ -63,5 +63,25 @@ export async function deleteProductItem(id: string) {
 
 export async function restoreProductItem(id: string) {
   const res = await api.put(`/admin/productitem/restore?id=${id}`);
+  return res.data;
+}
+
+export async function addDiscountToProductItem(
+  id: string,
+  promotionId: string,
+) {
+  const res = await api.put(
+    `/admin/productitem/add-promotion?id=${id}&promotionId=${promotionId}`,
+  );
+  return res.data;
+}
+
+export async function deleteDiscountFromProductItem(
+  id: string,
+  promotionId: string,
+) {
+  const res = await api.put(
+    `/admin/productitem/delete-promotion?id=${id}&promotionId=${promotionId}`,
+  );
   return res.data;
 }
