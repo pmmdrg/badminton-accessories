@@ -2,7 +2,7 @@
 
 import { SelectString } from '@/components/custom/select';
 import Image from 'next/image';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { placeholderImage } from '@/assets/images';
 import Button from '@/components/custom/button';
 import { COUNTRY_CODE } from '@/lib/constants';
@@ -15,7 +15,7 @@ import { CartItem } from '@/models/cartItem';
 import { useSearchParams } from 'next/navigation';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 
-export default function CheckoutPage() {
+function CheckoutContent() {
   const searchParams = useSearchParams();
   const districtId = parseInt(searchParams.get('district') || '0');
   const wardCode = searchParams.get('ward') || '';
@@ -190,5 +190,13 @@ export default function CheckoutPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function CheckoutPage() {
+  return (
+    <Suspense>
+      <CheckoutContent />
+    </Suspense>
   );
 }

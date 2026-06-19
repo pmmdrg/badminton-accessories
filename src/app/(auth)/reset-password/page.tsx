@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import TextField from '@/components/custom/textfield';
 import Button from '@/components/custom/button';
 import { useSearchParams } from 'next/navigation';
@@ -8,7 +8,7 @@ import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import useAuth from '@/hooks/useAuth';
 import Link from 'next/link';
 
-export default function ResetPasswordPage() {
+function ResetPasswordForm() {
   const { resetPassword } = useAuth();
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
@@ -119,5 +119,13 @@ export default function ResetPasswordPage() {
         </Link>
       </div>
     </form>
+  );
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense>
+      <ResetPasswordForm />
+    </Suspense>
   );
 }
