@@ -1,3 +1,22 @@
+import {
+  ArchiveBoxIcon,
+  ArrowRightStartOnRectangleIcon,
+  ArrowsPointingOutIcon,
+  ChatBubbleLeftRightIcon,
+  InboxStackIcon,
+  ReceiptPercentIcon,
+  RectangleGroupIcon,
+  RectangleStackIcon,
+  SparklesIcon,
+  Square3Stack3DIcon,
+  TruckIcon,
+  UserGroupIcon,
+  UserIcon,
+  ViewfinderCircleIcon,
+  WalletIcon,
+  WindowIcon,
+} from '@heroicons/react/24/outline';
+
 export enum STATUS {
   ACTIVE = 'active',
   INACTIVE = 'inactive',
@@ -142,15 +161,12 @@ export const SENDBIRD_STRING_SET = {
   CHANNEL_SETTING__OPERATORS__TITLE_ADD: 'Thêm điều phối viên',
   CHANNEL_SETTING__OPERATORS__ADD_BUTTON: 'Thêm',
   CHANNEL_SETTING__MUTED_MEMBERS__TITLE: 'Thành viên bị tắt tiếng',
-  CHANNEL_SETTING__MUTED_MEMBERS__TITLE_ALL:
-    'Tất cả thành viên bị tắt tiếng',
+  CHANNEL_SETTING__MUTED_MEMBERS__TITLE_ALL: 'Tất cả thành viên bị tắt tiếng',
   CHANNEL_SETTING__NO_UNMUTED: 'Không có thành viên bị tắt tiếng',
   CHANNEL_SETTING__BANNED_MEMBERS__TITLE: 'Thành viên bị chặn',
   CHANNEL_SETTING__FREEZE_CHANNEL: 'Đóng băng kênh',
-  CHANNEL_SETTING__MODERATION__REGISTER_AS_OPERATOR:
-    'Đặt làm điều phối viên',
-  CHANNEL_SETTING__MODERATION__UNREGISTER_OPERATOR:
-    'Gỡ quyền điều phối viên',
+  CHANNEL_SETTING__MODERATION__REGISTER_AS_OPERATOR: 'Đặt làm điều phối viên',
+  CHANNEL_SETTING__MODERATION__UNREGISTER_OPERATOR: 'Gỡ quyền điều phối viên',
   CHANNEL_SETTING__MODERATION__MUTE: 'Tắt tiếng',
   CHANNEL_SETTING__MODERATION__UNMUTE: 'Bỏ tắt tiếng',
   CHANNEL_SETTING__MODERATION__BAN: 'Chặn',
@@ -221,3 +237,108 @@ export const SENDBIRD_STRING_SET = {
   FORM_ITEM_INVALID: 'Thông tin không hợp lệ',
   FORM_ITEM_OPTIONAL_EMPTY: 'Không có thông tin',
 };
+
+export const ADMIN_ROUTES = [
+  {
+    href: '/admin/dashboard',
+    label: 'Dashboard',
+    icon: WindowIcon,
+  },
+  {
+    href: '/admin/product-management',
+    label: 'Sản Phẩm',
+    icon: InboxStackIcon,
+  },
+  {
+    href: '/admin/product-item-management',
+    label: 'Mặt Hàng Sản Phẩm',
+    icon: Square3Stack3DIcon,
+  },
+  {
+    href: '/admin/discount-management',
+    label: 'Khuyến Mãi',
+    icon: ReceiptPercentIcon,
+  },
+  {
+    href: '/admin/size-management',
+    label: 'Kích Thước',
+    icon: ViewfinderCircleIcon,
+  },
+  {
+    href: '/admin/size-type-management',
+    label: 'Loại Kích Thước',
+    icon: ArrowsPointingOutIcon,
+  },
+  { href: '/admin/user-management', label: 'Người Dùng', icon: UserIcon },
+  { href: '/admin/color-management', label: 'Màu', icon: SparklesIcon },
+  {
+    href: '/admin/brand-management',
+    label: 'Thương Hiệu',
+    icon: RectangleGroupIcon,
+  },
+  {
+    href: '/admin/category-management',
+    label: 'Danh Mục',
+    icon: RectangleStackIcon,
+  },
+  { href: '/admin/order-management', label: 'Đơn Hàng', icon: ArchiveBoxIcon },
+  {
+    href: '/admin/payment-management',
+    label: 'Thanh Toán',
+    icon: WalletIcon,
+  },
+  {
+    href: '/admin/supplier-management',
+    label: 'Nhà Cung Cấp',
+    icon: UserGroupIcon,
+  },
+  { href: '/admin/import-management', label: 'Nhập Hàng', icon: TruckIcon },
+  { href: '/admin/chat', label: 'Trò Chuyện', icon: ChatBubbleLeftRightIcon },
+];
+
+export const MANAGER_ROUTES = [
+  {
+    href: '/manager/product-management',
+    label: 'Sản Phẩm',
+    icon: InboxStackIcon,
+  },
+  {
+    href: '/manager/product-item-management',
+    label: 'Mặt Hàng Sản Phẩm',
+    icon: Square3Stack3DIcon,
+  },
+  {
+    href: '/manager/size-management',
+    label: 'Kích Thước',
+    icon: ViewfinderCircleIcon,
+  },
+  {
+    href: '/manager/size-type-management',
+    label: 'Loại Kích Thước',
+    icon: ArrowsPointingOutIcon,
+  },
+  { href: '/manager/user-management', label: 'Người Dùng', icon: UserIcon },
+  { href: '/manager/color-management', label: 'Màu', icon: SparklesIcon },
+  {
+    href: '/manager/brand-management',
+    label: 'Thương Hiệu',
+    icon: RectangleGroupIcon,
+  },
+  {
+    href: '/manager/category-management',
+    label: 'Danh Mục',
+    icon: RectangleStackIcon,
+  },
+  {
+    href: '/manager/order-management',
+    label: 'Đơn Hàng',
+    icon: ArchiveBoxIcon,
+  },
+  {
+    href: '/manager/supplier-management',
+    label: 'Nhà Cung Cấp',
+    icon: UserGroupIcon,
+  },
+  { href: '/manager/import-management', label: 'Nhập Hàng', icon: TruckIcon },
+  { href: '/manager/chat', label: 'Trò Chuyện', icon: ChatBubbleLeftRightIcon },
+];

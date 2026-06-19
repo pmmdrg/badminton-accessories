@@ -3,19 +3,20 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { ProductItem } from '@/models/productItem';
-import { Spinner } from '@/components/custom/spinner';
-import TextField from '@/components/custom/textfield';
-import Button from '@/components/custom/button';
+import { Spinner } from '@/components/spinner';
+import TextField from '@/components/textfield';
+import Button from '@/components/button';
 import { COUNTRY_CODE, STATUS } from '@/lib/constants';
 import { capitalizeFirst, isValidImageSrc, normalizedDate } from '@/lib/utils';
 import { placeholderImage } from '@/assets/images';
-import Pagination from '@/components/custom/pagination';
+import Pagination from '@/components/pagination';
 import AddProdItemModal from './addProdItemModal';
 import { useProductItemAdmin } from '@/hooks/admin/useProductItem';
 import { useUpload } from '@/hooks/useUpload';
 import { upload } from '@imagekit/next';
 import EditProdItemModal from '../product-item-management/editProdItemModal';
-import { UploadProgress } from '@/components/custom/uploadProgress';
+import { UploadProgress } from '@/components/uploadProgress';
+import clsx from 'clsx';
 
 export default function AdminProductItemPage() {
   const { getIKToken } = useUpload();
@@ -133,7 +134,7 @@ export default function AdminProductItemPage() {
     <div className='p-6'>
       <UploadProgress value={progress} />
       <h1 className='text-2xl font-bold mb-4'>Quản Lý Mặt Hàng Sản Phẩm</h1>
-
+      <hr className='my-8 border-gray-400' />
       <div className='flex items-center justify-between mb-4'>
         <TextField
           name='search-product-item'
@@ -193,13 +194,27 @@ export default function AdminProductItemPage() {
                       />
                     </div>
                   </td>
-                  <td className='px-4 py-2'>{productItem.nameProductItem}</td>
+                  <td className='px-4 py-2 font-semibold text-rose-700'>
+                    {productItem.nameProductItem}
+                  </td>
                   <td className='px-4 py-2'>{productItem.id}</td>
                   <td className='px-4 py-2 text-rose-700 font-semibold'>
                     {productItem.price.toLocaleString(COUNTRY_CODE.VN)}₫
                   </td>
-                  <td className='px-4 py-2'>{productItem.quantity}</td>
-                  <td className='px-4 py-2'>
+                  <td className='px-4 py-2 font-semibold text-rose-700'>
+                    {productItem.quantity}
+                  </td>
+                  <td
+                    className={clsx(
+                      'px-4',
+                      'py-2',
+                      {
+                        'text-green-600': productItem.status === STATUS.ACTIVE,
+                        'text-red-600': productItem.status === STATUS.INACTIVE,
+                      },
+                      'font-bold',
+                    )}
+                  >
                     {capitalizeFirst(productItem.status)}
                   </td>
                   <td className='px-4 py-2'>

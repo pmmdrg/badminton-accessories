@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import TextField from '@/components/custom/textfield';
-import Button from '@/components/custom/button';
+import TextField from '@/components/textfield';
+import Button from '@/components/button';
 import Link from 'next/link';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { EmailRegex } from '@/lib/constants';

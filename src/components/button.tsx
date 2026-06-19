@@ -30,13 +30,17 @@ export default function Button({
   };
 
   const variantClasses: Record<ButtonVariant, string> = {
-    primary: 'bg-rose-700 text-white hover:bg-rose-800',
-    secondary: 'bg-rose-100 text-rose-800 hover:bg-rose-200',
+    primary:
+      'bg-gradient-to-r from-rose-600 to-rose-700 text-white hover:from-rose-700 hover:to-rose-800',
+    secondary:
+      'bg-gradient-to-r from-rose-100 to-rose-200 text-rose-800 hover:from-rose-200 hover:to-rose-300',
     outline: 'border border-rose-700 text-rose-700 hover:bg-rose-50',
     ghost: 'text-rose-700 hover:bg-rose-100',
-    danger: 'bg-red-600 text-white hover:bg-red-700',
-    info: 'bg-blue-600 text-white hover:bg-blue-700',
-    success: 'bg-emerald-700 text-white hover:bg-emerald-800',
+    danger:
+      'bg-gradient-to-r from-red-600 to-red-700 text-white hover:from-red-700 hover:to-red-800',
+    info: 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800',
+    success:
+      'bg-gradient-to-r from-emerald-600 to-emerald-700 text-white hover:from-emerald-700 hover:to-emerald-800',
   };
 
   const classes = clsx(
@@ -50,7 +54,7 @@ export default function Button({
       'shadow-md hover:shadow-lg': shadow,
       'opacity-50 cursor-not-allowed': disabled || loading,
     },
-    className
+    className,
   );
 
   return (

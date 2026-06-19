@@ -1,5 +1,5 @@
-import Modal from '@/components/custom/modal';
-import TextField from '@/components/custom/textfield';
+import Modal from '@/components/modal';
+import TextField from '@/components/textfield';
 import { useDiscountAdmin } from '@/hooks/admin/useDiscount';
 import { useEffect, useState } from 'react';
 

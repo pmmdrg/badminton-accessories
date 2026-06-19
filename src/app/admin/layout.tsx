@@ -1,30 +1,17 @@
 'use client';
 
-import Button from '@/components/custom/button';
+import Button from '@/components/button';
 import useAuth from '@/hooks/useAuth';
-import {
-  ArchiveBoxIcon,
-  ArrowRightStartOnRectangleIcon,
-  ArrowsPointingOutIcon,
-  ChatBubbleLeftRightIcon,
-  InboxStackIcon,
-  ReceiptPercentIcon,
-  RectangleGroupIcon,
-  RectangleStackIcon,
-  SparklesIcon,
-  Square3Stack3DIcon,
-  TruckIcon,
-  UserGroupIcon,
-  UserIcon,
-  ViewfinderCircleIcon,
-  WalletIcon,
-  WindowIcon,
-} from '@heroicons/react/24/outline';
+import { ADMIN_ROUTES } from '@/lib/constants';
+import { ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline';
+import clsx from 'clsx';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
   const { logout } = useAuth();
+  const pathname = usePathname();
 
   return (
     <div className='flex h-screen w-full'>
@@ -32,116 +19,34 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         <h1 className='text-2xl font-bold mb-4'>Admin Panel</h1>
 
         <nav className='flex flex-col space-y-1'>
-          <Link
-            href='/admin/dashboard'
-            className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition font-medium'
-          >
-            <WindowIcon strokeWidth={2} className='h-5 w-5' /> Dashboard
-          </Link>
+          {ADMIN_ROUTES.map((route) => {
+            const Icon = route.icon;
 
-          <Link
-            href='/admin/product-management'
-            className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition font-medium'
-          >
-            <InboxStackIcon strokeWidth={2} className='h-5 w-5' /> Sản phẩm
-          </Link>
-
-          <Link
-            href='/admin/product-item-management'
-            className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition font-medium'
-          >
-            <Square3Stack3DIcon strokeWidth={2} className='h-5 w-5' /> Mặt hàng
-            sản phẩm
-          </Link>
-
-          <Link
-            href='/admin/discount-management'
-            className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition font-medium'
-          >
-            <ReceiptPercentIcon strokeWidth={2} className='h-5 w-5' /> Khuyến
-            mãi
-          </Link>
-
-          <Link
-            href='/admin/size-management'
-            className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition font-medium'
-          >
-            <ViewfinderCircleIcon strokeWidth={2} className='h-5 w-5' /> Kích
-            thước
-          </Link>
-
-          <Link
-            href='/admin/size-type-management'
-            className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition font-medium'
-          >
-            <ArrowsPointingOutIcon strokeWidth={2} className='h-5 w-5' /> Loại
-            kích thước
-          </Link>
-
-          <Link
-            href='/admin/user-management'
-            className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition font-medium'
-          >
-            <UserIcon strokeWidth={2} className='h-5 w-5' /> Người dùng
-          </Link>
-
-          <Link
-            href='/admin/color-management'
-            className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition font-medium'
-          >
-            <SparklesIcon strokeWidth={2} className='h-5 w-5' /> Màu
-          </Link>
-
-          <Link
-            href='/admin/brand-management'
-            className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition font-medium'
-          >
-            <RectangleGroupIcon strokeWidth={2} className='h-5 w-5' /> Thương
-            hiệu
-          </Link>
-
-          <Link
-            href='/admin/category-management'
-            className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition font-medium'
-          >
-            <RectangleStackIcon strokeWidth={2} className='h-5 w-5' /> Danh mục
-          </Link>
-
-          <Link
-            href='/admin/order-management'
-            className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition font-medium'
-          >
-            <ArchiveBoxIcon strokeWidth={2} className='h-5 w-5' /> Đơn hàng
-          </Link>
-
-          <Link
-            href='/admin/payment-management'
-            className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition font-medium'
-          >
-            <WalletIcon strokeWidth={2} className='h-5 w-5' /> Thanh toán
-          </Link>
-
-          <Link
-            href='/admin/supplier-management'
-            className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition font-medium'
-          >
-            <UserGroupIcon strokeWidth={2} className='h-5 w-5' /> Nhà cung cấp
-          </Link>
-
-          <Link
-            href='/admin/import-management'
-            className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition font-medium'
-          >
-            <TruckIcon strokeWidth={2} className='h-5 w-5' /> Nhập hàng
-          </Link>
-
-          <Link
-            href='/admin/chat'
-            className='flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/10 transition font-medium'
-          >
-            <ChatBubbleLeftRightIcon strokeWidth={2} className='h-5 w-5' /> Trò
-            chuyện
-          </Link>
+            return (
+              <Link
+                key={route.href}
+                href={route.href}
+                className={clsx(
+                  'flex',
+                  'items-center',
+                  'gap-2',
+                  'px-3',
+                  'py-2',
+                  'rounded-lg',
+                  'hover:bg-white/30',
+                  'transition',
+                  'font-medium',
+                  {
+                    'bg-gradient-to-r from-white/20 to-white/30':
+                      pathname === route.href,
+                  },
+                )}
+              >
+                {Icon && <Icon strokeWidth={2} className='h-5 w-5' />}
+                {route.label}
+              </Link>
+            );
+          })}
 
           <div className='border-t inset-0.5 border-white my-10' />
 
@@ -150,7 +55,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             startIcon={<ArrowRightStartOnRectangleIcon className='h-5 w-5' />}
             onClick={() => logout.mutate()}
           >
-            Đăng xuất
+            Đăng Xuất
           </Button>
         </nav>
       </aside>

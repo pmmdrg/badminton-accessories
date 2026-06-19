@@ -1,16 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { Spinner } from '@/components/custom/spinner';
-import TextField from '@/components/custom/textfield';
-import Button from '@/components/custom/button';
+import { Spinner } from '@/components/spinner';
+import TextField from '@/components/textfield';
+import Button from '@/components/button';
 import { STATUS } from '@/lib/constants';
-import Pagination from '@/components/custom/pagination';
+import Pagination from '@/components/pagination';
 import { usePaymentAdmin } from '@/hooks/admin/usePayment';
 import { Payment } from '@/models/payment';
 import EditPaymentModal from './editPaymentModal';
 import AddPaymentModal from './addPaymentModal';
 import { capitalizeFirst, normalizedDate } from '@/lib/utils';
+import clsx from 'clsx';
 
 export default function AdminPaymentPage() {
   const { getAll, add, edit, remove, restore } = usePaymentAdmin();
@@ -50,7 +51,7 @@ export default function AdminPaymentPage() {
       <h1 className='text-2xl font-bold mb-4'>
         Quản Lý Phương Thức Thanh Toán
       </h1>
-
+      <hr className='my-8 border-gray-400' />
       <div className='flex items-center justify-between mb-4'>
         <TextField
           name='search-payment'
@@ -88,8 +89,22 @@ export default function AdminPaymentPage() {
           <tbody className='divide-y divide-gray-200'>
             {filteredPayments?.map((payment: Payment) => (
               <tr key={payment.id}>
-                <td className='px-4 py-2'>{payment.namePayment}</td>
-                <td className='px-4 py-2'>{capitalizeFirst(payment.status)}</td>
+                <td className='px-4 py-2 text-rose-700 font-semibold'>
+                  {payment.namePayment}
+                </td>
+                <td
+                  className={clsx(
+                    'px-4',
+                    'py-2',
+                    {
+                      'text-green-600': payment.status === STATUS.ACTIVE,
+                      'text-red-600': payment.status === STATUS.INACTIVE,
+                    },
+                    'font-bold',
+                  )}
+                >
+                  {capitalizeFirst(payment.status)}
+                </td>
                 <td className='px-4 py-2'>
                   {normalizedDate(payment.created_at)}
                 </td>

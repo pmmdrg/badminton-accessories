@@ -15,10 +15,10 @@ export default function AdminChatPage() {
 
   return (
     <div className='h-full p-6'>
-      <h1 className='text-2xl font-bold mb-4'>Chat</h1>
-
+      <h1 className='text-2xl font-bold mb-4'>Quản Lý Trò Chuyện</h1>
+      <hr className='my-8 border-gray-400' />
       {appId && userId ? (
-        <div className='h-[calc(100vh-9rem)]'>
+        <div className='h-[calc(100vh-16rem)]'>
           <SendbirdApp
             appId={appId}
             userId={userId}

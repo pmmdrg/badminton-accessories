@@ -1,6 +1,6 @@
 import { placeholderImage } from '@/assets/images';
-import Modal from '@/components/custom/modal';
-import { Spinner } from '@/components/custom/spinner';
+import Modal from '@/components/modal';
+import { Spinner } from '@/components/spinner';
 import { useOrderClient } from '@/hooks/client/useOrder';
 import { COUNTRY_CODE } from '@/lib/constants';
 import { capitalizeFirst, isValidImageSrc, normalizedDate } from '@/lib/utils';

@@ -1,15 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import { Spinner } from '@/components/custom/spinner';
-import TextField from '@/components/custom/textfield';
-import Button from '@/components/custom/button';
+import { Spinner } from '@/components/spinner';
+import TextField from '@/components/textfield';
+import Button from '@/components/button';
 import { COUNTRY_CODE } from '@/lib/constants';
 import { capitalizeFirst, normalizedDate } from '@/lib/utils';
-import Pagination from '@/components/custom/pagination';
+import Pagination from '@/components/pagination';
 import { Order } from '@/models/order';
 import DetailOrderModal from './detailOrderModal';
 import { useOrderManager } from '@/hooks/manager/useOrder';
+import clsx from 'clsx';
 
 export default function ManagerOrderPage() {
   const { getAll, deliver } = useOrderManager();
@@ -30,9 +31,9 @@ export default function ManagerOrderPage() {
 
   return (
     <div className='p-6'>
-      <h1 className='text-2xl font-bold mb-4'>Đơn Hàng</h1>
-
-      <div className='flex items-center justify-between mb-4'>
+      <h1 className='text-2xl font-bold mb-4'>Danh Sách Đơn Hàng</h1>
+      <hr className='my-8 border-gray-400' />
+      <div className='flex items-center justify-between mb-8'>
         <TextField
           name='search-order'
           type='text'
@@ -69,14 +70,32 @@ export default function ManagerOrderPage() {
                 }}
                 className='cursor-pointer'
               >
-                <td className='px-4 py-2'>{order.fullname}</td>
-                <td className='px-4 py-2'>{order.totalQuantity}</td>
+                <td className='px-4 py-2 text-rose-700 font-semibold'>
+                  {order.fullname}
+                </td>
+                <td className='px-4 py-2 text-rose-700 font-semibold'>
+                  {order.totalQuantity}
+                </td>
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
                   {order.totalCartOrder.toLocaleString(COUNTRY_CODE.VN)}₫
                 </td>
                 <td className='px-4 py-2'>{order.address}</td>
                 <td className='px-4 py-2'>{order.phonenumber}</td>
-                <td className='px-4 py-2'>{capitalizeFirst(order.status)}</td>
+                <td
+                  className={clsx(
+                    'px-4',
+                    'py-2',
+                    {
+                      'text-green-600': order.status === 'completed',
+                      'text-red-600': order.status === 'cancelled',
+                      'text-orange-600': order.status === 'delivered',
+                      'text-blue-600': order.status === 'processing',
+                    },
+                    'font-bold',
+                  )}
+                >
+                  {capitalizeFirst(order.status)}
+                </td>
                 <td className='px-4 py-2'>
                   {normalizedDate(order.created_at)}
                 </td>

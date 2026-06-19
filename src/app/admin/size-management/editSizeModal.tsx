@@ -1,6 +1,6 @@
-import Modal from '@/components/custom/modal';
-import { SelectString } from '@/components/custom/select';
-import TextField from '@/components/custom/textfield';
+import Modal from '@/components/modal';
+import { SelectString } from '@/components/select';
+import TextField from '@/components/textfield';
 import { useSizeAdmin } from '@/hooks/admin/useSize';
 import { useSizeTypeAdmin } from '@/hooks/admin/useSizeType';
 import { normalizedSelectOptions } from '@/lib/utils';

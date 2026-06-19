@@ -1,16 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { Spinner } from '@/components/custom/spinner';
-import TextField from '@/components/custom/textfield';
-import Button from '@/components/custom/button';
+import { Spinner } from '@/components/spinner';
+import TextField from '@/components/textfield';
+import Button from '@/components/button';
 import { STATUS } from '@/lib/constants';
-import Pagination from '@/components/custom/pagination';
+import Pagination from '@/components/pagination';
 import { useSizeTypeAdmin } from '@/hooks/admin/useSizeType';
 import { SizeType } from '@/models/sizeType';
 import EditSizeTypeModal from './editSizeTypeModal';
 import AddSizeTypeModal from './addSizeTypeModal';
 import { capitalizeFirst, normalizedDate } from '@/lib/utils';
+import clsx from 'clsx';
 
 export default function AdminSizeTypePage() {
   const { getAll, add, edit, remove, restore } = useSizeTypeAdmin();
@@ -56,7 +57,7 @@ export default function AdminSizeTypePage() {
   return (
     <div className='p-6'>
       <h1 className='text-2xl font-bold mb-4'>Quản Lý Loại Kích Thước</h1>
-
+      <hr className='my-8 border-gray-400' />
       <div className='flex items-center justify-between mb-4'>
         <TextField
           name='search-sizeType'
@@ -95,13 +96,21 @@ export default function AdminSizeTypePage() {
           <tbody className='divide-y divide-gray-200'>
             {filteredSizeTypes?.map((sizeType: SizeType) => (
               <tr key={sizeType.id}>
-                <td className='px-4 py-2'>{sizeType.nameSizeType}</td>
-
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
-                  {sizeType.description}
+                  {sizeType.nameSizeType}
                 </td>
-
-                <td className='px-4 py-2'>
+                <td className='px-4 py-2'>{sizeType.description}</td>
+                <td
+                  className={clsx(
+                    'px-4',
+                    'py-2',
+                    {
+                      'text-green-600': sizeType.status === STATUS.ACTIVE,
+                      'text-red-600': sizeType.status === STATUS.INACTIVE,
+                    },
+                    'font-bold',
+                  )}
+                >
                   {capitalizeFirst(sizeType.status)}
                 </td>
                 <td className='px-4 py-2'>

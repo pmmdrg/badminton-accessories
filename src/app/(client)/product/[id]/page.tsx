@@ -1,18 +1,18 @@
 'use client';
-import Button from '@/components/custom/button';
-import Section from '@/components/custom/section';
+import Button from '@/components/button';
+import Section from '@/components/section';
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useProductItemClient } from '@/hooks/client/useProductItem';
-import { Spinner } from '@/components/custom/spinner';
+import { Spinner } from '@/components/spinner';
 import { ProductItem } from '@/models/productItem';
-import ProdItemCard from '@/components/custom/prodItemCard';
-import Carousel from '@/components/custom/carousel';
+import ProdItemCard from '@/components/prodItemCard';
+import Carousel from '@/components/carousel';
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { COUNTRY_CODE, TOAST_TYPE } from '@/lib/constants';
 import { useCartItem } from '@/hooks/client/useCartItem';
 import { useCart } from '@/hooks/client/useCart';
-import { useToast } from '@/components/custom/toast';
+import { useToast } from '@/components/toast';
 
 export default function ProductDetailPage() {
   const { id } = useParams<{ id: string }>();

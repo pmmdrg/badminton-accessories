@@ -1,16 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { Spinner } from '@/components/custom/spinner';
-import TextField from '@/components/custom/textfield';
-import Button from '@/components/custom/button';
+import { Spinner } from '@/components/spinner';
+import TextField from '@/components/textfield';
+import Button from '@/components/button';
 import { STATUS } from '@/lib/constants';
-import Pagination from '@/components/custom/pagination';
+import Pagination from '@/components/pagination';
 import { useColorAdmin } from '@/hooks/admin/useColor';
 import { Color } from '@/models/color';
 import EditColorModal from './editColorModal';
 import AddColorModal from './addColorModal';
 import { capitalizeFirst, normalizedDate } from '@/lib/utils';
+import clsx from 'clsx';
 
 export default function AdminColorPage() {
   const { getAll, add, edit, remove, restore } = useColorAdmin();
@@ -50,7 +51,7 @@ export default function AdminColorPage() {
   return (
     <div className='p-6'>
       <h1 className='text-2xl font-bold mb-4'>Quản Lý Màu</h1>
-
+      <hr className='my-8 border-gray-400' />
       <div className='flex items-center justify-between mb-4'>
         <TextField
           name='search-color'
@@ -89,11 +90,23 @@ export default function AdminColorPage() {
           <tbody className='divide-y divide-gray-200'>
             {filteredColors?.map((color: Color) => (
               <tr key={color.id}>
-                <td className='px-4 py-2'>{color.nameColor}</td>
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
-                  {color.description}
+                  {color.nameColor}
                 </td>
-                <td className='px-4 py-2'>{capitalizeFirst(color.status)}</td>
+                <td className='px-4 py-2'>{color.description}</td>
+                <td
+                  className={clsx(
+                    'px-4',
+                    'py-2',
+                    {
+                      'text-green-600': color.status === STATUS.ACTIVE,
+                      'text-red-600': color.status === STATUS.INACTIVE,
+                    },
+                    'font-bold',
+                  )}
+                >
+                  {capitalizeFirst(color.status)}
+                </td>
                 <td className='px-4 py-2'>
                   {normalizedDate(color.created_at)}
                 </td>

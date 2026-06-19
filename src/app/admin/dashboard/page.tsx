@@ -1,6 +1,6 @@
 'use client';
 
-import { Spinner } from '@/components/custom/spinner';
+import { Spinner } from '@/components/spinner';
 import useStatistics from '@/hooks/admin/useStatistics';
 import { COUNTRY_CODE } from '@/lib/constants';
 import {
@@ -19,8 +19,8 @@ export default function DashboardPage() {
 
   return (
     <div className='p-6 space-y-6'>
-      <div className='bg-white rounded-xl shadow-md p-6 w-full'>
-        <h2 className='text-xl font-semibold mb-4'>Tổng Quan</h2>
+      <div className='bg-gradient-to-br from-blue-200 to-green-100 rounded-xl shadow-md p-6 w-full'>
+        <h2 className='text-xl font-bold mb-4'>Tổng Quan</h2>
 
         <div className='w-full h-80'>
           {getByTime.isLoading ? (
@@ -29,8 +29,8 @@ export default function DashboardPage() {
             <ResponsiveContainer width='100%' height='100%'>
               <LineChart data={getByTime.data.data.byDay || []}>
                 <CartesianGrid strokeDasharray='3 3' />
-                <XAxis dataKey='date' />
-                <YAxis />
+                <XAxis dataKey='date' stroke='#111827' />
+                <YAxis stroke='#111827' />
 
                 <Tooltip
                   formatter={(value, name) => {
@@ -62,45 +62,51 @@ export default function DashboardPage() {
       </div>
 
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
-        <div className='bg-white shadow-md rounded-xl p-6'>
-          <h2 className='text-lg font-semibold mb-4'>Thống Kê Tháng</h2>
+        <div className='bg-gradient-to-br from-blue-200 to-yellow-100 shadow-md rounded-xl p-6'>
+          <h2 className='text-lg font-bold mb-4'>Thống Kê Tháng</h2>
 
           {general.isLoading ? (
             <Spinner />
           ) : (
             <>
               <div className='flex gap-4'>
-                <div className='bg-rose-50 border border-rose-200 rounded-xl p-4 text-center flex-1'>
-                  <p className='text-gray-600 text-sm'>Số Đơn Hàng</p>
+                <div className='rounded-2xl bg-white/10 backdrop-blur-xl border border-white/30 shadow-xl p-4 text-center flex-1'>
+                  <p className='text-black text-md font-semibold'>
+                    Số Đơn Hàng
+                  </p>
                   <p className='text-xl font-bold text-rose-700'>
                     {general.data.data.totalOrders}
                   </p>
                 </div>
 
-                <div className='bg-rose-50 border border-rose-200 rounded-xl p-4 text-center flex-1'>
-                  <p className='text-gray-600 text-sm'>Số Khách Hàng</p>
+                <div className='rounded-2xl bg-white/10 backdrop-blur-xl border border-white/30 shadow-xl p-4 text-center flex-1'>
+                  <p className='text-black text-md font-semibold'>
+                    Số Khách Hàng
+                  </p>
                   <p className='text-xl font-bold text-rose-700'>
                     {general.data.data.totalUsersBought}
                   </p>
                 </div>
 
-                <div className='bg-rose-50 border border-rose-200 rounded-xl p-4 text-center flex-1'>
-                  <p className='text-gray-600 text-sm'>Số Sản Phẩm Đã Bán</p>
+                <div className='rounded-2xl bg-white/10 backdrop-blur-xl border border-white/30 shadow-xl p-4 text-center flex-1'>
+                  <p className='text-black text-md font-semibold'>
+                    Số Sản Phẩm Đã Bán
+                  </p>
                   <p className='text-xl font-bold text-rose-700'>
                     {general.data.data.totalProductItemSold}
                   </p>
                 </div>
               </div>
               <div className='flex gap-4'>
-                <div className='bg-rose-50 border border-rose-200 rounded-xl p-4 text-center flex-1 mt-4'>
-                  <p className='text-gray-600 text-sm'>
+                <div className='rounded-2xl bg-white/10 backdrop-blur-xl border border-white/30 shadow-xl p-4 text-center flex-1 mt-4'>
+                  <p className='text-black text-md font-semibold'>
                     Doanh Thu Theo Phương Thức Thanh Toán
                   </p>
                   <table className='w-full text-sm border-collapse'>
                     <thead>
                       <tr className='border-b border-gray-400'>
-                        <th className='p-2'>Phương Thức</th>
-                        <th className='p-2'>Doanh Thu</th>
+                        <th className='p-2 font-semibold'>Phương Thức</th>
+                        <th className='p-2 font-semibold'>Doanh Thu</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -131,13 +137,15 @@ export default function DashboardPage() {
                     </tbody>
                   </table>
                 </div>
-                <div className='bg-rose-50 border border-rose-200 rounded-xl p-4 text-center flex-1 mt-4'>
-                  <p className='text-gray-600 text-sm'>Doanh Thu Theo Tháng</p>
+                <div className='rounded-2xl bg-white/10 backdrop-blur-xl border border-white/30 shadow-xl p-4 text-center flex-1 mt-4'>
+                  <p className='text-black text-md font-semibold'>
+                    Doanh Thu Theo Tháng
+                  </p>
                   <table className='w-full text-sm border-collapse'>
                     <thead>
                       <tr className='border-b border-gray-400'>
-                        <th className='p-2'>Tháng</th>
-                        <th className='p-2'>Doanh Thu</th>
+                        <th className='p-2 font-semibold'>Tháng</th>
+                        <th className='p-2 font-semibold'>Doanh Thu</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -173,14 +181,14 @@ export default function DashboardPage() {
           )}
         </div>
 
-        <div className='bg-white shadow-md rounded-xl p-6'>
-          <h2 className='text-lg font-semibold mb-4'>Top Sản Phẩm Bán Chạy</h2>
+        <div className='bg-gradient-to-br from-red-200 to-orange-100 shadow-md rounded-xl p-6'>
+          <h2 className='text-lg font-bold mb-4'>Top Sản Phẩm Bán Chạy</h2>
           <div className='flex gap-8'>
             <table className='w-full text-sm border-collapse'>
               <thead>
                 <tr className='border-b border-gray-400'>
-                  <th className='p-2 text-left'>Sản phẩm</th>
-                  <th className='p-2 text-left'>SL</th>
+                  <th className='p-2 text-left font-semibold'>Sản phẩm</th>
+                  <th className='p-2 text-left font-semibold'>SL</th>
                 </tr>
               </thead>
 
@@ -204,7 +212,9 @@ export default function DashboardPage() {
                         className='border-b border-gray-400'
                       >
                         <td className='p-2'>{pi.nameProductItem}</td>
-                        <td className='p-2'>{pi.totalQuantitySold}</td>
+                        <td className='p-2 text-rose-700 font-bold'>
+                          {pi.totalQuantitySold}
+                        </td>
                       </tr>
                     ),
                   )
@@ -215,8 +225,8 @@ export default function DashboardPage() {
             <table className='w-full text-sm border-collapse'>
               <thead>
                 <tr className='border-b border-gray-400'>
-                  <th className='p-2 text-left'>Sản phẩm</th>
-                  <th className='p-2 text-left'>Doanh Thu</th>
+                  <th className='p-2 text-left font-semibold'>Sản phẩm</th>
+                  <th className='p-2 text-left font-semibold'>Doanh Thu</th>
                 </tr>
               </thead>
 
@@ -240,7 +250,7 @@ export default function DashboardPage() {
                         className='border-b border-gray-400'
                       >
                         <td className='p-2'>{pi.nameProductItem}</td>
-                        <td className='p-2'>
+                        <td className='p-2 text-rose-700 font-bold'>
                           {pi.totalRevenue.toLocaleString(COUNTRY_CODE.VN)}₫
                         </td>
                       </tr>
@@ -254,15 +264,15 @@ export default function DashboardPage() {
       </div>
 
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
-        <div className='bg-white shadow-md rounded-xl p-6'>
-          <h2 className='text-lg font-semibold mb-4'>Top Thương Hiệu</h2>
+        <div className='bg-gradient-to-br from-violet-200 to-orange-100 shadow-md rounded-xl p-6'>
+          <h2 className='text-lg font-bold mb-4'>Top Thương Hiệu</h2>
 
           <table className='w-full text-sm border-collapse'>
             <thead>
               <tr className='border-b border-gray-400'>
-                <th className='p-2 text-left'>Thương Hiệu</th>
-                <th className='p-2 text-left'>SL</th>
-                <th className='p-2 text-left'>Doanh Thu</th>
+                <th className='p-2 text-left font-semibold'>Thương Hiệu</th>
+                <th className='p-2 text-left font-semibold'>SL</th>
+                <th className='p-2 text-left font-semibold'>Doanh Thu</th>
               </tr>
             </thead>
 
@@ -287,8 +297,10 @@ export default function DashboardPage() {
                       className='border-b border-gray-400'
                     >
                       <td className='p-2'>{brand.nameBrand}</td>
-                      <td className='p-2'>{brand.totalQuantitySold}</td>
-                      <td className='p-2'>
+                      <td className='p-2 text-rose-700 font-bold'>
+                        {brand.totalQuantitySold}
+                      </td>
+                      <td className='p-2 text-rose-700 font-bold'>
                         {brand.totalRevenue.toLocaleString(COUNTRY_CODE.VN)}₫
                       </td>
                     </tr>
@@ -299,15 +311,15 @@ export default function DashboardPage() {
           </table>
         </div>
 
-        <div className='bg-white shadow-md rounded-xl p-6'>
+        <div className='bg-gradient-to-br from-orange-200 to-pink-100 shadow-md rounded-xl p-6'>
           <h2 className='text-lg font-semibold mb-4'>Top Danh Mục</h2>
 
           <table className='w-full text-sm border-collapse'>
             <thead>
               <tr className='border-b border-gray-400'>
-                <th className='p-2 text-left'>Danh Mục</th>
-                <th className='p-2 text-left'>SL</th>
-                <th className='p-2 text-left'>Doanh Thu</th>
+                <th className='p-2 text-left font-semibold'>Danh Mục</th>
+                <th className='p-2 text-left font-semibold'>SL</th>
+                <th className='p-2 text-left font-semibold'>Doanh Thu</th>
               </tr>
             </thead>
 
@@ -332,8 +344,10 @@ export default function DashboardPage() {
                       className='border-b border-gray-400'
                     >
                       <td className='p-2'>{cate.nameCate}</td>
-                      <td className='p-2'>{cate.totalQuantitySold}</td>
-                      <td className='p-2'>
+                      <td className='p-2 text-rose-700 font-bold'>
+                        {cate.totalQuantitySold}
+                      </td>
+                      <td className='p-2 text-rose-700 font-bold'>
                         {cate.totalRevenue.toLocaleString(COUNTRY_CODE.VN)}₫
                       </td>
                     </tr>

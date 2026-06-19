@@ -1,17 +1,17 @@
 'use client';
 import CartTile from './cartTile';
-import Button from '@/components/custom/button';
+import Button from '@/components/button';
 import { useRouter } from 'next/navigation';
 import { useCart } from '@/hooks/client/useCart';
 import { CartItem } from '@/models/cartItem';
 import { useCartItem } from '@/hooks/client/useCartItem';
-import { Spinner } from '@/components/custom/spinner';
-import { SelectString, SelectNumber } from '@/components/custom/select';
+import { Spinner } from '@/components/spinner';
+import { SelectString, SelectNumber } from '@/components/select';
 import { useGHN } from '@/hooks/useGHN';
 import { normalizedSelectOptions } from '@/lib/utils';
 import { useState } from 'react';
 import { COUNTRY_CODE } from '@/lib/constants';
-import TextField from '@/components/custom/textfield';
+import TextField from '@/components/textfield';
 
 export default function CartPage() {
   const [province, setProvince] = useState(0);

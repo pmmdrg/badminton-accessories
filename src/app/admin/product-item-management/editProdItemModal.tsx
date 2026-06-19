@@ -1,6 +1,6 @@
-import Modal from '@/components/custom/modal';
-import { SelectString } from '@/components/custom/select';
-import TextField from '@/components/custom/textfield';
+import Modal from '@/components/modal';
+import { SelectString } from '@/components/select';
+import TextField from '@/components/textfield';
 import { useColorAdmin } from '@/hooks/admin/useColor';
 import { useProductAdmin } from '@/hooks/admin/useProduct';
 import { useProductItemAdmin } from '@/hooks/admin/useProductItem';

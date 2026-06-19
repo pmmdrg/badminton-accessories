@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Spinner } from '@/components/custom/spinner';
-import TextField from '@/components/custom/textfield';
-import Pagination from '@/components/custom/pagination';
+import { Spinner } from '@/components/spinner';
+import TextField from '@/components/textfield';
+import Pagination from '@/components/pagination';
 import { Supplier } from '@/models/supplier';
 import { useSupplierManager } from '@/hooks/manager/useSupplier';
 import { capitalizeFirst, normalizedDate } from '@/lib/utils';
+import clsx from 'clsx';
 
 export default function ManagerSupplierPage() {
   const { getAll } = useSupplierManager();
@@ -23,9 +24,9 @@ export default function ManagerSupplierPage() {
 
   return (
     <div className='p-6'>
-      <h1 className='text-2xl font-bold mb-4'>Nhà Cung Cấp</h1>
-
-      <div className='flex items-center justify-between mb-4'>
+      <h1 className='text-2xl font-bold mb-4'>Danh Sách Nhà Cung Cấp</h1>
+      <hr className='my-8 border-gray-400' />
+      <div className='flex items-center justify-between mb-8'>
         <TextField
           name='search-product'
           type='text'
@@ -48,13 +49,20 @@ export default function ManagerSupplierPage() {
           <tbody className='divide-y divide-gray-200'>
             {filteredSuppliers?.map((supplier: Supplier) => (
               <tr key={supplier.id}>
-                <td className='px-4 py-2'>{supplier.nameSupplier}</td>
-
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
-                  {supplier.address}
+                  {supplier.nameSupplier}
                 </td>
-
-                <td className='px-4 py-2'>
+                <td className='px-4 py-2'>{supplier.address}</td>
+                <td
+                  className={clsx(
+                    'px-4',
+                    'py-2',
+                    supplier.status === 'active'
+                      ? 'text-green-600'
+                      : 'text-red-600',
+                    'font-bold',
+                  )}
+                >
                   {capitalizeFirst(supplier.status)}
                 </td>
                 <td className='px-4 py-2'>

@@ -4,18 +4,19 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { useProductAdmin } from '@/hooks/admin/useProduct';
 import { Product } from '@/models/product';
-import { Spinner } from '@/components/custom/spinner';
-import TextField from '@/components/custom/textfield';
-import Button from '@/components/custom/button';
+import { Spinner } from '@/components/spinner';
+import TextField from '@/components/textfield';
+import Button from '@/components/button';
 import { STATUS } from '@/lib/constants';
 import { capitalizeFirst, isValidImageSrc, normalizedDate } from '@/lib/utils';
 import { placeholderImage } from '@/assets/images';
-import Pagination from '@/components/custom/pagination';
+import Pagination from '@/components/pagination';
 import AddProdModal from './addProdModal';
 import { useUpload } from '@/hooks/useUpload';
 import { upload } from '@imagekit/next';
 import EditProdModal from './editProdModal';
-import { UploadProgress } from '@/components/custom/uploadProgress';
+import { UploadProgress } from '@/components/uploadProgress';
+import clsx from 'clsx';
 
 export default function AdminProductPage() {
   const { getIKToken } = useUpload();
@@ -128,7 +129,7 @@ export default function AdminProductPage() {
     <div className='p-6'>
       <UploadProgress value={progress} />
       <h1 className='text-2xl font-bold mb-4'>Quản Lý Sản Phẩm</h1>
-
+      <hr className='my-8 border-gray-400' />
       <div className='flex items-center justify-between mb-4'>
         <TextField
           name='search-product'
@@ -184,12 +185,26 @@ export default function AdminProductPage() {
                     />
                   </div>
                 </td>
-                <td className='px-4 py-2'>{product.nameProduct}</td>
+                <td className='px-4 py-2 font-semibold text-rose-700'>
+                  {product.nameProduct}
+                </td>
                 <td className='px-4 py-2'>{product.id}</td>
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
                   {product.description}
                 </td>
-                <td className='px-4 py-2'>{capitalizeFirst(product.status)}</td>
+                <td
+                  className={clsx(
+                    'px-4',
+                    'py-2',
+                    {
+                      'text-green-600': product.status === STATUS.ACTIVE,
+                      'text-red-600': product.status === STATUS.INACTIVE,
+                    },
+                    'font-bold',
+                  )}
+                >
+                  {capitalizeFirst(product.status)}
+                </td>
                 <td className='px-4 py-2'>
                   {normalizedDate(product.created_at)}
                 </td>

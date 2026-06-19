@@ -1,16 +1,16 @@
 'use client';
 
-import { SelectString } from '@/components/custom/select';
+import { SelectString } from '@/components/select';
 import Image from 'next/image';
 import { Suspense, useState } from 'react';
 import { placeholderImage } from '@/assets/images';
-import Button from '@/components/custom/button';
+import Button from '@/components/button';
 import { COUNTRY_CODE } from '@/lib/constants';
 import { usePaymentClient } from '@/hooks/client/usePayment';
 import { Payment } from '@/models/payment';
 import { isValidImageSrc, normalizedSelectOptions } from '@/lib/utils';
 import { useCart } from '@/hooks/client/useCart';
-import { Spinner } from '@/components/custom/spinner';
+import { Spinner } from '@/components/spinner';
 import { CartItem } from '@/models/cartItem';
 import { useSearchParams } from 'next/navigation';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';

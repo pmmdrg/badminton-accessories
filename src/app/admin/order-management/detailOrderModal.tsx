@@ -1,10 +1,11 @@
 import { placeholderImage } from '@/assets/images';
-import Modal from '@/components/custom/modal';
-import { Spinner } from '@/components/custom/spinner';
+import Modal from '@/components/modal';
+import { Spinner } from '@/components/spinner';
 import { useOrderAdmin } from '@/hooks/admin/useOrder';
 import { COUNTRY_CODE } from '@/lib/constants';
 import { capitalizeFirst, isValidImageSrc, normalizedDate } from '@/lib/utils';
 import { DetailOrder } from '@/models/detailOrder';
+import clsx from 'clsx';
 import Image from 'next/image';
 
 export default function DetailOrderModal({
@@ -36,7 +37,9 @@ export default function DetailOrderModal({
           <div className='flex gap-40'>
             <div className='flex gap-2'>
               <p className='font-medium'>Người đặt hàng:</p>
-              {getByOrderId.data?.data.fullname}
+              <p className='font-bold text-rose-600'>
+                {getByOrderId.data?.data.fullname}
+              </p>
             </div>
 
             <div className='flex gap-2'>
@@ -47,7 +50,9 @@ export default function DetailOrderModal({
 
           <div className='my-4 flex gap-2'>
             <p className='font-medium'>Số lượng sản phẩm:</p>
-            {getByOrderId.data?.data.totalQuantity}
+            <p className='font-bold text-rose-600'>
+              {getByOrderId.data?.data.totalQuantity}
+            </p>
           </div>
 
           <div className='flex gap-40 my-4'>
@@ -92,7 +97,19 @@ export default function DetailOrderModal({
 
           <div className='my-4 flex gap-2'>
             <p className='font-medium'>Trạng thái đơn hàng:</p>
-            {capitalizeFirst(getByOrderId.data?.data.status)}
+            <p
+              className={clsx('font-bold', {
+                'text-green-600':
+                  getByOrderId.data?.data.status === 'completed',
+                'text-red-600': getByOrderId.data?.data.status === 'cancelled',
+                'text-orange-600':
+                  getByOrderId.data?.data.status === 'delivered',
+                'text-blue-600':
+                  getByOrderId.data?.data.status === 'processing',
+              })}
+            >
+              {capitalizeFirst(getByOrderId.data?.data.status)}
+            </p>
           </div>
 
           <div className='my-4 flex gap-2'>

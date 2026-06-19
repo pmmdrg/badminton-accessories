@@ -1,16 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { Spinner } from '@/components/custom/spinner';
-import TextField from '@/components/custom/textfield';
-import Button from '@/components/custom/button';
+import { Spinner } from '@/components/spinner';
+import TextField from '@/components/textfield';
+import Button from '@/components/button';
 import { STATUS } from '@/lib/constants';
-import Pagination from '@/components/custom/pagination';
+import Pagination from '@/components/pagination';
 import { useSupplierAdmin } from '@/hooks/admin/useSupplier';
 import { Supplier } from '@/models/supplier';
 import EditSupplierModal from './editSupplierModal';
 import AddSupplierModal from './addSupplierModal';
 import { capitalizeFirst, normalizedDate } from '@/lib/utils';
+import clsx from 'clsx';
 
 export default function AdminSupplierPage() {
   const { getAll, add, edit, remove, restore } = useSupplierAdmin();
@@ -50,7 +51,7 @@ export default function AdminSupplierPage() {
   return (
     <div className='p-6'>
       <h1 className='text-2xl font-bold mb-4'>Quản Lý Nhà Cung Cấp</h1>
-
+      <hr className='my-8 border-gray-400' />
       <div className='flex items-center justify-between mb-4'>
         <TextField
           name='search-supplier'
@@ -89,13 +90,23 @@ export default function AdminSupplierPage() {
           <tbody className='divide-y divide-gray-200'>
             {filteredSuppliers?.map((supplier: Supplier) => (
               <tr key={supplier.id}>
-                <td className='px-4 py-2'>{supplier.nameSupplier}</td>
-
+                <td className='px-4 py-2 text-rose-700 font-semibold'>
+                  {supplier.nameSupplier}
+                </td>
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
                   {supplier.address}
                 </td>
-
-                <td className='px-4 py-2'>
+                <td
+                  className={clsx(
+                    'px-4',
+                    'py-2',
+                    {
+                      'text-green-600': supplier.status === STATUS.ACTIVE,
+                      'text-red-600': supplier.status === STATUS.INACTIVE,
+                    },
+                    'font-bold',
+                  )}
+                >
                   {capitalizeFirst(supplier.status)}
                 </td>
                 <td className='px-4 py-2'>

@@ -1,9 +1,9 @@
 'use client';
 
 import { placeholderImage } from '@/assets/images';
-import Button from '@/components/custom/button';
-import TextField from '@/components/custom/textfield';
-import { UploadProgress } from '@/components/custom/uploadProgress';
+import Button from '@/components/button';
+import TextField from '@/components/textfield';
+import { UploadProgress } from '@/components/uploadProgress';
 import { useUserClient } from '@/hooks/client/useUser';
 import { useUpload } from '@/hooks/useUpload';
 import { isValidImageSrc } from '@/lib/utils';

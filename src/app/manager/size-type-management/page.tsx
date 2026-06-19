@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Spinner } from '@/components/custom/spinner';
-import TextField from '@/components/custom/textfield';
+import { Spinner } from '@/components/spinner';
+import TextField from '@/components/textfield';
 import { capitalizeFirst, normalizedDate } from '@/lib/utils';
-import Pagination from '@/components/custom/pagination';
+import Pagination from '@/components/pagination';
 import { SizeType } from '@/models/sizeType';
 import { useSizeTypeManager } from '@/hooks/manager/useSizeType';
+import clsx from 'clsx';
 
 export default function ManagerSizeTypePage() {
   const { getAll } = useSizeTypeManager();
@@ -23,9 +24,9 @@ export default function ManagerSizeTypePage() {
 
   return (
     <div className='p-6'>
-      <h1 className='text-2xl font-bold mb-4'>Loại Kích Thước</h1>
-
-      <div className='flex items-center justify-between mb-4'>
+      <h1 className='text-2xl font-bold mb-4'>Danh Sách Loại Kích Thước</h1>
+      <hr className='my-8 border-gray-400' />
+      <div className='flex items-center justify-between mb-8'>
         <TextField
           name='search-size-type'
           type='text'
@@ -48,9 +49,20 @@ export default function ManagerSizeTypePage() {
           <tbody className='divide-y divide-gray-200'>
             {filteredSizeTypes?.map((sizeType: SizeType) => (
               <tr key={sizeType.id}>
-                <td className='px-4 py-2'>{sizeType.nameSizeType}</td>
+                <td className='px-4 py-2 text-rose-700 font-semibold'>
+                  {sizeType.nameSizeType}
+                </td>
                 <td className='px-4 py-2'>{sizeType.description}</td>
-                <td className='px-4 py-2'>
+                <td
+                  className={clsx(
+                    'px-4',
+                    'py-2',
+                    sizeType.status === 'active'
+                      ? 'text-green-600'
+                      : 'text-red-600',
+                    'font-bold',
+                  )}
+                >
                   {capitalizeFirst(sizeType.status)}
                 </td>
                 <td className='px-4 py-2'>

@@ -2,13 +2,14 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Spinner } from '@/components/custom/spinner';
-import TextField from '@/components/custom/textfield';
+import { Spinner } from '@/components/spinner';
+import TextField from '@/components/textfield';
 import { capitalizeFirst, isValidImageSrc, normalizedDate } from '@/lib/utils';
 import { placeholderImage } from '@/assets/images';
-import Pagination from '@/components/custom/pagination';
+import Pagination from '@/components/pagination';
 import { User } from '@/models/user';
 import { useUserManager } from '@/hooks/manager/useUser';
+import clsx from 'clsx';
 
 export default function ManagerUserPage() {
   const { getAll } = useUserManager();
@@ -27,9 +28,9 @@ export default function ManagerUserPage() {
 
   return (
     <div className='p-6'>
-      <h1 className='text-2xl font-bold mb-4'>Người Dùng</h1>
-
-      <div className='flex items-center justify-between mb-4'>
+      <h1 className='text-2xl font-bold mb-4'>Danh Sách Người Dùng</h1>
+      <hr className='my-8 border-gray-400' />
+      <div className='flex items-center justify-between mb-8'>
         <TextField
           name='search-user'
           type='text'
@@ -69,14 +70,40 @@ export default function ManagerUserPage() {
                     />
                   </div>
                 </td>
-                <td className='px-4 py-2'>{user.fullname}</td>
+                <td className='px-4 py-2 text-rose-700 font-semibold'>
+                  {user.fullname}
+                </td>
                 <td className='px-4 py-2'>{user.username}</td>
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
                   {user.email}
                 </td>
                 <td className='px-4 py-2'>{normalizedDate(user.created_at)}</td>
-                <td className='px-4 py-2'>{capitalizeFirst(user.status)}</td>
-                <td className='px-4 py-2'>{capitalizeFirst(user.role)}</td>
+                <td
+                  className={clsx(
+                    'px-4',
+                    'py-2',
+                    user.status === 'active'
+                      ? 'text-green-600'
+                      : 'text-red-600',
+                    'font-bold',
+                  )}
+                >
+                  {capitalizeFirst(user.status)}
+                </td>
+                <td
+                  className={clsx(
+                    'px-4',
+                    'py-2',
+                    {
+                      'text-green-600': user.role === 'admin',
+                      'text-orange-600': user.role === 'manager',
+                      'text-blue-600': user.role === 'user',
+                    },
+                    'font-bold',
+                  )}
+                >
+                  {capitalizeFirst(user.role)}
+                </td>
               </tr>
             ))}
           </tbody>

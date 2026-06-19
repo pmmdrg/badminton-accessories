@@ -1,5 +1,5 @@
-import Modal from '@/components/custom/modal';
-import TextField from '@/components/custom/textfield';
+import Modal from '@/components/modal';
+import TextField from '@/components/textfield';
 import { useBrandAdmin } from '@/hooks/admin/useBrand';
 import { isValidImageSrc } from '@/lib/utils';
 import Image from 'next/image';
@@ -13,7 +13,7 @@ interface EditBrandModalProps {
     nameBrand: string,
     country: string,
     description?: string,
-    file?: File | null
+    file?: File | null,
   ) => void;
 }
 

@@ -1,5 +1,5 @@
-import Modal from '@/components/custom/modal';
-import TextField from '@/components/custom/textfield';
+import Modal from '@/components/modal';
+import TextField from '@/components/textfield';
 import Image from 'next/image';
 import { useState } from 'react';
 
@@ -9,7 +9,7 @@ interface AddCateModalProps {
   onConfirm: (
     nameCate: string,
     description?: string,
-    file?: File | null
+    file?: File | null,
   ) => void;
 }
 

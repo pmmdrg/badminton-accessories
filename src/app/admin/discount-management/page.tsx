@@ -1,16 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { Spinner } from '@/components/custom/spinner';
-import TextField from '@/components/custom/textfield';
-import Button from '@/components/custom/button';
+import { Spinner } from '@/components/spinner';
+import TextField from '@/components/textfield';
+import Button from '@/components/button';
 import { STATUS } from '@/lib/constants';
-import Pagination from '@/components/custom/pagination';
+import Pagination from '@/components/pagination';
 import { useDiscountAdmin } from '@/hooks/admin/useDiscount';
 import { Discount } from '@/models/discount';
 import EditDiscountModal from './editDiscountModal';
 import AddDiscountModal from './addDiscountModal';
 import { capitalizeFirst, normalizedDate } from '@/lib/utils';
+import clsx from 'clsx';
 
 export default function AdminDiscountPage() {
   const { getAll, add, edit, remove, restore } = useDiscountAdmin();
@@ -56,7 +57,7 @@ export default function AdminDiscountPage() {
   return (
     <div className='p-6'>
       <h1 className='text-2xl font-bold mb-4'>Quản Lý Mã Giảm Giá</h1>
-
+      <hr className='my-8 border-gray-400' />
       <div className='flex items-center justify-between mb-4'>
         <TextField
           name='search-discount'
@@ -95,11 +96,23 @@ export default function AdminDiscountPage() {
           <tbody className='divide-y divide-gray-200'>
             {filteredDiscounts?.map((discount: Discount) => (
               <tr key={discount.id}>
-                <td className='px-4 py-2'>{discount.codePromotion}</td>
+                <td className='px-4 py-2 text-rose-700 font-semibold'>
+                  {discount.codePromotion}
+                </td>
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
                   {discount.valuePromotion}
                 </td>
-                <td className='px-4 py-2'>
+                <td
+                  className={clsx(
+                    'px-4',
+                    'py-2',
+                    {
+                      'text-green-600': discount.status === STATUS.ACTIVE,
+                      'text-red-600': discount.status === STATUS.INACTIVE,
+                    },
+                    'font-bold',
+                  )}
+                >
                   {capitalizeFirst(discount.status)}
                 </td>
                 <td className='px-4 py-2'>

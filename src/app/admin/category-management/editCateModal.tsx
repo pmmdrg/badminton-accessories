@@ -1,5 +1,5 @@
-import Modal from '@/components/custom/modal';
-import TextField from '@/components/custom/textfield';
+import Modal from '@/components/modal';
+import TextField from '@/components/textfield';
 import { useCateAdmin } from '@/hooks/admin/useCate';
 import { isValidImageSrc } from '@/lib/utils';
 import Image from 'next/image';
@@ -12,7 +12,7 @@ interface EditCateModalProps {
   onConfirm: (
     nameCate: string,
     description?: string,
-    file?: File | null
+    file?: File | null,
   ) => void;
 }
 

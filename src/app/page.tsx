@@ -1,11 +1,11 @@
 'use client';
 
-import Carousel from '@/components/custom/carousel';
-import Section from '@/components/custom/section';
-import { Spinner } from '@/components/custom/spinner';
+import Carousel from '@/components/carousel';
+import Section from '@/components/section';
+import { Spinner } from '@/components/spinner';
 import { useProductClient } from '@/hooks/client/useProduct';
 import { Product } from '@/models/product';
-import Card from '@/components/custom/card';
+import Card from '@/components/card';
 import { useBrandClient } from '@/hooks/client/useBrand';
 import { useCateClient } from '@/hooks/client/useCate';
 import { Brand } from '@/models/brand';

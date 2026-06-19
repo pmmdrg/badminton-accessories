@@ -3,20 +3,21 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
-import { Spinner } from '@/components/custom/spinner';
-import TextField from '@/components/custom/textfield';
-import Button from '@/components/custom/button';
+import { Spinner } from '@/components/spinner';
+import TextField from '@/components/textfield';
+import Button from '@/components/button';
 import { STATUS } from '@/lib/constants';
 import { capitalizeFirst, isValidImageSrc, normalizedDate } from '@/lib/utils';
 import { placeholderImage } from '@/assets/images';
-import Pagination from '@/components/custom/pagination';
+import Pagination from '@/components/pagination';
 import { useCateAdmin } from '@/hooks/admin/useCate';
 import { Cate } from '@/models/cate';
 import { useUpload } from '@/hooks/useUpload';
 import { upload } from '@imagekit/next';
 import AddCateModal from './addCateModal';
 import EditCateModal from './editCateModal';
-import { UploadProgress } from '@/components/custom/uploadProgress';
+import { UploadProgress } from '@/components/uploadProgress';
+import clsx from 'clsx';
 
 export default function AdminCategoryPage() {
   const { getIKToken } = useUpload();
@@ -119,7 +120,7 @@ export default function AdminCategoryPage() {
     <div className='p-6'>
       <UploadProgress value={progress} />
       <h1 className='text-2xl font-bold mb-4'>Quản Lý Danh Mục</h1>
-
+      <hr className='my-8 border-gray-400' />
       <div className='flex items-center justify-between mb-4'>
         <TextField
           name='search-cates'
@@ -173,13 +174,23 @@ export default function AdminCategoryPage() {
                     />
                   </div>
                 </td>
-                <td className='px-4 py-2'>{cate.nameCate}</td>
-
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
-                  {cate.description}
+                  {cate.nameCate}
                 </td>
-
-                <td className='px-4 py-2'>{capitalizeFirst(cate.status)}</td>
+                <td className='px-4 py-2'>{cate.description}</td>
+                <td
+                  className={clsx(
+                    'px-4',
+                    'py-2',
+                    {
+                      'text-green-600': cate.status === STATUS.ACTIVE,
+                      'text-red-600': cate.status === STATUS.INACTIVE,
+                    },
+                    'font-bold',
+                  )}
+                >
+                  {capitalizeFirst(cate.status)}
+                </td>
                 <td className='px-4 py-2'>{normalizedDate(cate.created_at)}</td>
                 <td className='px-4 py-2'>
                   <div className='flex gap-2'>

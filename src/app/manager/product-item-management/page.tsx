@@ -3,13 +3,14 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { ProductItem } from '@/models/productItem';
-import { Spinner } from '@/components/custom/spinner';
-import TextField from '@/components/custom/textfield';
+import { Spinner } from '@/components/spinner';
+import TextField from '@/components/textfield';
 import { COUNTRY_CODE } from '@/lib/constants';
 import { capitalizeFirst, isValidImageSrc, normalizedDate } from '@/lib/utils';
 import { placeholderImage } from '@/assets/images';
-import Pagination from '@/components/custom/pagination';
+import Pagination from '@/components/pagination';
 import { useProductItemManager } from '@/hooks/manager/useProductItem';
+import clsx from 'clsx';
 
 export default function ManagerProductItemPage() {
   const { getAllActive } = useProductItemManager();
@@ -28,9 +29,9 @@ export default function ManagerProductItemPage() {
 
   return (
     <div className='p-6'>
-      <h1 className='text-2xl font-bold mb-4'>Mặt Hàng Sản Phẩm</h1>
-
-      <div className='flex items-center justify-between mb-4'>
+      <h1 className='text-2xl font-bold mb-4'>Danh Sách Mặt Hàng Sản Phẩm</h1>
+      <hr className='my-8 border-gray-400' />
+      <div className='flex items-center justify-between mb-8'>
         <TextField
           name='search-product-item'
           type='text'
@@ -74,13 +75,26 @@ export default function ManagerProductItemPage() {
                       />
                     </div>
                   </td>
-                  <td className='px-4 py-2'>{productItem.nameProductItem}</td>
+                  <td className='px-4 py-2 text-rose-700 font-semibold'>
+                    {productItem.nameProductItem}
+                  </td>
                   <td className='px-4 py-2'>{productItem.id}</td>
                   <td className='px-4 py-2 text-rose-700 font-semibold'>
                     {productItem.price.toLocaleString(COUNTRY_CODE.VN)}₫
                   </td>
-                  <td className='px-4 py-2'>{productItem.quantity}</td>
-                  <td className='px-4 py-2'>
+                  <td className='px-4 py-2 text-rose-700 font-semibold'>
+                    {productItem.quantity}
+                  </td>
+                  <td
+                    className={clsx(
+                      'px-4',
+                      'py-2',
+                      productItem.status === 'active'
+                        ? 'text-green-600'
+                        : 'text-red-600',
+                      'font-bold',
+                    )}
+                  >
                     {capitalizeFirst(productItem.status)}
                   </td>
                   <td className='px-4 py-2'>

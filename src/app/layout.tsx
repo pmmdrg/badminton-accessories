@@ -4,9 +4,9 @@ import ReactQueryProvider from '@/providers/queryProvider';
 
 import '../styles/globals.css';
 import { usePathname } from 'next/navigation';
-import Header from '@/components/custom/header';
-import Footer from '@/components/custom/footer';
-import ToastList, { ToastProvider } from '@/components/custom/toast';
+import Header from '@/components/header';
+import Footer from '@/components/footer';
+import ToastList, { ToastProvider } from '@/components/toast';
 
 export default function RootLayout({
   children,

@@ -1,6 +1,6 @@
 'use client';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useToast } from '@/components/custom/toast';
+import { useToast } from '@/components/toast';
 import { TOAST_TYPE } from '@/lib/constants';
 import { getUserInfo, updateUser } from '@/services/client/profileService';
 import { AxiosError } from 'axios';

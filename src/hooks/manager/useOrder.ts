@@ -16,7 +16,7 @@ import {
   getAllOrderByUserId,
   takeOrderDelivered,
 } from '@/services/manager/orderService';
-import { useToast } from '@/components/custom/toast';
+import { useToast } from '@/components/toast';
 import { TOAST_TYPE } from '@/lib/constants';
 
 export function useOrderManager(

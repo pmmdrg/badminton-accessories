@@ -3,16 +3,17 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useUserAdmin } from '@/hooks/admin/useUser';
-import { Spinner } from '@/components/custom/spinner';
-import TextField from '@/components/custom/textfield';
-import Button from '@/components/custom/button';
+import { Spinner } from '@/components/spinner';
+import TextField from '@/components/textfield';
+import Button from '@/components/button';
 import { STATUS } from '@/lib/constants';
 import { capitalizeFirst, isValidImageSrc, normalizedDate } from '@/lib/utils';
 import { placeholderImage } from '@/assets/images';
-import Pagination from '@/components/custom/pagination';
+import Pagination from '@/components/pagination';
 import { User } from '@/models/user';
 import AddManagerModal from './addManagerModal';
 import useAuth from '@/hooks/useAuth';
+import clsx from 'clsx';
 
 export default function AdminUserPage() {
   const { getAll, lock, restore } = useUserAdmin();
@@ -56,7 +57,7 @@ export default function AdminUserPage() {
   return (
     <div className='p-6'>
       <h1 className='text-2xl font-bold mb-4'>Quản Lý Người Dùng</h1>
-
+      <hr className='my-8 border-gray-400' />
       <div className='flex items-center justify-between mb-4'>
         <TextField
           name='search-user'
@@ -106,14 +107,41 @@ export default function AdminUserPage() {
                     />
                   </div>
                 </td>
-                <td className='px-4 py-2'>{user.fullname}</td>
+                <td className='px-4 py-2 text-rose-700 font-semibold'>
+                  {user.fullname}
+                </td>
                 <td className='px-4 py-2'>{user.username}</td>
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
                   {user.email}
                 </td>
                 <td className='px-4 py-2'>{normalizedDate(user.created_at)}</td>
-                <td className='px-4 py-2'>{capitalizeFirst(user.status)}</td>
-                <td className='px-4 py-2'>{capitalizeFirst(user.role)}</td>
+                <td
+                  className={clsx(
+                    'px-4',
+                    'py-2',
+                    {
+                      'text-green-600': user.status === STATUS.ACTIVE,
+                      'text-red-600': user.status === STATUS.INACTIVE,
+                    },
+                    'font-bold',
+                  )}
+                >
+                  {capitalizeFirst(user.status)}
+                </td>
+                <td
+                  className={clsx(
+                    'px-4',
+                    'py-2',
+                    {
+                      'text-green-600': user.role === 'admin',
+                      'text-orange-600': user.role === 'manager',
+                      'text-blue-600': user.role === 'user',
+                    },
+                    'font-bold',
+                  )}
+                >
+                  {capitalizeFirst(user.role)}
+                </td>
                 <td className='px-4 py-2'>
                   <div className='flex gap-2'>
                     {user.status === STATUS.ACTIVE ? (

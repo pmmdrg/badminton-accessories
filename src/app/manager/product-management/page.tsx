@@ -3,12 +3,13 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Product } from '@/models/product';
-import { Spinner } from '@/components/custom/spinner';
-import TextField from '@/components/custom/textfield';
+import { Spinner } from '@/components/spinner';
+import TextField from '@/components/textfield';
 import { capitalizeFirst, isValidImageSrc, normalizedDate } from '@/lib/utils';
 import { placeholderImage } from '@/assets/images';
-import Pagination from '@/components/custom/pagination';
+import Pagination from '@/components/pagination';
 import { useProductManager } from '@/hooks/manager/useProduct';
+import clsx from 'clsx';
 
 export default function ManagerProductPage() {
   const { getAllActive } = useProductManager();
@@ -26,9 +27,9 @@ export default function ManagerProductPage() {
 
   return (
     <div className='p-6'>
-      <h1 className='text-2xl font-bold mb-4'>Sản Phẩm</h1>
-
-      <div className='flex items-center justify-between mb-4'>
+      <h1 className='text-2xl font-bold mb-4'>Danh Sách Sản Phẩm</h1>
+      <hr className='my-8 border-gray-400' />
+      <div className='flex items-center justify-between mb-8'>
         <TextField
           name='search-product'
           type='text'
@@ -68,12 +69,25 @@ export default function ManagerProductPage() {
                     />
                   </div>
                 </td>
-                <td className='px-4 py-2'>{product.nameProduct}</td>
+                <td className='px-4 py-2 text-rose-700 font-semibold'>
+                  {product.nameProduct}
+                </td>
                 <td className='px-4 py-2'>{product.id}</td>
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
                   {product.description}
                 </td>
-                <td className='px-4 py-2'>{capitalizeFirst(product.status)}</td>
+                <td
+                  className={clsx(
+                    'px-4',
+                    'py-2',
+                    product.status === 'active'
+                      ? 'text-green-600'
+                      : 'text-red-600',
+                    'font-bold',
+                  )}
+                >
+                  {capitalizeFirst(product.status)}
+                </td>
                 <td className='px-4 py-2'>
                   {normalizedDate(product.created_at)}
                 </td>

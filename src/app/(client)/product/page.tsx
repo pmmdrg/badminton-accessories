@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { SelectString } from '@/components/custom/select';
-import TextField from '@/components/custom/textfield';
+import { SelectString } from '@/components/select';
+import TextField from '@/components/textfield';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import Pagination from '@/components/custom/pagination';
-import { Spinner } from '@/components/custom/spinner';
+import Pagination from '@/components/pagination';
+import { Spinner } from '@/components/spinner';
 import { useBrandClient } from '@/hooks/client/useBrand';
 import { useCateClient } from '@/hooks/client/useCate';
 import { normalizedSelectOptions } from '@/lib/utils';
@@ -13,7 +13,7 @@ import { Brand } from '@/models/brand';
 import { Cate } from '@/models/cate';
 import { useProductItemClient } from '@/hooks/client/useProductItem';
 import { ProductItem } from '@/models/productItem';
-import ProdItemCard from '@/components/custom/prodItemCard';
+import ProdItemCard from '@/components/prodItemCard';
 import { useColorClient } from '@/hooks/client/useColor';
 import { Color } from '@/models/color';
 

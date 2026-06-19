@@ -3,13 +3,14 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
-import { Spinner } from '@/components/custom/spinner';
-import TextField from '@/components/custom/textfield';
+import { Spinner } from '@/components/spinner';
+import TextField from '@/components/textfield';
 import { capitalizeFirst, isValidImageSrc, normalizedDate } from '@/lib/utils';
 import { placeholderImage } from '@/assets/images';
-import Pagination from '@/components/custom/pagination';
+import Pagination from '@/components/pagination';
 import { Cate } from '@/models/cate';
 import { useCateManager } from '@/hooks/manager/useCate';
+import clsx from 'clsx';
 
 export default function ManagerCategoryPage() {
   const { getAll } = useCateManager();
@@ -26,9 +27,9 @@ export default function ManagerCategoryPage() {
 
   return (
     <div className='p-6'>
-      <h1 className='text-2xl font-bold mb-4'>Danh Mục</h1>
-
-      <div className='flex items-center justify-between mb-4'>
+      <h1 className='text-2xl font-bold mb-4'>Danh Sách Danh Mục</h1>
+      <hr className='my-8 border-gray-400' />
+      <div className='flex items-center justify-between mb-8'>
         <TextField
           name='search-cates'
           type='text'
@@ -66,11 +67,22 @@ export default function ManagerCategoryPage() {
                     />
                   </div>
                 </td>
-                <td className='px-4 py-2'>{cate.nameCate}</td>
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
-                  {cate.description}
+                  {cate.nameCate}
                 </td>
-                <td className='px-4 py-2'>{capitalizeFirst(cate.status)}</td>
+                <td className='px-4 py-2'>{cate.description}</td>
+                <td
+                  className={clsx(
+                    'px-4',
+                    'py-2',
+                    cate.status === 'active'
+                      ? 'text-green-600'
+                      : 'text-red-600',
+                    'font-bold',
+                  )}
+                >
+                  {capitalizeFirst(cate.status)}
+                </td>
                 <td className='px-4 py-2'>{normalizedDate(cate.created_at)}</td>
               </tr>
             ))}

@@ -1,5 +1,5 @@
-import Modal from '@/components/custom/modal';
-import { Spinner } from '@/components/custom/spinner';
+import Modal from '@/components/modal';
+import { Spinner } from '@/components/spinner';
 import { useImportDetailAdmin } from '@/hooks/admin/useImportDetail';
 import { ImportDetail } from '@/models/importDetail';
 
@@ -15,6 +15,8 @@ export default function ImportModal({
   setIsOpen,
 }: ImportDetailModalProps) {
   const { getByImportId } = useImportDetailAdmin('', importId);
+
+  console.log('getByImportId', getByImportId.data?.data);
 
   return (
     <Modal
@@ -35,18 +37,12 @@ export default function ImportModal({
             (impDetail: ImportDetail, index: number) => (
               <div key={impDetail.id} className='my-4'>
                 {index !== 0 && <hr className='my-2 border-gray-300' />}
-                <div className='flex gap-10 items-center mb-2 px-2'>
-                  <p>{index + 1}</p>
-
-                  <div className='flex gap-2'>
-                    <p className='font-medium'>Tên sản phẩm:</p>
+                <div className='flex items-center mb-2 px-2'>
+                  <p className='font-medium pr-8'>{index + 1}</p>
+                  <p className='font-medium grow'>
                     {impDetail.nameProductItem}
-                  </div>
-
-                  <div className='flex gap-2'>
-                    <p className='font-medium'>Số lượng:</p>
-                    {impDetail.quantity}
-                  </div>
+                  </p>
+                  <p className='font-medium pl-8'>{impDetail.quantity} cái</p>
                 </div>
               </div>
             ),

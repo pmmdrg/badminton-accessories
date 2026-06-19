@@ -11,7 +11,7 @@ import {
   restoreBrand,
   updateBrand,
 } from '@/services/admin/brandService';
-import { useToast } from '@/components/custom/toast';
+import { useToast } from '@/components/toast';
 import { TOAST_TYPE } from '@/lib/constants';
 import { AxiosError } from 'axios';
 import { ApiError } from '@/types/apiError';

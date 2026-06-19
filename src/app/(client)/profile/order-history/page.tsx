@@ -1,7 +1,7 @@
 'use client';
 
-import Button from '@/components/custom/button';
-import { Spinner } from '@/components/custom/spinner';
+import Button from '@/components/button';
+import { Spinner } from '@/components/spinner';
 import { useOrderClient } from '@/hooks/client/useOrder';
 import { COUNTRY_CODE } from '@/lib/constants';
 import { capitalizeFirst } from '@/lib/utils';

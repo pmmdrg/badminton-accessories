@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 
-import { Spinner } from '@/components/custom/spinner';
-import TextField from '@/components/custom/textfield';
-import Button from '@/components/custom/button';
-import Pagination from '@/components/custom/pagination';
+import { Spinner } from '@/components/spinner';
+import TextField from '@/components/textfield';
+import Button from '@/components/button';
+import Pagination from '@/components/pagination';
 import { Import } from '@/models/import';
 import AddImportModal from './addImportModal';
 import { useImportManager } from '@/hooks/manager/useImport';
@@ -66,8 +66,8 @@ export default function ManagerImportPage() {
   return (
     <div className='p-6'>
       <h1 className='text-2xl font-bold mb-4'>Quản Lý Nhập Hàng</h1>
-
-      <div className='flex items-center justify-between mb-4'>
+      <hr className='my-8 border-gray-400' />
+      <div className='flex items-center justify-between mb-8'>
         <TextField
           name='search-imports'
           type='text'
@@ -120,10 +120,10 @@ export default function ManagerImportPage() {
                   setIsOpenViewImportDetail(true);
                 }}
               >
-                <td className='px-4 py-2'>{i.title}</td>
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
-                  {i.description}
+                  {i.title}
                 </td>
+                <td className='px-4 py-2'>{i.description}</td>
                 <td className='px-4 py-2'>{normalizedDate(i.importDate)}</td>
                 <td className='px-4 py-2'>
                   <Button

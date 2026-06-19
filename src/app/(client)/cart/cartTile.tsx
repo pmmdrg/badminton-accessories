@@ -1,6 +1,6 @@
 'use client';
 import { placeholderImage } from '@/assets/images';
-import Button from '@/components/custom/button';
+import Button from '@/components/button';
 import { useCart } from '@/hooks/client/useCart';
 import { COUNTRY_CODE } from '@/lib/constants';
 import { isValidImageSrc } from '@/lib/utils';
