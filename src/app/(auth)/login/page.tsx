@@ -79,8 +79,8 @@ export default function LoginPage() {
         className='w-full text-black'
       />
 
-      <div className='flex justify-end my-2'>
-        <Link href='/forgot-password' className='hover:underline'>
+      <div className='flex justify-end mt-2 mb-5'>
+        <Link href='/forgot-password' className='hover:underline font-semibold'>
           Quên mật khẩu?
         </Link>
       </div>
@@ -95,14 +95,15 @@ export default function LoginPage() {
         Đăng nhập
       </Button>
 
-      <div className='flex justify-center mt-2'>
-        <Link href='/register' className='hover:underline'>
-          Chưa có tài khoản? Đăng ký
+      <div className='flex justify-center mt-5 gap-1'>
+        <p>Chưa có tài khoản?</p>
+        <Link href='/register' className='hover:underline font-semibold'>
+          Đăng ký
         </Link>
       </div>
 
       <div className='flex justify-center mt-2'>
-        <Link href='/' className='hover:underline'>
+        <Link href='/' className='hover:underline font-semibold'>
           Quay về Trang chủ
         </Link>
       </div>

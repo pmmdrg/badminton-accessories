@@ -90,17 +90,6 @@ export default function AdminOrderPage() {
                   {order.status === 'processing' && (
                     <div className='flex gap-2'>
                       <Button
-                        variant='danger'
-                        className='px-2 py-1'
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          cancel.mutate(order.id);
-                        }}
-                      >
-                        Huỷ
-                      </Button>
-
-                      <Button
                         variant='success'
                         className='px-2 py-1'
                         onClick={(e) => {
@@ -109,6 +98,17 @@ export default function AdminOrderPage() {
                         }}
                       >
                         Vận chuyển
+                      </Button>
+
+                      <Button
+                        variant='danger'
+                        className='px-2 py-1'
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          cancel.mutate(order.id);
+                        }}
+                      >
+                        Huỷ
                       </Button>
                     </div>
                   )}
