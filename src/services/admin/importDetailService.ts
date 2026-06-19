@@ -3,9 +3,7 @@ import api from '@/lib/api';
 export async function createImportDetailAdmin(payload: {
   importId: string;
   productItemId: string;
-  colorId: string;
-  sizeId: string;
-  productItemName: string;
+  nameProductItem: string;
   imgProductItem: string;
   quantity: number;
 }) {
@@ -25,7 +23,8 @@ export async function getImportDetailByIdAdmin(id: string) {
 
 export async function getImportDetailByImportIdAdmin(id: string) {
   const res = await api.get(
-    `/admin/import/import-detail/search/import-id?importid${id}`
+    `/admin/import/import-detail/search/import-id?importId=${id}`,
   );
+
   return res.data;
 }

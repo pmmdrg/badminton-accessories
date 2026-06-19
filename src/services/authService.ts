@@ -43,7 +43,7 @@ export async function signUpManager(payload: {
 export async function logOut() {
   const refreshToken = localStorage.getItem('refresh_token');
   const logOutApi = axios.create({
-    baseURL: process.env.API_URL || 'http://localhost:8080',
+    baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080',
   });
 
   const res = await logOutApi.delete('/users/logout', {
@@ -61,7 +61,7 @@ export async function requestResetPassword(payload: { email: string }) {
 
 export async function changePassword(
   token: string,
-  payload: { password: string }
+  payload: { password: string },
 ) {
   const res = await api.post(`/users/reset-password?token=${token}`, payload);
 

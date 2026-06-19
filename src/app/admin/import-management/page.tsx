@@ -10,12 +10,20 @@ import { Import } from '@/models/import';
 import AddImportModal from './addImportModal';
 import { useImportAdmin } from '@/hooks/admin/useImport';
 import { normalizedDate } from '@/lib/utils';
+import { useImportDetailAdmin } from '@/hooks/admin/useImportDetail';
+import AddImportDetailModal from './addImportDetailModal';
+import { ProductItem } from '@/models/productItem';
+import ImportDetailModal from './importDetailModal';
 
 export default function AdminImportPage() {
   const { getAll, add } = useImportAdmin();
+  const { add: addDetail } = useImportDetailAdmin();
   const [currPage, setCurrPage] = useState(1);
   const [search, setSearch] = useState('');
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenAddImport, setIsOpenAddImport] = useState(false);
+  const [isOpenAddImportDetail, setIsOpenAddImportDetail] = useState(false);
+  const [isOpenViewImportDetail, setIsOpenViewImportDetail] = useState(false);
+  const [selectedImportId, setSelectedImportId] = useState('');
 
   const filteredImports = getAll.data?.data?.filter((i: Import) =>
     i.title.toLowerCase().includes(search.toLowerCase()),
@@ -23,7 +31,7 @@ export default function AdminImportPage() {
 
   const totalPages = Math.ceil((filteredImports || []).length / 20);
 
-  const handleConfirmAdd = async (
+  const handleConfirmAddImport = async (
     supplierId: string,
     title: string,
     description?: string,
@@ -33,6 +41,24 @@ export default function AdminImportPage() {
       title,
       description: description || '',
     });
+  };
+
+  const handleConfirmAddImportDetail = async (
+    quantity: number,
+    productItem: ProductItem | null,
+  ) => {
+    if (selectedImportId && selectedImportId !== '' && productItem)
+      addDetail.mutate({
+        importId: selectedImportId,
+        productItemId: productItem.id,
+        nameProductItem: productItem.nameProductItem,
+        imgProductItem:
+          productItem.imageProductItem &&
+          productItem.imageProductItem.length > 0
+            ? productItem.imageProductItem[0]
+            : '',
+        quantity,
+      });
   };
 
   if (getAll.isLoading) return <Spinner />;
@@ -49,13 +75,27 @@ export default function AdminImportPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <Button variant='info' onClick={() => setIsOpen(true)}>
+        <Button variant='info' onClick={() => setIsOpenAddImport(true)}>
           Thêm lô hàng
         </Button>
         <AddImportModal
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          onConfirm={handleConfirmAdd}
+          isOpen={isOpenAddImport}
+          setIsOpen={setIsOpenAddImport}
+          onConfirm={handleConfirmAddImport}
+        />
+        <AddImportDetailModal
+          isOpen={isOpenAddImportDetail}
+          setIsOpen={setIsOpenAddImportDetail}
+          onConfirm={handleConfirmAddImportDetail}
+          title={
+            getAll.data?.data?.find((i: Import) => i.id === selectedImportId)
+              ?.title || ''
+          }
+        />
+        <ImportDetailModal
+          isOpen={isOpenViewImportDetail}
+          setIsOpen={setIsOpenViewImportDetail}
+          importId={selectedImportId}
         />
       </div>
 
@@ -66,16 +106,38 @@ export default function AdminImportPage() {
               <th className='px-4 py-2 text-left'>Tiêu Đề</th>
               <th className='px-4 py-2 text-left'>Mô Tả</th>
               <th className='px-4 py-2 text-left'>Ngày Nhập</th>
+              <th className='px-4 py-2 text-left'>Hành Động</th>
             </tr>
           </thead>
           <tbody className='divide-y divide-gray-200'>
             {filteredImports?.map((i: Import) => (
-              <tr key={i.id}>
+              <tr
+                key={i.id}
+                className='cursor-pointer'
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedImportId(i.id);
+                  setIsOpenViewImportDetail(true);
+                }}
+              >
                 <td className='px-4 py-2'>{i.title}</td>
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
                   {i.description}
                 </td>
                 <td className='px-4 py-2'>{normalizedDate(i.importDate)}</td>
+                <td className='px-4 py-2'>
+                  <Button
+                    variant='info'
+                    className='px-2 py-1'
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedImportId(i.id);
+                      setIsOpenAddImportDetail(true);
+                    }}
+                  >
+                    Thêm chi tiết
+                  </Button>
+                </td>
               </tr>
             ))}
           </tbody>

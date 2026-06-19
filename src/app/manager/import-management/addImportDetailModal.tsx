@@ -1,43 +1,28 @@
 import Modal from '@/components/custom/modal';
 import { SelectString } from '@/components/custom/select';
 import TextField from '@/components/custom/textfield';
-import { useImportAdmin } from '@/hooks/admin/useImport';
-import { useProductItemAdmin } from '@/hooks/admin/useProductItem';
+import { useProductItemManager } from '@/hooks/manager/useProductItem';
 import { normalizedSelectOptions } from '@/lib/utils';
-import { Import } from '@/models/import';
 import { ProductItem } from '@/models/productItem';
 import { useState } from 'react';
 
 interface AddImportDetailModalProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  onConfirm: (
-    importId: string,
-    quantity: number,
-    productItem: ProductItem | null,
-  ) => void;
+  title: string;
+  onConfirm: (quantity: number, productItem: ProductItem | null) => void;
 }
 
-export default function AddImportModal({
+export default function AddImportDetailModal({
   isOpen,
   setIsOpen,
+  title = '',
   onConfirm,
 }: AddImportDetailModalProps) {
-  const imports = useImportAdmin();
-  const productItems = useProductItemAdmin();
-  const [imp, setImp] = useState('');
+  const productItems = useProductItemManager();
   const [productItem, setProductItem] = useState<ProductItem | null>(null);
   const [productItemName, setProductItemName] = useState('');
   const [quantity, setQuantity] = useState(0);
-
-  const importOptions = imports.getAll.data?.data
-    ? [
-        { label: 'Chưa có', value: '' },
-        ...imports.getAll.data.data.map((imp: Import) =>
-          normalizedSelectOptions(imp.title, imp.id),
-        ),
-      ]
-    : [{ label: 'Chưa có', value: '' }];
 
   const prodItemOptions = productItems.getAll.data?.data
     ? [
@@ -49,7 +34,6 @@ export default function AddImportModal({
     : [{ label: 'Chưa có', value: '' }];
 
   const resetState = () => {
-    setImp('');
     setProductItem(null);
     setProductItemName('');
     setQuantity(0);
@@ -63,39 +47,35 @@ export default function AddImportModal({
         resetState();
       }}
       onConfirm={() => {
-        onConfirm(imp, quantity, productItem);
+        onConfirm(quantity, productItem);
         resetState();
         setIsOpen(false);
       }}
       title='Thêm Chi Tiết Nhập Hàng'
     >
-      <div className='flex gap-10'>
-        <SelectString
-          label='Lô hàng'
-          value={imp}
-          options={importOptions}
-          onChange={setImp}
-          className='mx-2 my-2'
-        />
-
-        <SelectString
-          label='Mặt hàng sản phẩm'
-          value={productItemName}
-          options={prodItemOptions}
-          onChange={(value) => {
-            setProductItemName(value);
-
-            const foundProdItem = productItems.getAll.data?.data?.filter(
-              (pi: ProductItem) => pi.id === value,
-            );
-
-            if (foundProdItem.length > 0) {
-              setProductItem(foundProdItem[0]);
-            }
-          }}
-          className='mx-2 my-2'
-        />
+      <div className='mb-4 px-2'>
+        <p className='block text-sm text-gray-700 mb-1 font-medium'>
+          Lô hàng: {title}
+        </p>
       </div>
+
+      <SelectString
+        label='Mặt hàng sản phẩm'
+        value={productItemName}
+        options={prodItemOptions}
+        onChange={(value) => {
+          setProductItemName(value);
+
+          const foundProdItem = productItems.getAll.data?.data?.filter(
+            (pi: ProductItem) => pi.id === value,
+          );
+
+          if (foundProdItem.length > 0) {
+            setProductItem(foundProdItem[0]);
+          }
+        }}
+        className='mx-2 my-2'
+      />
 
       <TextField
         name='quantity'

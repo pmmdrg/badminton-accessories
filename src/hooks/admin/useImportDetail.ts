@@ -51,7 +51,7 @@ export function useImportDetailAdmin(id?: string, importId?: string) {
   });
 
   const getByImportId = useQuery({
-    queryKey: ['importid', importId],
+    queryKey: ['import-id', importId],
     queryFn: () => getImportDetailByImportIdAdmin(importId || ''),
     enabled: !!importId,
   });

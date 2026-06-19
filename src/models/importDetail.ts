@@ -4,7 +4,7 @@ export interface ImportDetail {
   productItemId: string;
   colorId: string;
   sizeId: string;
-  productItemName: string;
+  nameProductItem: string;
   imgProductItem: string;
   quantity: number;
 }
