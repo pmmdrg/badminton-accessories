@@ -4,7 +4,7 @@ import { ProductItem } from './productItem';
 export interface Discount {
   id: string;
   codePromotion: string;
-  valuePromotion: string;
+  valuePromotion: number;
   status: STATUS;
   created_at: string;
   updated_at: string;

@@ -29,7 +29,7 @@ export default function AdminDiscountPage() {
 
   const handleConfirmAdd = async (
     discountCode: string,
-    valuePromotion: string,
+    valuePromotion: number,
   ) => {
     add.mutate({
       codePromotion: discountCode,
@@ -39,7 +39,7 @@ export default function AdminDiscountPage() {
 
   const handleConfirmEdit = async (
     discountCode: string,
-    valuePromotion: string,
+    valuePromotion: number,
   ) => {
     edit.mutate({
       id: selectedId,

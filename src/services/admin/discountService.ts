@@ -1,9 +1,8 @@
 import api from '@/lib/api';
-import { STATUS } from '@/lib/constants';
 
 export async function createDiscount(payload: {
   codePromotion: string;
-  valuePromotion: string;
+  valuePromotion: number;
 }) {
   const res = await api.post('/admin/promotion/create', payload);
   return res.data;
@@ -42,7 +41,7 @@ export async function updateDiscount(
   id: string,
   payload: {
     codePromotion?: string;
-    valuePromotion?: string;
+    valuePromotion?: number;
   },
 ) {
   const res = await api.put(`/admin/promotion/update?id=${id}`, payload);

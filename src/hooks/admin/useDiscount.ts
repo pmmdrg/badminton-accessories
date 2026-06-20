@@ -81,7 +81,7 @@ export function useDiscountAdmin(id?: string, name?: string) {
       id: string;
       payload: {
         codePromotion?: string;
-        valuePromotion?: string;
+        valuePromotion?: number;
       };
     }) => updateDiscount(id, payload),
     onSuccess: (_, variables, ctx) => {

@@ -2,6 +2,7 @@
 
 import { TextFieldProps } from '@/types/textfieldProps';
 import clsx from 'clsx';
+import { useState } from 'react';
 
 export default function TextField({
   name,
@@ -24,6 +25,7 @@ export default function TextField({
   multiline = 1,
   className,
 }: TextFieldProps) {
+  const [isBlurred, setIsBlurred] = useState(false);
   const sizeClasses = {
     sm: 'text-sm py-1.5 px-3',
     md: 'text-base py-2 px-4',
@@ -47,7 +49,7 @@ export default function TextField({
           error && 'border-red-500',
           sizeClasses[size],
           fullWidth ? 'w-full' : '',
-          className
+          className,
         )}
       >
         {startIcon && (
@@ -55,7 +57,7 @@ export default function TextField({
             className={clsx(
               'mr-2 flex items-center',
               iconColor,
-              'hover:text-rose-200 focus-within:text-rose-700 transition-colors'
+              'hover:text-rose-200 focus-within:text-rose-700 transition-colors',
             )}
           >
             {startIcon}
@@ -80,6 +82,7 @@ export default function TextField({
             onChange={onChange}
             accept={type === 'file' ? accept : undefined}
             multiple={type === 'file' && multiple}
+            onBlur={() => setIsBlurred(true)}
           />
         )}
         {endIcon && (
@@ -87,20 +90,20 @@ export default function TextField({
             className={clsx(
               'ml-2 flex items-center',
               iconColor,
-              'hover:text-rose-200 focus-within:text-rose-700 transition-colors'
+              'hover:text-rose-200 focus-within:text-rose-700 transition-colors',
             )}
           >
             {endIcon}
           </span>
         )}
       </div>
-      {error && (
+      {isBlurred && error && (
         <p
           className={clsx(
             'mt-1',
             'text-sm',
             errorColor ?? 'text-red-600',
-            'self-start'
+            'self-start',
           )}
         >
           {error}

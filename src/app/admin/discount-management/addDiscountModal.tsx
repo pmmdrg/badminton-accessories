@@ -5,7 +5,7 @@ import { useState } from 'react';
 interface AddDiscountModalProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  onConfirm: (discountCode: string, valuePromotion: string) => void;
+  onConfirm: (discountCode: string, valuePromotion: number) => void;
 }
 
 export default function AddDiscountModal({
@@ -14,11 +14,11 @@ export default function AddDiscountModal({
   onConfirm,
 }: AddDiscountModalProps) {
   const [discountCode, setDiscountCode] = useState('');
-  const [valuePromotion, setValuePromotion] = useState('');
+  const [valuePromotion, setValuePromotion] = useState(0);
 
   const resetState = () => {
     setDiscountCode('');
-    setValuePromotion('');
+    setValuePromotion(0);
   };
 
   return (
@@ -47,11 +47,16 @@ export default function AddDiscountModal({
 
       <TextField
         label='Giá trị (%)'
+        type='number'
         name='value'
         placeholder='Nhập giá trị'
-        value={valuePromotion}
-        onChange={(e) => setValuePromotion(e.target.value)}
-        error={valuePromotion === '' ? 'Không để trống giá trị' : ''}
+        value={valuePromotion.toString()}
+        onChange={(e) => setValuePromotion(parseInt(e.target.value))}
+        error={
+          valuePromotion <= 0 || valuePromotion > 100
+            ? 'Vui lòng nhập số trong khoảng 1-100'
+            : ''
+        }
         fullWidth
       />
     </Modal>
