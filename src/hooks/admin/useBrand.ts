@@ -17,13 +17,13 @@ import { AxiosError } from 'axios';
 import { ApiError } from '@/types/apiError';
 
 export function useBrandAdmin(id?: string, name?: string) {
-  const { addToast } = useToast();
+  const { addToast, updateToast } = useToast();
   const queryClient = useQueryClient();
 
   const add = useMutation({
     mutationFn: createBrand,
-    onSuccess: () => {
-      addToast({
+    onSuccess: (_, __, ctx) => {
+      updateToast(ctx.toastId, {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã tạo thương hiệu mới',
       });
@@ -31,13 +31,15 @@ export function useBrandAdmin(id?: string, name?: string) {
       queryClient.invalidateQueries({ queryKey: ['admin-brands'] });
     },
     onMutate: () => {
-      addToast({
+      const toastId = addToast({
         type: TOAST_TYPE.INFO,
         message: 'Đang tạo thương hiệu mới, vui lòng đợi',
       });
+
+      return { toastId };
     },
-    onError: (err: AxiosError<ApiError>) => {
-      addToast({
+    onError: (err: AxiosError<ApiError>, _, ctx) => {
+      updateToast(ctx!.toastId, {
         type: TOAST_TYPE.ERROR,
         message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });
@@ -84,22 +86,25 @@ export function useBrandAdmin(id?: string, name?: string) {
         description?: string;
       };
     }) => updateBrand(id, payload),
-    onSuccess: () => {
-      addToast({
+    onSuccess: (_, variables, ctx) => {
+      updateToast(ctx.toastId, {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã chỉnh sửa thương hiệu',
       });
 
       queryClient.invalidateQueries({ queryKey: ['admin-brands'] });
+      queryClient.invalidateQueries({ queryKey: ['id', variables.id] });
     },
     onMutate: () => {
-      addToast({
+      const toastId = addToast({
         type: TOAST_TYPE.INFO,
         message: 'Đang chỉnh sửa thương hiệu, vui lòng đợi',
       });
+
+      return { toastId };
     },
-    onError: (err: AxiosError<ApiError>) => {
-      addToast({
+    onError: (err: AxiosError<ApiError>, _, ctx) => {
+      updateToast(ctx!.toastId, {
         type: TOAST_TYPE.ERROR,
         message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });

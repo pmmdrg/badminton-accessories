@@ -7,7 +7,7 @@ import { AxiosError } from 'axios';
 import { ApiError } from '@/types/apiError';
 
 export function useUpload() {
-  const { addToast } = useToast();
+  const { addToast, updateToast } = useToast();
 
   const getIKToken = useMutation({
     mutationFn: async (file: File) => {
@@ -19,20 +19,22 @@ export function useUpload() {
 
       return res;
     },
-    onSuccess: () => {
-      addToast({
+    onSuccess: (_, __, ctx) => {
+      updateToast(ctx.toastId, {
         type: TOAST_TYPE.SUCCESS,
         message: 'Bắt đầu tải ảnh',
       });
     },
     onMutate: () => {
-      addToast({
+      const toastId = addToast({
         type: TOAST_TYPE.INFO,
         message: 'Đang chuẩn bị tải ảnh',
       });
+
+      return { toastId };
     },
-    onError: (err: AxiosError<ApiError>) => {
-      addToast({
+    onError: (err: AxiosError<ApiError>, _, ctx) => {
+      updateToast(ctx!.toastId, {
         type: TOAST_TYPE.ERROR,
         message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });

@@ -20,7 +20,8 @@ import clsx from 'clsx';
 
 export default function AdminProductItemPage() {
   const { getIKToken } = useUpload();
-  const { getAll, add, edit, remove, restore } = useProductItemAdmin();
+  const { getAll, add, edit, remove, restore, addDiscount, removeDiscount } =
+    useProductItemAdmin();
 
   const [currPage, setCurrPage] = useState(1);
   const [search, setSearch] = useState('');
@@ -87,6 +88,7 @@ export default function AdminProductItemPage() {
     nameProductItem: string,
     files: File[],
     price: number,
+    discountId: string,
     description?: string,
   ) => {
     let imageUrls: string[] = [];
@@ -115,6 +117,12 @@ export default function AdminProductItemPage() {
       const results = await Promise.all(uploadPromises);
 
       imageUrls = results.filter((url): url is string => url !== null);
+    }
+
+    if (discountId.length > 0) {
+      await addDiscount.mutateAsync({ id: selectedId, discountId });
+    } else {
+      await removeDiscount.mutateAsync({ id: selectedId });
     }
 
     edit.mutate({
@@ -199,7 +207,19 @@ export default function AdminProductItemPage() {
                   </td>
                   <td className='px-4 py-2'>{productItem.id}</td>
                   <td className='px-4 py-2 text-rose-700 font-semibold'>
-                    {productItem.price.toLocaleString(COUNTRY_CODE.VN)}₫
+                    <div className='flex flex-col'>
+                      {productItem.pricePromotion && (
+                        <span className='line-through text-gray-500 text-sm'>
+                          {productItem.price.toLocaleString(COUNTRY_CODE.VN)}₫
+                        </span>
+                      )}
+                      <span>
+                        {(
+                          productItem.pricePromotion ?? productItem.price
+                        ).toLocaleString(COUNTRY_CODE.VN)}
+                        ₫
+                      </span>
+                    </div>
                   </td>
                   <td className='px-4 py-2 font-semibold text-rose-700'>
                     {productItem.quantity}

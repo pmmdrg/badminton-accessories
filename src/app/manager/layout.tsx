@@ -49,7 +49,7 @@ export default function ManagerLayout({ children }: { children: ReactNode }) {
           })}
           <div className='border-t inset-0.5 border-white my-10' />
           <Button
-            variant='primary'
+            variant='secondary'
             startIcon={<ArrowRightStartOnRectangleIcon className='h-5 w-5' />}
             onClick={() => logout.mutate()}
           >

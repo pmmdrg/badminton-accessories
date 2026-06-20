@@ -16,7 +16,7 @@ import { AxiosError } from 'axios';
 import { ApiError } from '@/types/apiError';
 
 export function useProductManager(id?: string, name?: string) {
-  const { addToast } = useToast();
+  const { addToast, updateToast } = useToast();
   const queryClient = useQueryClient();
 
   const getAll = useQuery({
@@ -61,8 +61,8 @@ export function useProductManager(id?: string, name?: string) {
         description?: string;
       };
     }) => updateProduct(id, payload),
-    onSuccess: () => {
-      addToast({
+    onSuccess: (_, __, ctx) => {
+      updateToast(ctx.toastId, {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã chỉnh sửa sản phẩm',
       });
@@ -70,13 +70,15 @@ export function useProductManager(id?: string, name?: string) {
       queryClient.invalidateQueries({ queryKey: ['manager-product'] });
     },
     onMutate: () => {
-      addToast({
+      const toastId = addToast({
         type: TOAST_TYPE.INFO,
         message: 'Đang chỉnh sửa sản phẩm, vui lòng đợi',
       });
+
+      return { toastId };
     },
-    onError: (err: AxiosError<ApiError>) => {
-      addToast({
+    onError: (err: AxiosError<ApiError>, _, ctx) => {
+      updateToast(ctx!.toastId, {
         type: TOAST_TYPE.ERROR,
         message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });

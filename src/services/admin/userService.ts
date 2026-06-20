@@ -1,7 +1,7 @@
 import api from '@/lib/api';
 
 export async function getAllUserAdmin() {
-  const res = await api.get('/admin/user');
+  const res = await api.get('/admin/user-and-manager');
   return res.data;
 }
 

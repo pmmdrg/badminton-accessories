@@ -17,13 +17,13 @@ import { AxiosError } from 'axios';
 import { ApiError } from '@/types/apiError';
 
 export function useSizeTypeAdmin(id?: string, name?: string) {
-  const { addToast } = useToast();
+  const { addToast, updateToast } = useToast();
   const queryClient = useQueryClient();
 
   const add = useMutation({
     mutationFn: createSizeType,
-    onSuccess: () => {
-      addToast({
+    onSuccess: (_, __, ctx) => {
+      updateToast(ctx.toastId, {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã tạo loại kích thước mới',
       });
@@ -31,13 +31,15 @@ export function useSizeTypeAdmin(id?: string, name?: string) {
       queryClient.invalidateQueries({ queryKey: ['admin-size-types'] });
     },
     onMutate: () => {
-      addToast({
+      const toastId = addToast({
         type: TOAST_TYPE.INFO,
         message: 'Đang tạo loại kích thước mới, vui lòng đợi',
       });
+
+      return { toastId };
     },
-    onError: (err: AxiosError<ApiError>) => {
-      addToast({
+    onError: (err: AxiosError<ApiError>, _, ctx) => {
+      updateToast(ctx!.toastId, {
         type: TOAST_TYPE.ERROR,
         message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });
@@ -82,22 +84,25 @@ export function useSizeTypeAdmin(id?: string, name?: string) {
         description?: string;
       };
     }) => updateSizeType(id, payload),
-    onSuccess: () => {
-      addToast({
+    onSuccess: (_, variables, ctx) => {
+      updateToast(ctx.toastId, {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã chỉnh sửa loại kích thước',
       });
 
       queryClient.invalidateQueries({ queryKey: ['admin-size-types'] });
+      queryClient.invalidateQueries({ queryKey: ['id', variables.id] });
     },
     onMutate: () => {
-      addToast({
+      const toastId = addToast({
         type: TOAST_TYPE.INFO,
         message: 'Đang chỉnh sửa loại kích thước, vui lòng đợi',
       });
+
+      return { toastId };
     },
-    onError: (err: AxiosError<ApiError>) => {
-      addToast({
+    onError: (err: AxiosError<ApiError>, _, ctx) => {
+      updateToast(ctx!.toastId, {
         type: TOAST_TYPE.ERROR,
         message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });

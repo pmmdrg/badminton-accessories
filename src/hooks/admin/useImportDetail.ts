@@ -12,13 +12,13 @@ import { AxiosError } from 'axios';
 import { ApiError } from '@/types/apiError';
 
 export function useImportDetailAdmin(id?: string, importId?: string) {
-  const { addToast } = useToast();
+  const { addToast, updateToast } = useToast();
   const queryClient = useQueryClient();
 
   const add = useMutation({
     mutationFn: createImportDetailAdmin,
-    onSuccess: () => {
-      addToast({
+    onSuccess: (_, __, ctx) => {
+      updateToast(ctx.toastId, {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã tạo hàng nhập mới',
       });
@@ -26,13 +26,15 @@ export function useImportDetailAdmin(id?: string, importId?: string) {
       queryClient.invalidateQueries({ queryKey: ['admin-import-details'] });
     },
     onMutate: () => {
-      addToast({
+      const toastId = addToast({
         type: TOAST_TYPE.INFO,
         message: 'Đang tạo hàng nhập mới, vui lòng đợi',
       });
+
+      return { toastId };
     },
-    onError: (err: AxiosError<ApiError>) => {
-      addToast({
+    onError: (err: AxiosError<ApiError>, _, ctx) => {
+      updateToast(ctx!.toastId, {
         type: TOAST_TYPE.ERROR,
         message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });

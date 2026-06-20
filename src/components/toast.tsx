@@ -19,8 +19,9 @@ import { ToastProps } from '@/types/toastProps';
 
 interface ToastContextType {
   toasts: ToastProps[];
-  addToast: (toast: Omit<ToastProps, 'id'>) => void;
-  removeToast: (id: number) => void;
+  addToast: (toast: Omit<ToastProps, 'id'>) => string;
+  updateToast: (id: string, payload: Partial<Omit<ToastProps, 'id'>>) => void;
+  removeToast: (id: string) => void;
 }
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
@@ -36,40 +37,39 @@ export const useToast = () => {
 export function ToastProvider({ children }: { children: React.ReactNode }) {
   const [toasts, setToasts] = useState<ToastProps[]>([]);
 
-  const addToast = useCallback(
-    (toast: Omit<ToastProps, 'id'>) => {
-      const id = Date.now();
+  const addToast = useCallback((toast: Omit<ToastProps, 'id'>) => {
+    const id = Date.now().toString();
 
-      setToasts([
-        ...toasts,
-        {
-          ...toast,
-          id,
-        },
-      ]);
+    setToasts((prevToasts) => [
+      ...prevToasts,
+      {
+        ...toast,
+        id,
+      },
+    ]);
 
-      return id;
+    return id;
+  }, []);
+
+  const updateToast = useCallback(
+    (id: string, payload: Partial<Omit<ToastProps, 'id'>>) => {
+      setToasts((prev) =>
+        prev.map((toast) =>
+          toast.id === id ? { ...toast, ...payload } : toast,
+        ),
+      );
     },
-    [toasts]
+    [],
   );
 
-  const removeToast = useCallback(
-    (id: number) => {
-      setToasts(toasts.filter((toast) => toast.id !== id));
-    },
-    [toasts]
-  );
-
-  useEffect(() => {
-    toasts.forEach((toast) => {
-      const timer = setTimeout(() => removeToast(toast.id), 5000);
-
-      return () => clearTimeout(timer);
-    });
-  }, [toasts, removeToast]);
+  const removeToast = useCallback((id: string) => {
+    setToasts((prevToasts) => prevToasts.filter((toast) => toast.id !== id));
+  }, []);
 
   return (
-    <ToastContext.Provider value={{ toasts, addToast, removeToast }}>
+    <ToastContext.Provider
+      value={{ toasts, addToast, updateToast, removeToast }}
+    >
       {children}
     </ToastContext.Provider>
   );
@@ -80,7 +80,7 @@ export default function ToastList() {
 
   useEffect(() => {
     const timers = toasts.map((toast) =>
-      setTimeout(() => removeToast(toast.id), 5000)
+      setTimeout(() => removeToast(toast.id), 5000),
     );
 
     return () => timers.forEach(clearTimeout);
@@ -102,9 +102,26 @@ export default function ToastList() {
           return (
             <motion.div
               key={toast.id}
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
+              initial={{
+                opacity: 0,
+                y: 30,
+                scale: 0.95,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                scale: 1,
+              }}
+              exit={{
+                opacity: 0,
+                y: 20,
+                scale: 0.95,
+              }}
+              transition={{
+                type: 'spring',
+                stiffness: 300,
+                damping: 25,
+              }}
               className='bg-white shadow-xl p-3 rounded-2xl flex items-center gap-3 min-w-[240px]'
             >
               {icon}

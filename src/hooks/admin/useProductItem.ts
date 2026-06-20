@@ -19,13 +19,13 @@ import { AxiosError } from 'axios';
 import { ApiError } from '@/types/apiError';
 
 export function useProductItemAdmin(id?: string, name?: string) {
-  const { addToast } = useToast();
+  const { addToast, updateToast } = useToast();
   const queryClient = useQueryClient();
 
   const add = useMutation({
     mutationFn: createProductItem,
-    onSuccess: () => {
-      addToast({
+    onSuccess: (_, __, ctx) => {
+      updateToast(ctx.toastId, {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã tạo mặt hàng sản phẩm mới',
       });
@@ -33,13 +33,15 @@ export function useProductItemAdmin(id?: string, name?: string) {
       queryClient.invalidateQueries({ queryKey: ['admin-product-items'] });
     },
     onMutate: () => {
-      addToast({
+      const toastId = addToast({
         type: TOAST_TYPE.INFO,
         message: 'Đang tạo mặt hàng sản phẩm mới, vui lòng đợi',
       });
+
+      return { toastId };
     },
-    onError: (err: AxiosError<ApiError>) => {
-      addToast({
+    onError: (err: AxiosError<ApiError>, _, ctx) => {
+      updateToast(ctx!.toastId, {
         type: TOAST_TYPE.ERROR,
         message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });
@@ -87,25 +89,27 @@ export function useProductItemAdmin(id?: string, name?: string) {
         quantity?: number;
       };
     }) => updateProductItem(id, payload),
-    onSuccess: (data, variables) => {
-      addToast({
+    onSuccess: (_, variables, ctx) => {
+      updateToast(ctx.toastId, {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã chỉnh sửa mặt hàng sản phẩm',
       });
 
       queryClient.invalidateQueries({ queryKey: ['admin-product-items'] });
       queryClient.invalidateQueries({
-        queryKey: ['prod-item-id', variables.id],
+        queryKey: ['id', variables.id],
       });
     },
     onMutate: () => {
-      addToast({
+      const toastId = addToast({
         type: TOAST_TYPE.INFO,
         message: 'Đang chỉnh sửa mặt hàng sản phẩm, vui lòng đợi',
       });
+
+      return { toastId };
     },
-    onError: (err: AxiosError<ApiError>) => {
-      addToast({
+    onError: (err: AxiosError<ApiError>, _, ctx) => {
+      updateToast(ctx!.toastId, {
         type: TOAST_TYPE.ERROR,
         message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });
@@ -139,22 +143,17 @@ export function useProductItemAdmin(id?: string, name?: string) {
   const addDiscount = useMutation({
     mutationFn: ({ id, discountId }: { id: string; discountId: string }) =>
       addDiscountToProductItem(id, discountId),
-    onSuccess: () => {
-      addToast({
-        type: TOAST_TYPE.SUCCESS,
-        message: 'Đã thêm khuyến mãi cho mặt hàng sản phẩm',
-      });
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['admin-product-items'] });
+      queryClient.invalidateQueries({ queryKey: ['id', variables.id] });
     },
   });
 
   const removeDiscount = useMutation({
-    mutationFn: ({ id, discountId }: { id: string; discountId: string }) =>
-      deleteDiscountFromProductItem(id, discountId),
-    onSuccess: () => {
-      addToast({
-        type: TOAST_TYPE.SUCCESS,
-        message: 'Đã xóa khuyến mãi khỏi mặt hàng sản phẩm',
-      });
+    mutationFn: ({ id }: { id: string }) => deleteDiscountFromProductItem(id),
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['admin-product-items'] });
+      queryClient.invalidateQueries({ queryKey: ['id', variables.id] });
     },
   });
 

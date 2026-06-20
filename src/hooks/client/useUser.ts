@@ -7,7 +7,7 @@ import { AxiosError } from 'axios';
 import { ApiError } from '@/types/apiError';
 
 export function useUserClient() {
-  const { addToast } = useToast();
+  const { addToast, updateToast } = useToast();
   const queryClient = useQueryClient();
 
   const getInfo = useQuery({
@@ -17,8 +17,8 @@ export function useUserClient() {
 
   const editUser = useMutation({
     mutationFn: updateUser,
-    onSuccess: () => {
-      addToast({
+    onSuccess: (_, __, ctx) => {
+      updateToast(ctx.toastId, {
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã chỉnh sửa hồ sơ',
       });
@@ -26,13 +26,15 @@ export function useUserClient() {
       queryClient.invalidateQueries({ queryKey: ['user-info'] });
     },
     onMutate: () => {
-      addToast({
+      const toastId = addToast({
         type: TOAST_TYPE.INFO,
         message: 'Đang chỉnh sửa hồ sơ, vui lòng đợi',
       });
+
+      return { toastId };
     },
-    onError: (err: AxiosError<ApiError>) => {
-      addToast({
+    onError: (err: AxiosError<ApiError>, _, ctx) => {
+      updateToast(ctx!.toastId, {
         type: TOAST_TYPE.ERROR,
         message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });

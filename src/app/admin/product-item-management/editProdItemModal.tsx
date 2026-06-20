@@ -2,11 +2,13 @@ import Modal from '@/components/modal';
 import { SelectString } from '@/components/select';
 import TextField from '@/components/textfield';
 import { useColorAdmin } from '@/hooks/admin/useColor';
+import { useDiscountAdmin } from '@/hooks/admin/useDiscount';
 import { useProductAdmin } from '@/hooks/admin/useProduct';
 import { useProductItemAdmin } from '@/hooks/admin/useProductItem';
 import { useSizeAdmin } from '@/hooks/admin/useSize';
 import { isValidImageSrc, normalizedSelectOptions } from '@/lib/utils';
 import { Color } from '@/models/color';
+import { Discount } from '@/models/discount';
 import { Product } from '@/models/product';
 import { Size } from '@/models/size';
 import Image from 'next/image';
@@ -20,6 +22,7 @@ interface EditProdItemModalProps {
     nameProductItem: string,
     files: File[],
     price: number,
+    discountId: string,
     description?: string,
   ) => void;
 }
@@ -31,12 +34,16 @@ export default function EditProdItemModal({
   onConfirm,
 }: EditProdItemModalProps) {
   const { getById } = useProductItemAdmin(prodItemId);
-  const products = useProductAdmin(getById.data?.data?.productId);
-  const colors = useColorAdmin();
+  const { getAll, getById: getProductById } = useProductAdmin(
+    getById.data?.data?.productId,
+  );
+  const { getAll: getAllDiscounts, getById: getDiscountById } =
+    useDiscountAdmin(getById.data?.data?.promotionId);
+  const { getAll: getAllColors } = useColorAdmin();
 
   const [product, setProduct] = useState<Product | null>(null);
 
-  const sizes = useSizeAdmin(
+  const { getBySizeTypeId } = useSizeAdmin(
     getById.data?.data?.sizeId,
     '',
     product?.sizeTypeId,
@@ -48,7 +55,7 @@ export default function EditProdItemModal({
   const [productItemName, setProductItemName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState(0);
-
+  const [discount, setDiscount] = useState<string>('');
   const [files, setFiles] = useState<File[]>([]);
   const [preview, setPreview] = useState<string[]>([]);
 
@@ -58,43 +65,67 @@ export default function EditProdItemModal({
     setColor(getById.data.data.colorId);
     setProductItemName(getById.data.data.nameProductItem);
     setDescription(getById.data.data.description);
-    setPreview(getById.data.data.imageProductItem);
+    setPreview(
+      getById.data.data.imageProductItem
+        ? getById.data.data.imageProductItem
+        : [],
+    );
     setPrice(getById.data.data.price);
 
-    if (!products.getById.data?.data) return;
-    setProduct(products.getById.data.data);
-    setProductName(products.getById.data.data.id);
+    if (getProductById.data?.data) {
+      setProduct(getProductById.data.data);
+      setProductName(getProductById.data.data.id);
+    }
 
-    if (!sizes.getBySizeTypeId.data?.data) return;
-    setSize(getById.data.data.sizeId);
-  }, [isOpen, getById.data, sizes.getBySizeTypeId.data, products.getById.data]);
+    if (getBySizeTypeId.data?.data) setSize(getById.data.data.sizeId);
 
-  const productNameOptions = products.getAll.data?.data
+    if (getDiscountById.data?.data) setDiscount(getDiscountById.data.data.id);
+  }, [
+    isOpen,
+    getById.data,
+    getBySizeTypeId.data,
+    getProductById.data,
+    getDiscountById.data,
+  ]);
+
+  const productNameOptions = getAll.data?.data
     ? [
         { label: 'Chưa có', value: '' },
-        ...products.getAll.data.data.map((product: Product) =>
+        ...getAll.data.data.map((product: Product) =>
           normalizedSelectOptions(product.nameProduct, product.id),
         ),
       ]
     : [{ label: 'Chưa có', value: '' }];
 
-  const sizeOptions = sizes.getBySizeTypeId.data?.data
+  const sizeOptions = getBySizeTypeId.data?.data
     ? [
         { label: 'Chưa có', value: '' },
-        ...sizes.getBySizeTypeId.data.data.map((size: Size) =>
+        ...getBySizeTypeId.data.data.map((size: Size) =>
           normalizedSelectOptions(size.nameSize, size.id),
         ),
       ]
     : [{ label: 'Chưa có', value: '' }];
 
-  const colorOptions = colors.getAll.data?.data
+  const colorOptions = getAllColors.data?.data
     ? [
         { label: 'Chưa có', value: '' },
-        ...colors.getAll.data.data.map((color: Color) =>
+        ...getAllColors.data.data.map((color: Color) =>
           normalizedSelectOptions(color.description, color.id),
         ),
       ]
     : [{ label: 'Chưa có', value: '' }];
+
+  const discountOptions = getAllDiscounts.data?.data
+    ? [
+        { label: 'Chưa áp dụng', value: '' },
+        ...getAllDiscounts.data.data.map((discount: Discount) =>
+          normalizedSelectOptions(
+            `${discount.codePromotion} (${discount.valuePromotion}%)`,
+            discount.id,
+          ),
+        ),
+      ]
+    : [{ label: 'Chưa áp dụng', value: '' }];
 
   const handleSelectImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selected = Array.from(e.target.files || []);
@@ -114,6 +145,7 @@ export default function EditProdItemModal({
     setProductItemName('');
     setSize('');
     setPreview([]);
+    setDiscount('');
   };
 
   return (
@@ -124,7 +156,7 @@ export default function EditProdItemModal({
         resetState();
       }}
       onConfirm={() => {
-        onConfirm(productItemName, files, price, description);
+        onConfirm(productItemName, files, price, discount, description);
         resetState();
         setIsOpen(false);
       }}
@@ -138,7 +170,7 @@ export default function EditProdItemModal({
           onChange={(value) => {
             setProductName(value);
 
-            const foundProd = products.getAll.data?.data?.filter(
+            const foundProd = getAll.data?.data?.filter(
               (product: Product) => product.id === value,
             );
 
@@ -178,15 +210,24 @@ export default function EditProdItemModal({
         fullWidth
       />
 
-      <TextField
-        type='number'
-        name='price'
-        label='Giá sản phẩm'
-        placeholder='Nhập giá sản phẩm'
-        value={price.toString()}
-        onChange={(e) => setPrice(parseInt(e.target.value))}
-        error={price === 0 ? 'Không để trống giá mặt hàng sản phẩm' : ''}
-      />
+      <div className='flex gap-8 items-center'>
+        <TextField
+          type='number'
+          name='price'
+          label='Giá sản phẩm'
+          placeholder='Nhập giá sản phẩm'
+          value={price.toString()}
+          onChange={(e) => setPrice(parseInt(e.target.value))}
+          error={price === 0 ? 'Không để trống giá mặt hàng sản phẩm' : ''}
+        />
+
+        <SelectString
+          label='Mã giảm giá'
+          value={discount}
+          options={discountOptions}
+          onChange={setDiscount}
+        />
+      </div>
 
       <TextField
         label='Mô tả'

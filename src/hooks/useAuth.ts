@@ -22,7 +22,7 @@ import { ApiError } from '@/types/apiError';
 
 export default function useAuth() {
   const router = useRouter();
-  const { addToast } = useToast();
+  const { addToast, updateToast } = useToast();
 
   const [userId, setUserId] = useState('');
 
@@ -70,27 +70,29 @@ export default function useAuth() {
 
   const registerUser = useMutation({
     mutationFn: signUpUser,
-    onSuccess: (data) => {
+    onMutate: () => {
+      const toastId = addToast({
+        type: TOAST_TYPE.INFO,
+        message: 'Đang đăng ký tài khoản mới, vui lòng đợi',
+      });
+
+      return { toastId };
+    },
+    onSuccess: (data, _, ctx) => {
       if (data?.data?.access_token && data?.data?.refresh_token) {
         localStorage.setItem('access_token', data.data.access_token);
         localStorage.setItem('refresh_token', data.data.refresh_token);
 
         router.replace('/');
 
-        addToast({
+        updateToast(ctx.toastId, {
           message: 'Đăng ký tài khoản thành công',
           type: TOAST_TYPE.SUCCESS,
         });
       }
     },
-    onMutate: () => {
-      addToast({
-        type: TOAST_TYPE.INFO,
-        message: 'Đang đăng ký tài khoản mới, vui lòng đợi',
-      });
-    },
-    onError: (err: AxiosError<ApiError>) => {
-      addToast({
+    onError: (err: AxiosError<ApiError>, _, ctx) => {
+      updateToast(ctx!.toastId, {
         type: TOAST_TYPE.ERROR,
         message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });
@@ -99,27 +101,29 @@ export default function useAuth() {
 
   const registerAdmin = useMutation({
     mutationFn: signUpAdmin,
-    onSuccess: (data) => {
+    onSuccess: (data, _, ctx) => {
       if (data?.data?.access_token && data?.data?.refresh_token) {
         localStorage.setItem('access_token', data.data.access_token);
         localStorage.setItem('refresh_token', data.data.refresh_token);
 
         router.replace('/admin/dashboard');
 
-        addToast({
+        updateToast(ctx.toastId, {
           message: 'Đăng ký tài khoản admin thành công',
           type: TOAST_TYPE.SUCCESS,
         });
       }
     },
     onMutate: () => {
-      addToast({
+      const toastId = addToast({
         type: TOAST_TYPE.INFO,
         message: 'Đang đăng ký tài khoản mới, vui lòng đợi',
       });
+
+      return { toastId };
     },
-    onError: (err: AxiosError<ApiError>) => {
-      addToast({
+    onError: (err: AxiosError<ApiError>, _, ctx) => {
+      updateToast(ctx!.toastId, {
         type: TOAST_TYPE.ERROR,
         message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });
@@ -128,20 +132,22 @@ export default function useAuth() {
 
   const registerManager = useMutation({
     mutationFn: signUpManager,
-    onSuccess: () => {
-      addToast({
+    onSuccess: (_, __, ctx) => {
+      updateToast(ctx.toastId, {
         message: 'Đăng ký tài khoản quản lý thành công',
         type: TOAST_TYPE.SUCCESS,
       });
     },
     onMutate: () => {
-      addToast({
+      const toastId = addToast({
         type: TOAST_TYPE.INFO,
         message: 'Đang đăng ký tài khoản mới, vui lòng đợi',
       });
+
+      return { toastId };
     },
-    onError: (err: AxiosError<ApiError>) => {
-      addToast({
+    onError: (err: AxiosError<ApiError>, _, ctx) => {
+      updateToast(ctx!.toastId, {
         type: TOAST_TYPE.ERROR,
         message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });
@@ -186,25 +192,27 @@ export default function useAuth() {
       token: string;
       payload: { password: string };
     }) => changePassword(token, payload),
-    onSuccess: () => {
+    onSuccess: (_, __, ctx) => {
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
 
       router.replace('/login');
 
-      addToast({
+      updateToast(ctx.toastId, {
         message: 'Đã đổi mật khẩu, vui lòng đăng nhập lại',
         type: TOAST_TYPE.SUCCESS,
       });
     },
     onMutate: () => {
-      addToast({
+      const toastId = addToast({
         type: TOAST_TYPE.INFO,
         message: 'Đang đổi mật khẩu, vui lòng đợi',
       });
+
+      return { toastId };
     },
-    onError: (err: AxiosError<ApiError>) => {
-      addToast({
+    onError: (err: AxiosError<ApiError>, _, ctx) => {
+      updateToast(ctx!.toastId, {
         type: TOAST_TYPE.ERROR,
         message: `Xảy ra lỗi: ${err.response?.data?.message}`,
       });

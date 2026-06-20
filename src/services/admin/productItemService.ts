@@ -76,12 +76,7 @@ export async function addDiscountToProductItem(
   return res.data;
 }
 
-export async function deleteDiscountFromProductItem(
-  id: string,
-  promotionId: string,
-) {
-  const res = await api.put(
-    `/admin/productitem/delete-promotion?id=${id}&promotionId=${promotionId}`,
-  );
+export async function deleteDiscountFromProductItem(id: string) {
+  const res = await api.put(`/admin/productitem/delete-promotion?id=${id}`);
   return res.data;
 }
