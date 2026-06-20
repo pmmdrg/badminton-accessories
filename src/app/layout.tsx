@@ -38,7 +38,10 @@ export default function RootLayout({
 
   return (
     <html lang='en'>
-      <title>Badminton Accessories Shop</title>
+      <head>
+        <title>Badminton Accessories Shop</title>
+        <link rel='icon' type='image/png' href='/favicon.png' />
+      </head>
       <body>
         <ReactQueryProvider>
           <ToastProvider>
