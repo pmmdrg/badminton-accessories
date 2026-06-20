@@ -10,6 +10,7 @@ import Pagination from '@/components/pagination';
 import { Brand } from '@/models/brand';
 import { useBrandManager } from '@/hooks/manager/useBrand';
 import clsx from 'clsx';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export default function ManagerBrandPage() {
   const { getAll } = useBrandManager();
@@ -35,6 +36,8 @@ export default function ManagerBrandPage() {
           placeholder='Tìm kiếm thương hiệu...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          endIcon={<MagnifyingGlassIcon className='w-5 h-5' />}
+          className='w-sm sm:max-w-full'
         />
       </div>
 

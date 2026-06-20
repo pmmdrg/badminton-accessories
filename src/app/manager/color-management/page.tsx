@@ -9,6 +9,7 @@ import Pagination from '@/components/pagination';
 import { Color } from '@/models/color';
 import { useColorManager } from '@/hooks/manager/useColor';
 import clsx from 'clsx';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export default function ManagerColorPage() {
   const { getAll } = useColorManager();
@@ -34,6 +35,8 @@ export default function ManagerColorPage() {
           placeholder='Tìm kiếm màu...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          endIcon={<MagnifyingGlassIcon className='w-5 h-5' />}
+          className='w-sm sm:max-w-full'
         />
       </div>
 

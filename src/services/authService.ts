@@ -48,6 +48,7 @@ export async function signUpManager(payload: {
 
 export async function logOut() {
   const refreshToken = localStorage.getItem('refresh_token');
+
   const logOutApi = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080',
   });

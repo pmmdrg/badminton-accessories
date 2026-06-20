@@ -8,6 +8,7 @@ import Pagination from '@/components/pagination';
 import { SizeType } from '@/models/sizeType';
 import { useSizeTypeManager } from '@/hooks/manager/useSizeType';
 import clsx from 'clsx';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export default function ManagerSizeTypePage() {
   const { getAll } = useSizeTypeManager();
@@ -33,6 +34,8 @@ export default function ManagerSizeTypePage() {
           placeholder='Tìm kiếm loại kích thước...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          endIcon={<MagnifyingGlassIcon className='w-5 h-5' />}
+          className='w-sm sm:max-w-full'
         />
       </div>
 

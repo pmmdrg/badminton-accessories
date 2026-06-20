@@ -2,6 +2,7 @@ import {
   ArchiveBoxIcon,
   ArrowRightStartOnRectangleIcon,
   ArrowsPointingOutIcon,
+  BuildingStorefrontIcon,
   ChatBubbleLeftRightIcon,
   InboxStackIcon,
   ReceiptPercentIcon,
@@ -317,7 +318,11 @@ export const MANAGER_ROUTES = [
     label: 'Loại Kích Thước',
     icon: ArrowsPointingOutIcon,
   },
-  { href: '/manager/user-management', label: 'Người Dùng', icon: UserIcon },
+  {
+    href: '/manager/store-management',
+    label: 'Cửa Hàng',
+    icon: BuildingStorefrontIcon,
+  },
   { href: '/manager/color-management', label: 'Màu', icon: SparklesIcon },
   {
     href: '/manager/brand-management',

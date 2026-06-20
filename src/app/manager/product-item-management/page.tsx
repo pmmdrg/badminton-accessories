@@ -11,6 +11,7 @@ import { placeholderImage } from '@/assets/images';
 import Pagination from '@/components/pagination';
 import { useProductItemManager } from '@/hooks/manager/useProductItem';
 import clsx from 'clsx';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export default function ManagerProductItemPage() {
   const { getAllActive } = useProductItemManager();
@@ -38,7 +39,8 @@ export default function ManagerProductItemPage() {
           placeholder='Tìm kiếm mặt hàng sản phẩm...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className='w-md'
+          endIcon={<MagnifyingGlassIcon className='w-5 h-5' />}
+          className='w-sm sm:max-w-full'
         />
       </div>
 

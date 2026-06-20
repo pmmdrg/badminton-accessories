@@ -12,6 +12,7 @@ import EditDiscountModal from './editDiscountModal';
 import AddDiscountModal from './addDiscountModal';
 import { capitalizeFirst, normalizedDate } from '@/lib/utils';
 import clsx from 'clsx';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export default function AdminDiscountPage() {
   const { getAll, add, edit, remove, restore } = useDiscountAdmin();
@@ -65,8 +66,10 @@ export default function AdminDiscountPage() {
           placeholder='Tìm kiếm mã giảm giá...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+        endIcon={<MagnifyingGlassIcon className='w-5 h-5' />}
+          className='w-sm sm:max-w-full'
         />
-        <Button variant='info' onClick={() => setIsOpenAdd(true)}>
+        <Button variant='success' onClick={() => setIsOpenAdd(true)}>
           Thêm mã giảm giá
         </Button>
         <AddDiscountModal

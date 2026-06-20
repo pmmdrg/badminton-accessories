@@ -8,6 +8,7 @@ import { Supplier } from '@/models/supplier';
 import { useSupplierManager } from '@/hooks/manager/useSupplier';
 import { capitalizeFirst, normalizedDate } from '@/lib/utils';
 import clsx from 'clsx';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export default function ManagerSupplierPage() {
   const { getAll } = useSupplierManager();
@@ -33,6 +34,8 @@ export default function ManagerSupplierPage() {
           placeholder='Tìm kiếm nhà cung cấp...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          endIcon={<MagnifyingGlassIcon className='w-5 h-5' />}
+          className='w-sm sm:max-w-full'
         />
       </div>
 

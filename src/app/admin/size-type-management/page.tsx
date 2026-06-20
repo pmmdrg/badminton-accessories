@@ -12,6 +12,7 @@ import EditSizeTypeModal from './editSizeTypeModal';
 import AddSizeTypeModal from './addSizeTypeModal';
 import { capitalizeFirst, normalizedDate } from '@/lib/utils';
 import clsx from 'clsx';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export default function AdminSizeTypePage() {
   const { getAll, add, edit, remove, restore } = useSizeTypeAdmin();
@@ -65,8 +66,10 @@ export default function AdminSizeTypePage() {
           placeholder='Tìm kiếm loại kích thước...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+        endIcon={<MagnifyingGlassIcon className='w-5 h-5' />}
+          className='w-sm sm:max-w-full'
         />
-        <Button variant='info' onClick={() => setIsOpenAdd(true)}>
+        <Button variant='success' onClick={() => setIsOpenAdd(true)}>
           Thêm loại kích thước
         </Button>
         <AddSizeTypeModal

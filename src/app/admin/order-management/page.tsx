@@ -11,6 +11,7 @@ import { useOrderAdmin } from '@/hooks/admin/useOrder';
 import { Order } from '@/models/order';
 import DetailOrderModal from './detailOrderModal';
 import clsx from 'clsx';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export default function AdminOrderPage() {
   const { getAll, deliver, cancel } = useOrderAdmin();
@@ -40,6 +41,8 @@ export default function AdminOrderPage() {
           placeholder='Tìm kiếm đơn hàng...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          endIcon={<MagnifyingGlassIcon className='w-5 h-5' />}
+          className='w-sm sm:max-w-full'
         />
       </div>
 

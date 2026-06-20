@@ -18,6 +18,7 @@ import AddCateModal from './addCateModal';
 import EditCateModal from './editCateModal';
 import { UploadProgress } from '@/components/uploadProgress';
 import clsx from 'clsx';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export default function AdminCategoryPage() {
   const { getIKToken } = useUpload();
@@ -128,8 +129,10 @@ export default function AdminCategoryPage() {
           placeholder='Tìm kiếm danh mục...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          endIcon={<MagnifyingGlassIcon className='w-5 h-5' />}
+          className='w-sm sm:max-w-full'
         />
-        <Button variant='info' onClick={() => setIsOpenAdd(true)}>
+        <Button variant='success' onClick={() => setIsOpenAdd(true)}>
           Thêm danh mục
         </Button>
         <AddCateModal

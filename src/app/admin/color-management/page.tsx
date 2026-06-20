@@ -12,6 +12,7 @@ import EditColorModal from './editColorModal';
 import AddColorModal from './addColorModal';
 import { capitalizeFirst, normalizedDate } from '@/lib/utils';
 import clsx from 'clsx';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export default function AdminColorPage() {
   const { getAll, add, edit, remove, restore } = useColorAdmin();
@@ -59,8 +60,10 @@ export default function AdminColorPage() {
           placeholder='Tìm kiếm màu...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          endIcon={<MagnifyingGlassIcon className='w-5 h-5' />}
+          className='w-sm sm:max-w-full'
         />
-        <Button variant='info' onClick={() => setIsOpenAdd(true)}>
+        <Button variant='success' onClick={() => setIsOpenAdd(true)}>
           Thêm màu
         </Button>
         <AddColorModal

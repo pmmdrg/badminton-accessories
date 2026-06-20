@@ -12,6 +12,7 @@ import EditSupplierModal from './editSupplierModal';
 import AddSupplierModal from './addSupplierModal';
 import { capitalizeFirst, normalizedDate } from '@/lib/utils';
 import clsx from 'clsx';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export default function AdminSupplierPage() {
   const { getAll, add, edit, remove, restore } = useSupplierAdmin();
@@ -59,8 +60,10 @@ export default function AdminSupplierPage() {
           placeholder='Tìm kiếm nhà cung cấp...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          endIcon={<MagnifyingGlassIcon className='w-5 h-5' />}
+          className='w-sm sm:max-w-full'
         />
-        <Button variant='info' onClick={() => setIsOpenAdd(true)}>
+        <Button variant='success' onClick={() => setIsOpenAdd(true)}>
           Thêm nhà cung cấp
         </Button>
         <AddSupplierModal

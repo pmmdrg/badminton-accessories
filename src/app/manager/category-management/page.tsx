@@ -11,6 +11,7 @@ import Pagination from '@/components/pagination';
 import { Cate } from '@/models/cate';
 import { useCateManager } from '@/hooks/manager/useCate';
 import clsx from 'clsx';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export default function ManagerCategoryPage() {
   const { getAll } = useCateManager();
@@ -36,6 +37,8 @@ export default function ManagerCategoryPage() {
           placeholder='Tìm kiếm danh mục...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          endIcon={<MagnifyingGlassIcon className='w-5 h-5' />}
+          className='w-sm sm:max-w-full'
         />
       </div>
 

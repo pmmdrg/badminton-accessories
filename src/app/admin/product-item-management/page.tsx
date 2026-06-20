@@ -17,6 +17,7 @@ import { upload } from '@imagekit/next';
 import EditProdItemModal from '../product-item-management/editProdItemModal';
 import { UploadProgress } from '@/components/uploadProgress';
 import clsx from 'clsx';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export default function AdminProductItemPage() {
   const { getIKToken } = useUpload();
@@ -150,9 +151,10 @@ export default function AdminProductItemPage() {
           placeholder='Tìm kiếm mặt hàng sản phẩm...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className='w-md'
+          endIcon={<MagnifyingGlassIcon className='w-5 h-5' />}
+          className='w-sm sm:max-w-full'
         />
-        <Button variant='info' onClick={() => setIsOpenAdd(true)}>
+        <Button variant='success' onClick={() => setIsOpenAdd(true)}>
           Thêm mặt hàng sản phẩm
         </Button>
         <AddProdItemModal

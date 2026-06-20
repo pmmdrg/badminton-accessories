@@ -14,6 +14,7 @@ import { useImportDetailAdmin } from '@/hooks/admin/useImportDetail';
 import AddImportDetailModal from './addImportDetailModal';
 import { ProductItem } from '@/models/productItem';
 import ImportDetailModal from './importDetailModal';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export default function AdminImportPage() {
   const { getAll, add } = useImportAdmin();
@@ -74,8 +75,10 @@ export default function AdminImportPage() {
           placeholder='Tìm kiếm lô hàng...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          endIcon={<MagnifyingGlassIcon className='w-5 h-5' />}
+          className='w-sm sm:max-w-full'
         />
-        <Button variant='info' onClick={() => setIsOpenAddImport(true)}>
+        <Button variant='success' onClick={() => setIsOpenAddImport(true)}>
           Thêm lô hàng
         </Button>
         <AddImportModal

@@ -17,6 +17,7 @@ import AddBrandModal from './addBrandModal';
 import EditBrandModal from './editBrandModal';
 import { UploadProgress } from '@/components/uploadProgress';
 import clsx from 'clsx';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export default function AdminBrandPage() {
   const { getIKToken } = useUpload();
@@ -133,8 +134,10 @@ export default function AdminBrandPage() {
           placeholder='Tìm kiếm thương hiệu...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          endIcon={<MagnifyingGlassIcon className='w-5 h-5' />}
+          className='w-sm sm:max-w-full'
         />
-        <Button variant='info' onClick={() => setIsOpenAdd(true)}>
+        <Button variant='success' onClick={() => setIsOpenAdd(true)}>
           Thêm thương hiệu
         </Button>
         <AddBrandModal

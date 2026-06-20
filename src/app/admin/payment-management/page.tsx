@@ -12,6 +12,7 @@ import EditPaymentModal from './editPaymentModal';
 import AddPaymentModal from './addPaymentModal';
 import { capitalizeFirst, normalizedDate } from '@/lib/utils';
 import clsx from 'clsx';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export default function AdminPaymentPage() {
   const { getAll, add, edit, remove, restore } = usePaymentAdmin();
@@ -59,8 +60,10 @@ export default function AdminPaymentPage() {
           placeholder='Tìm kiếm phương thức thanh toán...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          endIcon={<MagnifyingGlassIcon className='w-5 h-5' />}
+          className='w-sm sm:max-w-full'
         />
-        <Button variant='info' onClick={() => setIsOpenAdd(true)}>
+        <Button variant='success' onClick={() => setIsOpenAdd(true)}>
           Thêm phương thức thanh toán
         </Button>
         <AddPaymentModal
