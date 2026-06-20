@@ -7,7 +7,7 @@ interface EditDiscountModalProps {
   discountId: string;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  onConfirm: (codePromotion: string, valuePromotion: string) => void;
+  onConfirm: (codePromotion: string, valuePromotion: number) => void;
 }
 
 export default function EditDiscountModal({
@@ -19,7 +19,7 @@ export default function EditDiscountModal({
   const { getById } = useDiscountAdmin(discountId);
 
   const [codePromotion, setCodePromotion] = useState('');
-  const [valuePromotion, setValuePromotion] = useState('');
+  const [valuePromotion, setValuePromotion] = useState(0);
 
   useEffect(() => {
     if (!getById.data?.data) return;
@@ -30,7 +30,7 @@ export default function EditDiscountModal({
 
   const resetState = () => {
     setCodePromotion('');
-    setValuePromotion('');
+    setValuePromotion(0);
   };
 
   return (
@@ -61,9 +61,13 @@ export default function EditDiscountModal({
         label='Giá trị (%)'
         name='value'
         placeholder='Nhập giá trị'
-        value={valuePromotion}
-        onChange={(e) => setValuePromotion(e.target.value)}
-        error={valuePromotion === '' ? 'Không để trống giá trị' : ''}
+        value={valuePromotion.toString()}
+        onChange={(e) => setValuePromotion(parseInt(e.target.value))}
+        error={
+          valuePromotion <= 0 || valuePromotion > 100
+            ? 'Vui lòng nhập giá trị từ 1-100'
+            : ''
+        }
         fullWidth
       />
     </Modal>

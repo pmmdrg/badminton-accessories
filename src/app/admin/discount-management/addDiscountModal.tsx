@@ -54,7 +54,7 @@ export default function AddDiscountModal({
         onChange={(e) => setValuePromotion(parseInt(e.target.value))}
         error={
           valuePromotion <= 0 || valuePromotion > 100
-            ? 'Vui lòng nhập số trong khoảng 1-100'
+            ? 'Vui lòng nhập giá trị từ 1-100'
             : ''
         }
         fullWidth
