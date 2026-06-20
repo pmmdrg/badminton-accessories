@@ -1,12 +1,11 @@
 'use client';
 
-import ReactQueryProvider from '@/providers/queryProvider';
-
 import '../styles/globals.css';
 import { usePathname } from 'next/navigation';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
-import ToastList, { ToastProvider } from '@/components/toast';
+import ToastList from '@/components/toast';
+import Providers from './providers';
 
 export default function RootLayout({
   children,
@@ -43,12 +42,10 @@ export default function RootLayout({
         <link rel='icon' type='image/png' href='/favicon.png' />
       </head>
       <body>
-        <ReactQueryProvider>
-          <ToastProvider>
-            <ToastList />
-            {renderElement()}
-          </ToastProvider>
-        </ReactQueryProvider>
+        <Providers>
+          <ToastList />
+          {renderElement()}
+        </Providers>
       </body>
     </html>
   );

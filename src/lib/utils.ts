@@ -30,7 +30,22 @@ export function capitalizeFirst(str: string, locale = COUNTRY_CODE.VN) {
 }
 
 export function normalizedDate(dateStr?: string | null) {
-  if (dateStr) return new Date(dateStr).toLocaleDateString(COUNTRY_CODE.VN);
+  if (!dateStr) return '';
 
-  return '';
+  return new Date(dateStr).toLocaleDateString(COUNTRY_CODE.VN);
+}
+
+export function normalizedTime(timeStr?: string | null) {
+  if (!timeStr) return '';
+
+  return new Date(timeStr).toLocaleTimeString(COUNTRY_CODE.VN);
+}
+
+export function normalizedDateTime(dateTimeStr?: string | null) {
+  if (!dateTimeStr) return '';
+
+  const timeConverted = normalizedTime(dateTimeStr);
+  const dateConverted = normalizedDate(dateTimeStr);
+
+  return `${timeConverted.slice(0, timeConverted.length - 3)} ${dateConverted}`;
 }

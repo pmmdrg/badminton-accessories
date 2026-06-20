@@ -11,6 +11,7 @@ import {
   signUpManager,
   requestResetPassword,
   changePassword,
+  loginUserGoogle,
 } from '@/services/authService';
 import { useRouter } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
@@ -41,6 +42,32 @@ export default function useAuth() {
       setUserId('');
     }
   }, []);
+
+  const loginGoogle = useMutation({
+    mutationFn: loginUserGoogle,
+    onSuccess: (data) => {
+      if (data?.data?.access_token && data?.data?.refresh_token) {
+        const decode = jwtDecode<DecodePayload>(data.data.access_token);
+        setUserId(decode?.sub || '');
+
+        localStorage.setItem('access_token', data.data.access_token);
+        localStorage.setItem('refresh_token', data.data.refresh_token);
+
+        if (decode?.role === 'admin') router.replace('/admin/dashboard');
+        else if (decode?.role === 'manager')
+          router.replace('/manager/product-management');
+        else router.replace('/');
+
+        addToast({ message: 'Đăng nhập thành công', type: TOAST_TYPE.SUCCESS });
+      }
+    },
+    onError: (err: AxiosError<ApiError>) => {
+      addToast({
+        type: TOAST_TYPE.ERROR,
+        message: `Xảy ra lỗi: ${err.response?.data?.message}`,
+      });
+    },
+  });
 
   const login = useMutation({
     mutationFn: loginUser,
@@ -221,6 +248,7 @@ export default function useAuth() {
 
   return {
     userId,
+    loginGoogle,
     login,
     registerUser,
     registerAdmin,

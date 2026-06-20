@@ -57,7 +57,7 @@ export default function TextField({
             className={clsx(
               'mr-2 flex items-center',
               iconColor,
-              'hover:text-rose-200 focus-within:text-rose-700 transition-colors',
+              'focus-within:text-rose-700 transition-colors',
             )}
           >
             {startIcon}
@@ -90,7 +90,7 @@ export default function TextField({
             className={clsx(
               'ml-2 flex items-center',
               iconColor,
-              'hover:text-rose-200 focus-within:text-rose-700 transition-colors',
+              'focus-within:text-rose-700 transition-colors',
             )}
           >
             {endIcon}
