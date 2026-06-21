@@ -25,7 +25,7 @@ export default function Carousel({
         pagination={{ clickable: true }}
         navigation
         loop
-        className='w-full h-[400px] md:h-[500px] lg:h-[600px]'
+        className='w-full h-[500px] md:h-[600px] lg:h-[700px]'
       >
         {images.map((image, index) => (
           <SwiperSlide key={index}>

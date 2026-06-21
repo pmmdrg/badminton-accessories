@@ -50,7 +50,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className='bg-rose-800 shadow-md sticky top-0 z-50'>
+    <header className='bg-gradient-to-r from-rose-800 to-rose-600 shadow-xl sticky top-0 z-50 border-b border-b-white/30'>
       <div className='container mx-auto flex items-center justify-between px-4 py-3'>
         <Link href='/' className='text-2xl font-bold text-white'>
           Badminton Accessories Shop
@@ -58,15 +58,15 @@ export default function Header() {
 
         <nav className='hidden md:flex items-center space-x-6'>
           <Link href='/' className='text-white hover:text-rose-300'>
-            Trang chủ
+            Trang Chủ
           </Link>
 
           <Link href='/product' className='text-white hover:text-rose-300'>
-            Sản phẩm
+            Sản Phẩm
           </Link>
 
           <Link href='/about' className='text-white hover:text-rose-300'>
-            Về chúng tôi
+            Về Chúng Tôi
           </Link>
 
           <button

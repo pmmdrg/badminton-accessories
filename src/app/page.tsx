@@ -44,8 +44,10 @@ export default function Homepage() {
     );
 
   return (
-    <>
-      <Carousel images={banners} />
+    <div className='px-10 mt-4'>
+      <div className='rounded-2xl overflow-hidden shadow-lg bg-white/5 backdrop-blur-md'>
+        <Carousel images={banners} />
+      </div>
 
       <Section title='Sản phẩm mới'>
         <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6'>
@@ -85,6 +87,6 @@ export default function Homepage() {
           ))}
         </div>
       </Section>
-    </>
+    </div>
   );
 }
