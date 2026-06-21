@@ -72,9 +72,9 @@ export default function PersonalInformationPage() {
   return (
     <div className=' flex justify-center items-start py-10'>
       <UploadProgress value={progress} />
-      <div className='w-full max-w-xl bg-white rounded-2xl shadow p-6'>
+      <div className='w-full max-w-xl bg-gradient-to-br from-white/20 via-gray-200 to-gray-300 border border-white/30 backdrop-blur-md rounded-2xl shadow-xl p-6'>
         <h1 className='text-2xl font-bold text-center mb-6'>
-          Thông tin cá nhân
+          Thông Tin Cá Nhân
         </h1>
 
         <div className='flex justify-center mb-6'>
@@ -103,7 +103,7 @@ export default function PersonalInformationPage() {
 
         <div className='flex flex-col gap-4'>
           <div className='flex flex-col gap-1'>
-            <label className='font-medium'>Họ và tên</label>
+            <label className='font-medium'>Họ Và Tên</label>
             <TextField
               name='fullname'
               value={fullname}
@@ -115,7 +115,7 @@ export default function PersonalInformationPage() {
           </div>
 
           <div className='flex flex-col gap-1'>
-            <label className='font-medium'>Tiểu sử</label>
+            <label className='font-medium'>Tiểu Sử</label>
             <TextField
               name='bio'
               value={bio}
@@ -126,7 +126,7 @@ export default function PersonalInformationPage() {
             />
           </div>
 
-          <Button onClick={handleUpdate}>Cập nhật thông tin cá nhân</Button>
+          <Button onClick={handleUpdate}>Cập Nhật Thông Tin Cá Nhân</Button>
         </div>
       </div>
     </div>

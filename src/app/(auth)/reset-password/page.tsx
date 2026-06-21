@@ -110,12 +110,12 @@ function ResetPasswordForm() {
         shadow
         loading={resetPassword.isPending}
       >
-        Đổi mật khẩu
+        Đổi Mật Khẩu
       </Button>
 
       <div className='flex justify-center mt-2'>
-        <Link href='/' className='hover:underline'>
-          Quay về Trang chủ
+        <Link href='/' className='hover:underline font-semibold'>
+          Quay Về Trang Chủ
         </Link>
       </div>
     </form>

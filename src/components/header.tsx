@@ -7,6 +7,8 @@ import {
   XMarkIcon,
   ShoppingCartIcon,
   UserIcon,
+  ArrowRightStartOnRectangleIcon,
+  IdentificationIcon,
 } from '@heroicons/react/24/outline';
 import { motion, AnimatePresence } from 'framer-motion';
 import useAuth from '@/hooks/useAuth';
@@ -50,22 +52,31 @@ export default function Header() {
   }, []);
 
   return (
-    <header className='bg-gradient-to-r from-rose-800 to-rose-600 shadow-2xl sticky top-0 z-50 border-b border-b-white/30'>
+    <header className='bg-gradient-to-r from-rose-800 to-rose-600/80 shadow-2xl sticky top-0 z-50 border-b border-b-white/30'>
       <div className='container mx-auto flex items-center justify-between px-4 py-3'>
         <Link href='/' className='text-2xl font-bold text-white'>
           Badminton Accessories Shop
         </Link>
 
         <nav className='hidden md:flex items-center space-x-6'>
-          <Link href='/' className='text-white hover:text-rose-300'>
+          <Link
+            href='/'
+            className='text-white hover:text-rose-300 font-semibold text-md'
+          >
             Trang Chủ
           </Link>
 
-          <Link href='/product' className='text-white hover:text-rose-300'>
+          <Link
+            href='/product'
+            className='text-white hover:text-rose-300 font-semibold text-md'
+          >
             Sản Phẩm
           </Link>
 
-          <Link href='/about' className='text-white hover:text-rose-300'>
+          <Link
+            href='/about'
+            className='text-white hover:text-rose-300 font-semibold text-md'
+          >
             Về Chúng Tôi
           </Link>
 
@@ -84,7 +95,7 @@ export default function Header() {
                 });
             }}
           >
-            <ShoppingCartIcon className='w-6 h-6 text-white hover:text-rose-300' />
+            <ShoppingCartIcon className='w-6 h-6 text-white hover:text-rose-300 stroke-2' />
           </button>
 
           <div className='relative flex items-center' ref={userMenuRef}>
@@ -92,7 +103,7 @@ export default function Header() {
               onClick={() => setUserMenuOpen(!userMenuOpen)}
               className='focus:outline-none'
             >
-              <UserIcon className='w-6 h-6 text-white hover:text-rose-300' />
+              <UserIcon className='w-6 h-6 text-white hover:text-rose-300 stroke-2' />
             </button>
 
             {userMenuOpen && (
@@ -102,7 +113,7 @@ export default function Header() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.2, ease: 'easeOut' }}
-                  className='absolute top-5 right-0 mt-2 w-40 bg-white border border-gray-400 rounded-lg shadow-lg py-2'
+                  className='absolute top-5 right-0 mt-2 w-40 bg-gradient-to-br from-white/20 via-gray-200 to-gray-300 border border-white/30 backdrop-blur-md rounded-2xl shadow-xl py-2'
                 >
                   {!isLogin ? (
                     <>
@@ -110,13 +121,13 @@ export default function Header() {
                         href='/login'
                         className='block px-4 py-2 text-gray-700 hover:bg-rose-100 hover:text-rose-700'
                       >
-                        Đăng nhập
+                        Đăng Nhập
                       </Link>
                       <Link
                         href='/register'
                         className='block px-4 py-2 text-gray-700 hover:bg-rose-100 hover:text-rose-700'
                       >
-                        Đăng ký
+                        Đăng Ký
                       </Link>
                     </>
                   ) : (
@@ -126,15 +137,21 @@ export default function Header() {
                           setUserMenuOpen(false);
                           router.push('/profile/personal-information');
                         }}
-                        className='w-full text-left block px-4 py-2 text-gray-700 hover:bg-rose-100 hover:text-rose-700'
+                        className='w-full text-left px-4 py-2 text-gray-700 hover:bg-rose-100 hover:text-rose-700 font-semibold'
                       >
-                        Hồ sơ
+                        <div className='flex items-center gap-4'>
+                          <IdentificationIcon className='h-5 w-5' /> Hồ Sơ
+                        </div>
                       </button>
+                      <hr className='border-gray-400 mx-2' />
                       <button
-                        className='w-full text-left block px-4 py-2 text-gray-700 hover:bg-rose-100 hover:text-rose-700'
+                        className='w-full text-left px-4 py-2 text-gray-700 hover:bg-rose-100 hover:text-rose-700 font-semibold'
                         onClick={() => logout.mutate()}
                       >
-                        Đăng xuất
+                        <div className='flex items-center gap-4'>
+                          <ArrowRightStartOnRectangleIcon className='h-5 w-5' />{' '}
+                          Đăng Xuất
+                        </div>
                       </button>
                     </>
                   )}

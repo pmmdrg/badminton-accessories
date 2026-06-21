@@ -63,12 +63,12 @@ export default function ForgotPasswordPage() {
         shadow
         loading={requestChangePassword.isPending}
       >
-        Yêu cầu đổi mật khẩu
+        Yêu Cầu Đổi Mật Khẩu
       </Button>
 
       <div className='flex justify-center mt-2'>
         <Link href='/' className='hover:underline'>
-          Quay về Trang chủ
+          Quay Về Trang Chủ
         </Link>
       </div>
     </form>

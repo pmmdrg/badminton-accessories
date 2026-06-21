@@ -20,7 +20,7 @@ export default function AboutPage() {
         </div>
 
         <div className='md:w-1/2'>
-          <h1 className='text-4xl font-bold mb-4'>Về Chúng Tôi</h1>
+          <h1 className='text-2xl font-semibold mb-4'>Về Chúng Tôi</h1>
           <p className='text-lg leading-relaxed'>
             Chúng tôi là cửa hàng chuyên cung cấp phụ kiện cầu lông chất lượng
             cao cho người chơi ở mọi cấp độ. Sứ mệnh của chúng tôi là mang đến

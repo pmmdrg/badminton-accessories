@@ -12,7 +12,7 @@ export default function Card({ title, description, image }: CardProps) {
 
   return (
     <div
-      className='group cursor-pointer rounded-xl border border-gray-200 bg-white shadow-sm transition-transform duration-300 hover:scale-[1.03] hover:shadow-md'
+      className='group cursor-pointer rounded-xl border border-gray-200 bg-gradient-to-br from-orange-300 to-blue-200 shadow-md transition-transform duration-300 hover:scale-[1.03] hover:shadow-md'
       onClick={() => router.push(`/product`)}
     >
       <div className='relative w-full h-56 md:h-64 overflow-hidden rounded-t-xl'>
@@ -22,7 +22,7 @@ export default function Card({ title, description, image }: CardProps) {
           fill
           className={clsx(
             image && isValidImageSrc(image) ? 'object-cover' : 'object-contain',
-            'transition-transform duration-500 group-hover:scale-105'
+            'transition-transform duration-500 group-hover:scale-105',
           )}
           sizes='(max-width: 768px) 100vw, 25vw'
         />

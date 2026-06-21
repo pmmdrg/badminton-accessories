@@ -26,13 +26,13 @@ export default function AddressPage() {
 
   const provinceOptions = getProvince.data?.data
     ? [
-        { label: 'Tỉnh/Thành phố', value: 0 },
+        { label: 'Tỉnh/Thành Phố', value: 0 },
         ...getProvince.data.data.map(
           (p: { ProvinceName: string; ProvinceID: number }) =>
             normalizedSelectOptions(p.ProvinceName, p.ProvinceID),
         ),
       ]
-    : [{ label: 'Tỉnh/Thành phố', value: 0 }];
+    : [{ label: 'Tỉnh/Thành Phố', value: 0 }];
 
   const districtOptions = getDistrict.data?.data
     ? [
@@ -68,11 +68,11 @@ export default function AddressPage() {
 
   return (
     <div className='max-w-5xl mx-auto px-6 py-10'>
-      <h1 className='text-2xl font-bold mb-8'>Địa chỉ</h1>
+      <h1 className='text-2xl font-bold mb-8'>Địa Chỉ</h1>
 
       <div className='flex gap-4 flex-wrap pl-2 pb-2'>
         <SelectNumber
-          label='Tỉnh/Thành phố'
+          label='Tỉnh/Thành Phố'
           value={province}
           onChange={(value) => {
             setDistrict(0);
@@ -101,7 +101,7 @@ export default function AddressPage() {
       </div>
       <TextField
         name='address'
-        label='Địa chỉ cụ thể (số nhà, tên đường, ...)'
+        label='Địa Chỉ Cụ Thể (Số Nhà, Tên Đường, ...)'
         placeholder='Nhập địa chỉ giao hàng'
         value={address}
         onChange={(e) => setAddress(e.target.value)}

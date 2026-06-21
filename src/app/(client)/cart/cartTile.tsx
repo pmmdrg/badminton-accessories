@@ -38,7 +38,7 @@ export default function CartTile({
   };
 
   return (
-    <div className='flex items-center gap-4 p-4 border rounded-2xl shadow-lg w-full'>
+    <div className='flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-br from-white/20 via-gray-200 to-gray-300 border border-white/30 backdrop-blur-md shadow-xl w-full'>
       <input
         name={cartItem.nameProductItem}
         type='checkbox'
@@ -85,11 +85,11 @@ export default function CartTile({
               cartItem.pricePromotion && 'line-through',
             )}
           >
-            {cartItem.price.toLocaleString(COUNTRY_CODE.VN)} đ
+            {cartItem.price.toLocaleString(COUNTRY_CODE.VN)}đ
           </p>
           {cartItem.pricePromotion && (
             <p className='text-gray-700 font-medium mt-1'>
-              {cartItem.pricePromotion.toLocaleString(COUNTRY_CODE.VN)} đ
+              {cartItem.pricePromotion.toLocaleString(COUNTRY_CODE.VN)}đ
             </p>
           )}
         </div>
@@ -107,7 +107,7 @@ export default function CartTile({
 
       <div className='flex flex-col items-end gap-3 min-w-[120px]'>
         <p className='font-semibold'>
-          {cartItem.totalPriceCartItem.toLocaleString(COUNTRY_CODE.VN)} đ
+          {cartItem.totalPriceCartItem.toLocaleString(COUNTRY_CODE.VN)}đ
         </p>
 
         <Button variant='ghost' onClick={() => onRemove(cartItem.id)}>

@@ -44,9 +44,9 @@ export default function ManagerProductItemPage() {
         />
       </div>
 
-      <div className='overflow-x-auto border rounded-lg'>
-        <table className='min-w-full divide-y divide-gray-200'>
-          <thead className='bg-gray-200'>
+      <div className='overflow-x-auto bg-gradient-to-br from-white/20 via-gray-200 to-gray-300 border border-white/30 backdrop-blur-md rounded-2xl shadow-xl'>
+        <table className='min-w-full divide-y divide-gray-400'>
+          <thead className='bg-gray-300'>
             <tr>
               <th className='px-4 py-2 text-left'>Ảnh</th>
               <th className='px-4 py-2 text-left'>Tên Mặt Hàng</th>
@@ -57,7 +57,7 @@ export default function ManagerProductItemPage() {
               <th className='px-4 py-2 text-left'>Ngày Tạo</th>
             </tr>
           </thead>
-          <tbody className='divide-y divide-gray-200'>
+          <tbody className='divide-y divide-gray-400'>
             {filteredProductItems
               ?.slice((currPage - 1) * 20, (currPage - 1) * 20 + 20)
               .map((productItem: ProductItem) => (

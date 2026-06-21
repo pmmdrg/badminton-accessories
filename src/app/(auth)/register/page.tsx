@@ -162,18 +162,19 @@ export default function RegisterPage() {
         shadow
         loading={registerUser.isPending}
       >
-        Đăng ký
+        Đăng Ký
       </Button>
 
-      <div className='flex justify-center mt-2'>
-        <Link href='/login' className='hover:underline'>
-          Đã có tài khoản? Đăng nhập
+      <div className='flex justify-center mt-5 gap-1'>
+        <p>Đã có tài khoản?</p>
+        <Link href='/login' className='hover:underline font-semibold'>
+          Đăng Nhập
         </Link>
       </div>
 
       <div className='flex justify-center mt-2'>
-        <Link href='/' className='hover:underline'>
-          Quay về Trang chủ
+        <Link href='/' className='hover:underline font-semibold'>
+          Quay Về Trang Chủ
         </Link>
       </div>
     </form>

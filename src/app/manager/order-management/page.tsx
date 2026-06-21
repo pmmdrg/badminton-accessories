@@ -46,9 +46,9 @@ export default function ManagerOrderPage() {
         />
       </div>
 
-      <div className='overflow-x-auto border rounded-lg'>
-        <table className='min-w-full divide-y divide-gray-200'>
-          <thead className='bg-gray-200'>
+      <div className='overflow-x-auto bg-gradient-to-br from-white/20 via-gray-200 to-gray-300 border border-white/30 backdrop-blur-md rounded-2xl shadow-xl'>
+        <table className='min-w-full divide-y divide-gray-400'>
+          <thead className='bg-gray-300'>
             <tr>
               <th className='px-4 py-2 text-left'>Họ Tên</th>
               <th className='px-4 py-2 text-left'>SL</th>
@@ -62,7 +62,7 @@ export default function ManagerOrderPage() {
               <th className='px-4 py-2 text-left'>Hành Động</th>
             </tr>
           </thead>
-          <tbody className='divide-y divide-gray-200'>
+          <tbody className='divide-y divide-gray-400'>
             {filteredOrders?.map((order: Order) => (
               <tr
                 key={order.id}
@@ -115,7 +115,7 @@ export default function ManagerOrderPage() {
                       className='px-2 py-1'
                       onClick={() => deliver.mutate(order.id)}
                     >
-                      Vận chuyển
+                      Vận Chuyển
                     </Button>
                   )}
                 </td>

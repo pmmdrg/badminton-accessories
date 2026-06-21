@@ -16,7 +16,7 @@ export default function ProfileLayout({
       <div className='max-w-6xl mx-auto'>
         <div className='flex gap-8'>
           <aside className='w-64 shrink-0'>
-            <h2 className='text-lg font-semibold mb-4'>Hồ sơ người dùng</h2>
+            <h2 className='text-lg font-semibold mb-4'>Hồ Sơ Người Dùng</h2>
 
             <nav className='flex flex-col gap-2'>
               <button
@@ -25,10 +25,10 @@ export default function ProfileLayout({
                   'text-left px-3 py-2 rounded-md transition',
                   pathname.endsWith('personal-information')
                     ? 'bg-rose-100 text-rose-700 font-medium'
-                    : 'hover:bg-gray-100 text-gray-700',
+                    : 'hover:bg-gray-100 text-gray-700 font-semibold',
                 )}
               >
-                Thông tin cá nhân
+                Thông Tin Cá Nhân
               </button>
 
               <button
@@ -37,10 +37,10 @@ export default function ProfileLayout({
                   'text-left px-3 py-2 rounded-md transition',
                   pathname.endsWith('address')
                     ? 'bg-rose-100 text-rose-700 font-medium'
-                    : 'hover:bg-gray-100 text-gray-700',
+                    : 'hover:bg-gray-100 text-gray-700 font-semibold',
                 )}
               >
-                Địa chỉ
+                Địa Chỉ
               </button>
 
               <button
@@ -49,10 +49,10 @@ export default function ProfileLayout({
                   'text-left px-3 py-2 rounded-md transition',
                   pathname.endsWith('order-history')
                     ? 'bg-rose-100 text-rose-700 font-medium'
-                    : 'hover:bg-gray-100 text-gray-700',
+                    : 'hover:bg-gray-100 text-gray-700 font-semibold',
                 )}
               >
-                Lịch sử đơn hàng
+                Lịch Sử Đơn Hàng
               </button>
             </nav>
           </aside>

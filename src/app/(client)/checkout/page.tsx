@@ -2,7 +2,7 @@
 
 import { SelectString } from '@/components/select';
 import Image from 'next/image';
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { placeholderImage } from '@/assets/images';
 import Button from '@/components/button';
 import { COUNTRY_CODE, EmailRegex, PhoneRegex } from '@/lib/constants';
@@ -62,6 +62,8 @@ function CheckoutContent() {
     : [{ label: 'Phương thức thanh toán', value: '' }];
 
   const handleCheckout = () => {
+    localStorage.setItem('phone_number', phoneNumber);
+
     if (paymentMethod === 'COD') {
       cod.mutate(phoneNumber);
     } else if (totalFee.data?.data?.totalCartOrder) {
@@ -69,20 +71,28 @@ function CheckoutContent() {
     }
   };
 
+  useEffect(() => {
+    const phone = localStorage.getItem('phone_number');
+
+    if (phone) setPhoneNumber(phone);
+
+    localStorage.removeItem('phone_number');
+  }, []);
+
   return (
     <div className='w-full bg-gray-100 py-12 px-6 flex justify-center'>
       <div className='w-full max-w-4xl bg-white rounded-xl shadow-lg p-8 space-y-8'>
         {cod.isSuccess || vnpayReturn.isSuccess ? (
           <div className='flex flex-col justify-center items-center h-96'>
-            <CheckCircleIcon className='w-10 h-10 text-emerald-600' />
-            <p>Đặt hàng thành công!</p>
+            <CheckCircleIcon className='w-50 h-50 text-emerald-600' />
+            <p className='font-semibold text-xl'>Đặt Hàng Thành Công!</p>
           </div>
         ) : (
           <>
             <h1 className='text-3xl font-bold mb-6'>Tổng Hợp Đơn Hàng</h1>
 
             <div className='space-y-4'>
-              <h2 className='text-xl font-semibold'>Sản phẩm đã chọn</h2>
+              <h2 className='text-xl font-semibold'>Sản Phẩm Đã Chọn</h2>
               {getByUserId.isLoading ? (
                 <Spinner />
               ) : (
@@ -91,7 +101,7 @@ function CheckoutContent() {
                     ci.status === 'tick' && (
                       <div
                         key={ci.id}
-                        className='border border-gray-200 rounded-lg p-4 space-y-4'
+                        className='bg-gradient-to-br from-white/20 via-gray-200 to-gray-300 border border-white/30 backdrop-blur-md rounded-2xl shadow-xl p-4 space-y-4'
                       >
                         <div className='flex items-center justify-between'>
                           <div className='flex items-center space-x-4'>
@@ -131,9 +141,9 @@ function CheckoutContent() {
             </div>
 
             <div className='flex justify-between items-center text-lg'>
-              <span>Tiền hàng:</span>
+              <span>Tiền Hàng:</span>
               {totalFee.data && (
-                <span>
+                <span className='font-semibold'>
                   {totalFee.data.data?.totalCart?.toLocaleString(
                     COUNTRY_CODE.VN,
                   )}
@@ -143,9 +153,9 @@ function CheckoutContent() {
             </div>
 
             <div className='flex justify-between items-center text-lg'>
-              <span>Phí ship:</span>
+              <span>Phí Ship:</span>
               {totalFee.data && (
-                <span>
+                <span className='font-semibold'>
                   {totalFee.data.data?.shippingFee?.toLocaleString(
                     COUNTRY_CODE.VN,
                   )}
@@ -155,7 +165,7 @@ function CheckoutContent() {
             </div>
 
             <div className='flex justify-between items-center text-xl font-bold'>
-              <span>Tổng tiền:</span>
+              <span>Tổng Tiền:</span>
               {totalFee.data && (
                 <span>
                   {totalFee.data.data?.totalCartOrder?.toLocaleString(
@@ -166,7 +176,7 @@ function CheckoutContent() {
               )}
             </div>
 
-            <div className='flex rounded-lg border border-gray-400 p-4 items-center gap-20'>
+            <div className='flex bg-gradient-to-br from-white/20 via-gray-200 to-gray-300 border border-white/30 backdrop-blur-md rounded-2xl shadow-xl p-4 items-center gap-20'>
               <SelectString
                 label='Chọn Phương Thức Thanh Toán'
                 value={paymentMethod}

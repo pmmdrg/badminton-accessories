@@ -182,7 +182,7 @@ export default function AddProdItemModal({
       />
 
       <div className='m-2'>
-        <p className='text-sm font-medium'>Xem trước ảnh</p>
+        <p className='text-sm font-medium text-gray-700'>Xem trước ảnh</p>
         <div className='flex gap-2 w-full h-40 overflow-hidden rounded-lg border border-dashed border-gray-400'>
           {preview.map((image, index) => (
             <Image

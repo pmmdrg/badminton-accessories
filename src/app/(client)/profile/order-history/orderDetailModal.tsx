@@ -35,7 +35,7 @@ export default function DetailOrderModal({
         <div className='px-5'>
           <div className='flex gap-40'>
             <div className='flex gap-2'>
-              <p className='font-medium'>Người đặt hàng:</p>
+              <p className='font-medium'>Người Đặt Hàng:</p>
               {getDetail.data?.data[0].fullname}
             </div>
 
@@ -46,13 +46,13 @@ export default function DetailOrderModal({
           </div>
 
           <div className='my-4 flex gap-2'>
-            <p className='font-medium'>Số lượng sản phẩm:</p>
+            <p className='font-medium'>Số Lượng Sản Phẩm:</p>
             {getDetail.data?.data[0].totalQuantity}
           </div>
 
           <div className='flex gap-40 my-4'>
             <div className='flex gap-2'>
-              <p className='font-medium'>Giá trị giỏ hàng:</p>
+              <p className='font-medium'>Giá Trị Giỏ Hàng:</p>
 
               <p className='text-rose-600 font-bold'>
                 {getDetail.data?.data[0].totalCart?.toLocaleString(
@@ -63,7 +63,7 @@ export default function DetailOrderModal({
             </div>
 
             <div className='flex gap-2'>
-              <p className='font-medium'>Phí ship:</p>
+              <p className='font-medium'>Phí Ship:</p>
 
               <p className='text-rose-600 font-bold'>
                 {getDetail.data?.data[0].shippingFee.toLocaleString(
@@ -75,7 +75,7 @@ export default function DetailOrderModal({
           </div>
 
           <div className='my-4 flex gap-2'>
-            <p className='font-medium'>Tổng giá trị đơn hàng:</p>
+            <p className='font-medium'>Tổng Giá Trị Đơn Hàng:</p>
 
             <p className='text-rose-600 font-bold'>
               {getDetail.data?.data[0].totalCartOrder.toLocaleString(
@@ -86,32 +86,32 @@ export default function DetailOrderModal({
           </div>
 
           <div className='my-4 flex gap-2'>
-            <p className='font-medium'>Địa chỉ đặt hàng:</p>{' '}
+            <p className='font-medium'>Địa Chỉ Đặt Hàng:</p>{' '}
             {getDetail.data?.data[0].address}
           </div>
 
           <div className='my-4 flex gap-2'>
-            <p className='font-medium'>Trạng thái đơn hàng:</p>
+            <p className='font-medium'>Trạng Thái Đơn Hàng:</p>
             {capitalizeFirst(getDetail.data?.data[0].status)}
           </div>
 
           <div className='my-4 flex gap-2'>
-            <p className='font-medium'>Phương thức thanh toán:</p>
+            <p className='font-medium'>Phương Thức Thanh Toán:</p>
             {getDetail.data?.data[0].namePayment}
           </div>
 
           <div className='my-4 flex gap-2'>
-            <p className='font-medium'>Ngày đặt hàng:</p>
+            <p className='font-medium'>Ngày Đặt Hàng:</p>
             <p>{normalizedDate(getDetail.data?.data[0].created_at)}</p>
           </div>
 
           <div className='my-4 flex gap-2'>
-            <p className='font-medium'>Ngày vận chuyển:</p>
+            <p className='font-medium'>Ngày Vận Chuyển:</p>
             <p>{normalizedDate(getDetail.data?.data[0].delivered_at)}</p>
           </div>
 
           <div className='my-4 flex gap-2'>
-            <p className='font-medium'>Ngày hoàn tất đơn hàng:</p>
+            <p className='font-medium'>Ngày Hoàn Tất Đơn Hàng:</p>
             <p>{normalizedDate(getDetail.data?.data[0].completed_at)}</p>
           </div>
 
@@ -134,21 +134,21 @@ export default function DetailOrderModal({
                   />
                   <div>
                     <div className='my-4 flex gap-2'>
-                      <p className='font-medium'>Tên mặt hàng:</p>
+                      <p className='font-medium'>Tên Mặt Hàng:</p>
                       <p>{detail.nameProductItem}</p>
                     </div>
                     <div className='my-4 flex gap-2'>
-                      <p className='font-medium'>Đơn giá:</p>
+                      <p className='font-medium'>Đơn Giá:</p>
                       <p className='text-rose-600 font-bold'>
                         {detail.price.toLocaleString(COUNTRY_CODE.VN)}₫
                       </p>
                     </div>
                     <div className='my-4 flex gap-2'>
-                      <p className='font-medium'>Số lượng:</p>
+                      <p className='font-medium'>Số Lượng:</p>
                       <p>{detail.quantity}</p>
                     </div>
                     <div className='my-4 flex gap-2'>
-                      <p className='font-medium'>Tổng giá trị mặt hàng:</p>
+                      <p className='font-medium'>Tổng Giá Trị Mặt Hàng:</p>
                       <p className='text-rose-600 font-bold'>
                         {detail.totalPriceCartItem.toLocaleString(
                           COUNTRY_CODE.VN,

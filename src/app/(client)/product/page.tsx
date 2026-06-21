@@ -62,30 +62,30 @@ export default function ProductListPage() {
 
   const brandOptions = brands.getAll.data?.data
     ? [
-        { label: 'Tất cả', value: '' },
+        { label: 'Tất Cả', value: '' },
         ...brands.getAll.data.data.map((brand: Brand) =>
           normalizedSelectOptions(brand.nameBrand, brand.id),
         ),
       ]
-    : [{ label: 'Tất cả', value: '' }];
+    : [{ label: 'Tất Cả', value: '' }];
 
   const cateOptions = cates.getAll.data?.data
     ? [
-        { label: 'Tất cả', value: '' },
+        { label: 'Tất Cả', value: '' },
         ...cates.getAll.data.data.map((cate: Cate) =>
           normalizedSelectOptions(cate.nameCate, cate.id),
         ),
       ]
-    : [{ label: 'Tất cả', value: '' }];
+    : [{ label: 'Tất Cả', value: '' }];
 
   const colorOptions = colors.getAll.data?.data
     ? [
-        { label: 'Tất cả', value: '' },
+        { label: 'Tất Cả', value: '' },
         ...colors.getAll.data.data.map((color: Color) =>
           normalizedSelectOptions(color.description, color.id),
         ),
       ]
-    : [{ label: 'Tất cả', value: '' }];
+    : [{ label: 'Tất Cả', value: '' }];
 
   return (
     <div className='min-h-screen'>
@@ -100,7 +100,7 @@ export default function ProductListPage() {
         />
       </div>
 
-      <div className='max-w-5xl mx-auto rounded-2xl shadow-lg p-4 flex flex-wrap items-center justify-between gap-4 mb-4'>
+      <div className='max-w-5xl mx-auto bg-gradient-to-br from-white/20 via-gray-200 to-gray-300 border border-white/30 backdrop-blur-md rounded-2xl shadow-xl p-4 flex flex-wrap items-center justify-between gap-4 my-2'>
         <SelectString
           label='Thương Hiệu'
           value={brand}
@@ -139,9 +139,9 @@ export default function ProductListPage() {
           value={sort}
           onChange={setSort}
           options={[
-            { value: '', label: 'Mặc định' },
-            { value: 'asc', label: 'Giá tăng dần' },
-            { value: 'desc', label: 'Giá giảm dần' },
+            { value: '', label: 'Mặc Định' },
+            { value: 'asc', label: 'Giá Tăng Dần' },
+            { value: 'desc', label: 'Giá Giảm Dần' },
           ]}
         />
       </div>

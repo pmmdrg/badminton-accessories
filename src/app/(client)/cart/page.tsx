@@ -39,15 +39,15 @@ export default function CartPage() {
               />
             ))
           ) : (
-            <div className='min-w-md h-32 flex items-center justify-center border rounded-2xl px-2'>
-              Chưa có sản phẩm trong giỏ hàng, hãy thêm sản phẩm vào giỏ hàng
+            <div className='text-gray-500 h-32 flex items-center justify-center bg-gradient-to-br from-white/20 via-gray-200 to-gray-300 border border-white/30 backdrop-blur-md rounded-2xl shadow-xl px-2'>
+              Chưa có sản phẩm trong giỏ hàng, hãy thêm sản phẩm vào giỏ hàng.
             </div>
           )}
         </div>
 
-        <div className='mt-6 p-6 border rounded-2xl shadow-sm flex flex-col bg-gray-50'>
+        <div className='mt-6 p-6 bg-gradient-to-br from-white/20 via-gray-200 to-gray-300 border border-white/30 backdrop-blur-md rounded-2xl shadow-xl flex flex-col'>
           <div className='flex justify-between'>
-            <span className='text-xl'>Tiền hàng:</span>
+            <span className='text-xl font-semibold'>Tiền Hàng:</span>
             {totalFee.data && (
               <span className='text-2xl font-bold text-rose-700'>
                 {totalFee.data.data?.totalCart?.toLocaleString(COUNTRY_CODE.VN)}
@@ -57,7 +57,7 @@ export default function CartPage() {
           </div>
 
           <div className='flex justify-between'>
-            <span className='text-xl'>Phí ship:</span>
+            <span className='text-xl font-semibold'>Phí Ship:</span>
             {totalFee.data && (
               <span className='text-2xl font-bold text-rose-700'>
                 {totalFee.data.data?.shippingFee?.toLocaleString(
@@ -73,10 +73,10 @@ export default function CartPage() {
             lập, vui lòng chọn Hồ Sơ -> Địa Chỉ để thiết lập địa chỉ.`}
           </p>
 
-          <div className='h-0.5 bg-rose-400 my-2'></div>
+          <div className='h-0.5 bg-rose-400 my-2' />
 
           <div className='flex justify-between'>
-            <span className='text-xl font-semibold'>Tổng cộng:</span>
+            <span className='text-xl font-semibold'>Tổng Cộng:</span>
             {totalFee.data && (
               <span className='text-2xl font-bold text-rose-700'>
                 {totalFee.data.data?.totalCartOrder?.toLocaleString(
@@ -98,12 +98,9 @@ export default function CartPage() {
               !getInfo.data?.data?.to_ward
             }
           >
-            Đặt hàng
+            Đặt Hàng
           </Button>
         </div>
-        {totalFee.isError && (
-          <p className='text-red-500 text-sm'>{`* Xảy ra lỗi: ${totalFee.error?.message}`}</p>
-        )}
       </div>
     </div>
   );

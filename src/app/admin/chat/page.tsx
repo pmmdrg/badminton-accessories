@@ -67,7 +67,7 @@ export default function AdminChatPage() {
         <div className='w-px bg-white shrink-0' />
         <div className='grow-5 flex flex-col'>
           <div className='p-4 border-b border-white'>
-            <h2 className='font-semibold'>Chi tiết cuộc trò chuyện</h2>
+            <h2 className='font-semibold'>Chi Tiết Cuộc Trò Chuyện</h2>
           </div>
           <div className='overflow-y-auto h-full'>
             {selectedId === '' || getById.data?.data?.length === 0 ? (

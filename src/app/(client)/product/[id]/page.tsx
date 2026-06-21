@@ -112,14 +112,14 @@ export default function ProductDetailPage() {
 
           <p>
             <span className='font-semibold text-gray-700 space-y-1'>
-              Số lượng còn trong kho:
+              Số Lượng Còn Trong Kho:
             </span>{' '}
             {foundProductItem?.quantity}
           </p>
 
           <div className='flex items-center space-x-3'>
             <span className='font-semibold text-gray-800'>
-              Số lượng muốn mua:
+              Số Lượng Muốn Mua:
             </span>
             <div className='flex items-center border border-gray-300 rounded-lg overflow-hidden'>
               <button
@@ -149,7 +149,7 @@ export default function ProductDetailPage() {
               disabled={quantity === 0}
               onClick={handleBuyNow}
             >
-              Mua ngay
+              Mua Ngay
             </Button>
             <Button
               variant='outline'
@@ -157,19 +157,19 @@ export default function ProductDetailPage() {
               disabled={quantity === 0}
               onClick={handleAddToCart}
             >
-              Thêm vào giỏ hàng
+              Thêm Vào Giỏ Hàng
             </Button>
           </div>
         </div>
       </div>
 
-      <Section title='Chi tiết sản phẩm'>
+      <Section title='Chi Tiết Sản Phẩm'>
         <p className='text-gray-700 leading-relaxed'>
           {foundProductItem?.description}
         </p>
       </Section>
 
-      <Section title='Sản phẩm liên quan' className='mt-14'>
+      <Section title='Sản Phẩm Liên Quan' className='mt-14'>
         <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6'>
           {getByProductId.data?.data
             ?.slice(0, 5)

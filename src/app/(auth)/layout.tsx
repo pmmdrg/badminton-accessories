@@ -11,7 +11,7 @@ export default function AuthLayout({
       <div className='relative hidden md:block w-3/5 h-screen'>
         <Image
           src={loginBannerImage}
-          alt='Login banner'
+          alt='login banner'
           fill
           className='object-cover'
           priority

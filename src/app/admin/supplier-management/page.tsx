@@ -64,7 +64,7 @@ export default function AdminSupplierPage() {
           className='w-sm sm:max-w-full'
         />
         <Button variant='success' onClick={() => setIsOpenAdd(true)}>
-          Thêm nhà cung cấp
+          Thêm Nhà Cung Cấp
         </Button>
         <AddSupplierModal
           isOpen={isOpenAdd}
@@ -79,9 +79,9 @@ export default function AdminSupplierPage() {
         />
       </div>
 
-      <div className='overflow-x-auto border rounded-lg'>
-        <table className='min-w-full divide-y divide-gray-200'>
-          <thead className='bg-gray-200'>
+      <div className='overflow-x-auto bg-gradient-to-br from-white/20 via-gray-200 to-gray-300 border border-white/30 backdrop-blur-md rounded-2xl shadow-xl'>
+        <table className='min-w-full divide-y divide-gray-400'>
+          <thead className='bg-gray-300'>
             <tr>
               <th className='px-4 py-2 text-left'>Nhà Cung Cấp</th>
               <th className='px-4 py-2 text-left'>Địa Chỉ</th>
@@ -90,7 +90,7 @@ export default function AdminSupplierPage() {
               <th className='px-4 py-2 text-left'>Hành Động</th>
             </tr>
           </thead>
-          <tbody className='divide-y divide-gray-200'>
+          <tbody className='divide-y divide-gray-400'>
             {filteredSuppliers?.map((supplier: Supplier) => (
               <tr key={supplier.id}>
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
@@ -141,7 +141,7 @@ export default function AdminSupplierPage() {
                         className='px-2 py-1'
                         onClick={() => restore.mutate(supplier.id)}
                       >
-                        Khôi phục
+                        Khôi Phục
                       </Button>
                     )}
                   </div>

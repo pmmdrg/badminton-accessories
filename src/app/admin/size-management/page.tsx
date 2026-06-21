@@ -73,7 +73,7 @@ export default function AdminSizePage() {
           className='w-sm sm:max-w-full'
         />
         <Button variant='success' onClick={() => setIsOpenAdd(true)}>
-          Thêm kích thước
+          Thêm Kích Thước
         </Button>
         <AddSizeModal
           isOpen={isOpenAdd}
@@ -88,9 +88,9 @@ export default function AdminSizePage() {
         />
       </div>
 
-      <div className='overflow-x-auto border rounded-lg'>
-        <table className='min-w-full divide-y divide-gray-200'>
-          <thead className='bg-gray-200'>
+      <div className='overflow-x-auto bg-gradient-to-br from-white/20 via-gray-200 to-gray-300 border border-white/30 backdrop-blur-md rounded-2xl shadow-xl'>
+        <table className='min-w-full divide-y divide-gray-400'>
+          <thead className='bg-gray-300'>
             <tr>
               <th className='px-4 py-2 text-left'>Tên Kích Thước</th>
               <th className='px-4 py-2 text-left'>Mô Tả</th>
@@ -99,7 +99,7 @@ export default function AdminSizePage() {
               <th className='px-4 py-2 text-left'>Hành Động</th>
             </tr>
           </thead>
-          <tbody className='divide-y divide-gray-200'>
+          <tbody className='divide-y divide-gray-400'>
             {filteredSizes?.map((size: Size) => (
               <tr key={size.id}>
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
@@ -148,7 +148,7 @@ export default function AdminSizePage() {
                         className='px-2 py-1'
                         onClick={() => restore.mutate(size.id)}
                       >
-                        Khôi phục
+                        Khôi Phục
                       </Button>
                     )}
                   </div>

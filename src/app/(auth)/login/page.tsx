@@ -84,7 +84,7 @@ export default function LoginPage() {
 
       <div className='flex justify-end mt-2 mb-5'>
         <Link href='/forgot-password' className='hover:underline font-semibold'>
-          Quên mật khẩu?
+          Quên Mật Khẩu?
         </Link>
       </div>
 
@@ -96,33 +96,35 @@ export default function LoginPage() {
         loading={login.isPending}
         className='mb-4'
       >
-        Đăng nhập
+        Đăng Nhập
       </Button>
 
-      <GoogleLogin
-        shape='pill'
-        onSuccess={(credentialRes) => {
-          if (credentialRes.credential)
-            loginGoogle.mutate({ credential: credentialRes.credential });
-        }}
-        onError={() => {
-          addToast({
-            message: 'Đăng nhập thất bại, vui lòng thử lại sau.',
-            type: TOAST_TYPE.ERROR,
-          });
-        }}
-      />
+      <div className='flex justify-center'>
+        <GoogleLogin
+          shape='pill'
+          onSuccess={(credentialRes) => {
+            if (credentialRes.credential)
+              loginGoogle.mutate({ credential: credentialRes.credential });
+          }}
+          onError={() => {
+            addToast({
+              message: 'Đăng nhập thất bại, vui lòng thử lại sau.',
+              type: TOAST_TYPE.ERROR,
+            });
+          }}
+        />
+      </div>
 
       <div className='flex justify-center mt-5 gap-1'>
         <p>Chưa có tài khoản?</p>
         <Link href='/register' className='hover:underline font-semibold'>
-          Đăng ký
+          Đăng Ký
         </Link>
       </div>
 
       <div className='flex justify-center mt-2'>
         <Link href='/' className='hover:underline font-semibold'>
-          Quay về Trang chủ
+          Quay Về Trang Chủ
         </Link>
       </div>
     </form>

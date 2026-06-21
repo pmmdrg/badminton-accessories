@@ -9,6 +9,7 @@ import 'swiper/css/pagination';
 import Image from 'next/image';
 import { isValidImageSrc } from '@/lib/utils';
 import { placeholderImage } from '@/assets/images';
+import clsx from 'clsx';
 
 export default function Carousel({
   images,
@@ -18,7 +19,14 @@ export default function Carousel({
   background?: string;
 }) {
   return (
-    <div className='w-full bg-black'>
+    <div
+      className={clsx(
+        'w-full',
+        background
+          ? `${background}`
+          : 'bg-gradient-to-br from-gray-500/20 via-gray-200 to-gray-300',
+      )}
+    >
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         autoplay={{ delay: 5000, disableOnInteraction: false }}
@@ -30,7 +38,7 @@ export default function Carousel({
         {images.map((image, index) => (
           <SwiperSlide key={index}>
             <div
-              className={`relative w-full h-full flex items-center justify-center ${background}`}
+              className={`relative w-full h-full flex items-center justify-center`}
             >
               <Image
                 fill

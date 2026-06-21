@@ -66,11 +66,11 @@ export default function AdminSizeTypePage() {
           placeholder='Tìm kiếm loại kích thước...'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-        endIcon={<MagnifyingGlassIcon className='w-5 h-5' />}
+          endIcon={<MagnifyingGlassIcon className='w-5 h-5' />}
           className='w-sm sm:max-w-full'
         />
         <Button variant='success' onClick={() => setIsOpenAdd(true)}>
-          Thêm loại kích thước
+          Thêm Loại Kích Thước
         </Button>
         <AddSizeTypeModal
           isOpen={isOpenAdd}
@@ -85,9 +85,9 @@ export default function AdminSizeTypePage() {
         />
       </div>
 
-      <div className='overflow-x-auto border rounded-lg'>
-        <table className='min-w-full divide-y divide-gray-200'>
-          <thead className='bg-gray-200'>
+      <div className='overflow-x-auto bg-gradient-to-br from-white/20 via-gray-200 to-gray-300 border border-white/30 backdrop-blur-md rounded-2xl shadow-xl'>
+        <table className='min-w-full divide-y divide-gray-400'>
+          <thead className='bg-gray-300'>
             <tr>
               <th className='px-4 py-2 text-left'>Loại Kích Thước</th>
               <th className='px-4 py-2 text-left'>Mô Tả</th>
@@ -96,7 +96,7 @@ export default function AdminSizeTypePage() {
               <th className='px-4 py-2 text-left'>Hành Động</th>
             </tr>
           </thead>
-          <tbody className='divide-y divide-gray-200'>
+          <tbody className='divide-y divide-gray-400'>
             {filteredSizeTypes?.map((sizeType: SizeType) => (
               <tr key={sizeType.id}>
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
@@ -145,7 +145,7 @@ export default function AdminSizeTypePage() {
                         className='px-2 py-1'
                         onClick={() => restore.mutate(sizeType.id)}
                       >
-                        Khôi phục
+                        Khôi Phục
                       </Button>
                     )}
                   </div>

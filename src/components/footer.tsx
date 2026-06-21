@@ -12,7 +12,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className='bg-rose-800 text-white py-10 px-6 md:px-16'>
+    <footer className='bg-gradient-to-r from-rose-800 to-rose-600/80 shadow-2xl text-white py-10 px-6 md:px-16'>
       <div className='max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8'>
         <div>
           <h2 className='text-xl font-semibold mb-3'>
@@ -33,37 +33,37 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className='text-lg font-semibold mb-3'>Điều hướng</h3>
+          <h3 className='text-lg font-semibold mb-3'>Điều Hướng</h3>
 
           <ul className='space-y-2 text-sm'>
             <li>
               <Link href='/' className='hover:text-gray-300 transition'>
-                Trang chủ
+                Trang Chủ
               </Link>
             </li>
 
             <li>
               <Link href='/about' className='hover:text-gray-300 transition'>
-                Về chúng tôi
+                Về Chúng Tôi
               </Link>
             </li>
 
             <li>
               <Link href='/product' className='hover:text-gray-300 transition'>
-                Sản phẩm
+                Sản Phẩm
               </Link>
             </li>
 
             <li>
               <Link href='/cart' className='hover:text-gray-300 transition'>
-                Giỏ hàng
+                Giỏ Hàng
               </Link>
             </li>
           </ul>
         </div>
 
         <div>
-          <h3 className='text-lg font-semibold mb-3'>Liên hệ</h3>
+          <h3 className='text-lg font-semibold mb-3'>Liên Hệ</h3>
 
           <ul className='space-y-2 text-sm mb-4'>
             <li className='flex items-center gap-2'>

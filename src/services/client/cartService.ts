@@ -25,17 +25,9 @@ export async function calculateShippingFee(payload: {
 }
 
 export async function calculateTotalFee() {
-  try {
-    const res = await api.post('cart/calculate-total-cart');
+  const res = await api.post('cart/calculate-total-cart');
 
-    return res.data;
-  } catch (err) {
-    if (isAxiosError(err)) {
-      throw new Error(err.response?.data?.message || 'Lỗi chưa rõ');
-    }
-
-    throw err;
-  }
+  return res.data;
 }
 
 export async function untickCartItem(id: string) {
