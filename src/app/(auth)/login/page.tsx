@@ -5,8 +5,10 @@ import TextField from '@/components/textfield';
 import Button from '@/components/button';
 import Link from 'next/link';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
-import { EmailRegex } from '@/lib/constants';
+import { EmailRegex, TOAST_TYPE } from '@/lib/constants';
 import useAuth from '@/hooks/useAuth';
+import { GoogleLogin } from '@react-oauth/google';
+import { useToast } from '@/components/toast';
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -14,6 +16,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
+  const { addToast } = useToast();
 
   const validateForm = () => {
     const newError = { email: '', password: '' };
@@ -91,9 +94,23 @@ export default function LoginPage() {
         fullWidth
         shadow
         loading={login.isPending}
+        className='mb-4'
       >
         Đăng nhập
       </Button>
+
+      <GoogleLogin
+        shape='pill'
+        onSuccess={(credentialRes) => {
+          console.log(credentialRes.credential);
+        }}
+        onError={() => {
+          addToast({
+            message: 'Đăng nhập thất bại, vui lòng thử lại sau.',
+            type: TOAST_TYPE.ERROR,
+          });
+        }}
+      />
 
       <div className='flex justify-center mt-5 gap-1'>
         <p>Chưa có tài khoản?</p>
