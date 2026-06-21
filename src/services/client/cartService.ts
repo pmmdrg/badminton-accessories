@@ -1,5 +1,4 @@
 import api from '@/lib/api';
-import { isAxiosError } from 'axios';
 
 export async function getCartByUserId() {
   const res = await api.get('/cart');

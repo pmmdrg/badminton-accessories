@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Suspense, useEffect, useState } from 'react';
 import { placeholderImage } from '@/assets/images';
 import Button from '@/components/button';
-import { COUNTRY_CODE, EmailRegex, PhoneRegex } from '@/lib/constants';
+import { COUNTRY_CODE, PhoneRegex } from '@/lib/constants';
 import { usePaymentClient } from '@/hooks/client/usePayment';
 import { Payment } from '@/models/payment';
 import { isValidImageSrc, normalizedSelectOptions } from '@/lib/utils';
