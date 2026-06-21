@@ -92,7 +92,10 @@ export default function OrderHistoryPage() {
                   <div className='font-medium'>{order.namePayment}</div>
 
                   {order.status === 'delivered' && (
-                    <Button onClick={() => complete.mutate(order.id)}>
+                    <Button
+                      variant='success'
+                      onClick={() => complete.mutate(order.id)}
+                    >
                       Đã Nhận Được Hàng
                     </Button>
                   )}
