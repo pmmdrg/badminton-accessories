@@ -33,7 +33,7 @@ export function SelectString({
   }, []);
 
   return (
-    <div ref={ref} className={`relative w-56 ${className}`}>
+    <div ref={ref} className={`relative w-56 shadow-lg ${className}`}>
       <p className='block text-sm text-gray-700 mb-1 font-medium'>{label}</p>
 
       <button
@@ -114,7 +114,7 @@ export function SelectNumber({
   }, []);
 
   return (
-    <div ref={ref} className={`relative w-56 ${className}`}>
+    <div ref={ref} className={`relative w-56 shadow-lg ${className}`}>
       <p className='block text-sm text-gray-700 mb-1 font-medium'>{label}</p>
 
       <button

@@ -48,7 +48,7 @@ export default function TextField({
           borderColor,
           isBlurred && error && 'border-red-500',
           sizeClasses[size],
-          'shadow-xl',
+          'shadow-lg',
           fullWidth ? 'w-full' : '',
           className,
         )}
