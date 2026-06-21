@@ -46,7 +46,7 @@ export default function TextField({
           'focus-within:border-rose-700',
           'bg-white',
           borderColor,
-          error && 'border-red-500',
+          isBlurred && error && 'border-red-500',
           sizeClasses[size],
           fullWidth ? 'w-full' : '',
           className,

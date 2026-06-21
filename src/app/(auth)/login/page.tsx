@@ -8,7 +8,7 @@ import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { EmailRegex, TOAST_TYPE } from '@/lib/constants';
 import useAuth from '@/hooks/useAuth';
 import { GoogleLogin } from '@react-oauth/google';
-import { useToast } from '@/components/toast';
+import { useToast } from '@/providers/toastProvider';
 
 export default function LoginPage() {
   const { login, loginGoogle } = useAuth();

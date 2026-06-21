@@ -1,4 +1,4 @@
-import { useToast } from '@/components/toast';
+import { useToast } from '@/providers/toastProvider';
 import { TOAST_TYPE } from '@/lib/constants';
 import {
   deleteCartItem,
@@ -46,31 +46,31 @@ export function useCartItem() {
         quantity: number;
       };
     }) => updateCartItem(id, payload),
-    onSuccess: () => {
-      updateCartTotal();
+    onSuccess: async () => {
+      await updateCartTotal();
 
       addToast({
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã cập nhật giỏ hàng',
       });
 
-      queryClient.invalidateQueries({ queryKey: ['cart'] });
-      queryClient.invalidateQueries({ queryKey: ['total-fee'] });
+      await queryClient.invalidateQueries({ queryKey: ['cart'] });
+      await queryClient.invalidateQueries({ queryKey: ['total-fee'] });
     },
   });
 
   const remove = useMutation({
     mutationFn: (id: string) => deleteCartItem(id),
-    onSuccess: () => {
-      updateCartTotal();
+    onSuccess: async () => {
+      await updateCartTotal();
 
       addToast({
         type: TOAST_TYPE.SUCCESS,
         message: 'Đã xoá sản phẩm ra khỏi giỏ hàng',
       });
 
-      queryClient.invalidateQueries({ queryKey: ['cart'] });
-      queryClient.invalidateQueries({ queryKey: ['total-fee'] });
+      await queryClient.invalidateQueries({ queryKey: ['cart'] });
+      await queryClient.invalidateQueries({ queryKey: ['total-fee'] });
     },
   });
 

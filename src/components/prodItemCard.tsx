@@ -10,13 +10,14 @@ import { COUNTRY_CODE, TOAST_TYPE } from '@/lib/constants';
 import { ProductItem } from '@/models/productItem';
 import { useCartItem } from '@/hooks/client/useCartItem';
 import { useCart } from '@/hooks/client/useCart';
-import { useToast } from './toast';
+import { useToast } from '@/providers/toastProvider';
 
 export default function ProdItemCard({
   id,
   nameProductItem,
   imageProductItem,
   price,
+  pricePromotion,
   quantity,
   description,
 }: ProductItem) {
@@ -26,6 +27,7 @@ export default function ProdItemCard({
   const { addToast } = useToast();
 
   const inStock = quantity > 0;
+  const isDiscounting = pricePromotion !== null;
 
   const handleAddToCart = () => {
     if (getByUserId.data?.data) {
@@ -34,6 +36,7 @@ export default function ProdItemCard({
         productItemId: id,
         nameProductItem,
         price,
+        pricePromotion,
         quantity: 1,
         imageProductItem:
           imageProductItem && imageProductItem.length > 0
@@ -87,9 +90,21 @@ export default function ProdItemCard({
         <p className='line-clamp-3 text-gray-500'>{description}</p>
 
         <div className='flex items-center justify-between'>
-          <span className='text-rose-700 font-semibold'>
-            {price.toLocaleString(COUNTRY_CODE.VN)}₫
-          </span>
+          <div>
+            <p
+              className={clsx(
+                isDiscounting ? 'text-gray-500 line-through' : 'text-rose-700',
+                'font-semibold',
+              )}
+            >
+              {price.toLocaleString(COUNTRY_CODE.VN)}₫
+            </p>
+            {isDiscounting && (
+              <p className='text-rose-700 font-semibold'>
+                {pricePromotion.toLocaleString(COUNTRY_CODE.VN)}₫
+              </p>
+            )}
+          </div>
           <button
             className='p-2 rounded-lg bg-rose-700 text-white hover:bg-rose-800 transition'
             onClick={(e) => {

@@ -38,7 +38,7 @@ export default function CartTile({
   };
 
   return (
-    <div className='flex items-center gap-4 p-4 border rounded-2xl shadow-sm w-full'>
+    <div className='flex items-center gap-4 p-4 border rounded-2xl shadow-lg w-full'>
       <input
         name={cartItem.nameProductItem}
         type='checkbox'
@@ -76,9 +76,23 @@ export default function CartTile({
           {cartItem.nameProductItem}
         </Link>
 
-        <p className='text-gray-700 font-medium mt-1'>
-          {cartItem.price.toLocaleString(COUNTRY_CODE.VN)} đ
-        </p>
+        <div className='flex gap-4'>
+          <p
+            className={clsx(
+              'text-gray-700',
+              'font-medium',
+              'mt-1',
+              cartItem.pricePromotion && 'line-through',
+            )}
+          >
+            {cartItem.price.toLocaleString(COUNTRY_CODE.VN)} đ
+          </p>
+          {cartItem.pricePromotion && (
+            <p className='text-gray-700 font-medium mt-1'>
+              {cartItem.pricePromotion.toLocaleString(COUNTRY_CODE.VN)} đ
+            </p>
+          )}
+        </div>
 
         <div className='flex items-center gap-3 mt-2'>
           <Button onClick={decrease} className='p-0'>
@@ -93,8 +107,7 @@ export default function CartTile({
 
       <div className='flex flex-col items-end gap-3 min-w-[120px]'>
         <p className='font-semibold'>
-          {(cartItem.price * cartItem.quantity).toLocaleString(COUNTRY_CODE.VN)}{' '}
-          đ
+          {cartItem.totalPriceCartItem.toLocaleString(COUNTRY_CODE.VN)} đ
         </p>
 
         <Button variant='ghost' onClick={() => onRemove(cartItem.id)}>

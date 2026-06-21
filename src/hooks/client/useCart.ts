@@ -8,12 +8,7 @@ import {
 } from '@/services/client/cartService';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-export function useCart(
-  toDistrictId?: number,
-  toWardCode?: string,
-  address?: string,
-  phoneNumber?: string,
-) {
+export function useCart() {
   const queryClient = useQueryClient();
 
   const getByUserId = useQuery({
@@ -38,25 +33,8 @@ export function useCart(
   });
 
   const totalFee = useQuery({
-    queryKey: ['total-fee', toDistrictId, toWardCode, address, phoneNumber],
-    queryFn: () =>
-      calculateTotalFee({
-        from_districtid: 3695,
-        from_ward_code: '90764',
-        to_districtid: toDistrictId!,
-        to_ward_code: toWardCode!,
-        address: address!,
-        phonenumber: phoneNumber!,
-      }),
-    enabled:
-      toDistrictId !== undefined &&
-      toDistrictId !== 0 &&
-      toWardCode !== undefined &&
-      toWardCode !== '' &&
-      address !== undefined &&
-      address !== '' &&
-      phoneNumber !== undefined &&
-      phoneNumber !== '',
+    queryKey: ['total-fee'],
+    queryFn: calculateTotalFee,
   });
 
   const untick = useMutation({

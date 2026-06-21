@@ -5,6 +5,7 @@ export interface CartItem {
   nameProductItem: string;
   status: 'tick' | 'untick';
   price: number;
+  pricePromotion: number;
   quantity: number;
   imageProductItem: string;
   totalPriceCartItem: number;

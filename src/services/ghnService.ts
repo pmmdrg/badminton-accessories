@@ -10,7 +10,7 @@ const ghnApi = axios.create({
 export async function getDistrictFromGHN(provinceId: number) {
   const res = await ghnApi.post(
     'https://online-gateway.ghn.vn/shiip/public-api/master-data/district',
-    { provinceid: provinceId },
+    { province_id: provinceId },
   );
 
   return res.data;
@@ -20,7 +20,7 @@ export async function getWardFromGHN(districtId: number) {
   const res = await ghnApi.get(
     'https://online-gateway.ghn.vn/shiip/public-api/master-data/ward',
     {
-      params: { districtid: districtId },
+      params: { district_id: districtId },
     },
   );
 

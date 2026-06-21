@@ -11,7 +11,7 @@ import {
   restoreCate,
   updateCate,
 } from '@/services/admin/cateService';
-import { useToast } from '@/components/toast';
+import { useToast } from '@/providers/toastProvider';
 import { TOAST_TYPE } from '@/lib/constants';
 import { AxiosError } from 'axios';
 import { ApiError } from '@/types/apiError';

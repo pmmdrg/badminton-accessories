@@ -25,6 +25,8 @@ export enum STATUS {
 
 export const EmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+export const PhoneRegex = /^(?:\+84|0)(?:3|5|7|8|9)\d{8}$/;
+
 export enum COUNTRY_CODE {
   VN = 'vi-VN',
   EN = 'en-US',

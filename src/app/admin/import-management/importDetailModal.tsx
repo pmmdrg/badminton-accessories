@@ -16,8 +16,6 @@ export default function ImportModal({
 }: ImportDetailModalProps) {
   const { getByImportId } = useImportDetailAdmin('', importId);
 
-  console.log('getByImportId', getByImportId.data?.data);
-
   return (
     <Modal
       isOpen={isOpen}

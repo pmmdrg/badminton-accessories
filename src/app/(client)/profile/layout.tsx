@@ -25,10 +25,22 @@ export default function ProfileLayout({
                   'text-left px-3 py-2 rounded-md transition',
                   pathname.endsWith('personal-information')
                     ? 'bg-rose-100 text-rose-700 font-medium'
-                    : 'hover:bg-gray-100 text-gray-700'
+                    : 'hover:bg-gray-100 text-gray-700',
                 )}
               >
                 Thông tin cá nhân
+              </button>
+
+              <button
+                onClick={() => router.push('/profile/address')}
+                className={clsx(
+                  'text-left px-3 py-2 rounded-md transition',
+                  pathname.endsWith('address')
+                    ? 'bg-rose-100 text-rose-700 font-medium'
+                    : 'hover:bg-gray-100 text-gray-700',
+                )}
+              >
+                Địa chỉ
               </button>
 
               <button
@@ -37,7 +49,7 @@ export default function ProfileLayout({
                   'text-left px-3 py-2 rounded-md transition',
                   pathname.endsWith('order-history')
                     ? 'bg-rose-100 text-rose-700 font-medium'
-                    : 'hover:bg-gray-100 text-gray-700'
+                    : 'hover:bg-gray-100 text-gray-700',
                 )}
               >
                 Lịch sử đơn hàng

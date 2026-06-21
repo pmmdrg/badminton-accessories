@@ -12,7 +12,8 @@ import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { COUNTRY_CODE, TOAST_TYPE } from '@/lib/constants';
 import { useCartItem } from '@/hooks/client/useCartItem';
 import { useCart } from '@/hooks/client/useCart';
-import { useToast } from '@/components/toast';
+import { useToast } from '@/providers/toastProvider';
+import clsx from 'clsx';
 
 export default function ProductDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -30,8 +31,9 @@ export default function ProductDetailPage() {
   const router = useRouter();
   const { addToast } = useToast();
 
-  const foundProductItem: ProductItem = getById.data?.data;
+  const foundProductItem: ProductItem | null = getById.data?.data;
   const cartId = getByUserId.data?.data?.id;
+  const isDiscounting = foundProductItem?.pricePromotion !== null;
 
   const handleAddToCart = () => {
     if (!cartId) {
@@ -49,6 +51,7 @@ export default function ProductDetailPage() {
         productItemId: id,
         nameProductItem: foundProductItem.nameProductItem,
         price: foundProductItem.price,
+        pricePromotion: foundProductItem.pricePromotion,
         imageProductItem: foundProductItem?.imageProductItem?.[0] || '',
         quantity,
       });
@@ -78,25 +81,40 @@ export default function ProductDetailPage() {
       <div className='grid grid-cols-1 md:grid-cols-2 gap-20'>
         <div className='rounded-2xl overflow-hidden shadow-lg bg-white/5 backdrop-blur-md'>
           <Carousel
-            images={foundProductItem.imageProductItem || []}
+            images={foundProductItem?.imageProductItem || []}
             background='bg-gray-400'
           />
         </div>
 
         <div className='flex flex-col justify-center space-y-5'>
           <h1 className='text-3xl font-semibold text-gray-900'>
-            {foundProductItem.nameProductItem}
+            {foundProductItem?.nameProductItem}
           </h1>
 
-          <p className='text-2xl text-rose-700 font-bold'>
-            {foundProductItem.price.toLocaleString(COUNTRY_CODE.VN)}₫
+          <p
+            className={clsx(
+              isDiscounting
+                ? 'text-gray-700 line-through text-xl font-semibold'
+                : 'text-2xl text-rose-700 font-bold',
+            )}
+          >
+            {foundProductItem?.price.toLocaleString(COUNTRY_CODE.VN)}₫
           </p>
+
+          {isDiscounting && (
+            <p className='text-2xl text-rose-700 font-bold'>
+              {foundProductItem?.pricePromotion?.toLocaleString(
+                COUNTRY_CODE.VN,
+              )}
+              ₫
+            </p>
+          )}
 
           <p>
             <span className='font-semibold text-gray-700 space-y-1'>
               Số lượng còn trong kho:
             </span>{' '}
-            {foundProductItem.quantity}
+            {foundProductItem?.quantity}
           </p>
 
           <div className='flex items-center space-x-3'>
@@ -113,7 +131,9 @@ export default function ProductDetailPage() {
               <span className='px-4'>{quantity}</span>
               <button
                 onClick={() =>
-                  setQuantity(Math.min(foundProductItem.quantity, quantity + 1))
+                  setQuantity(
+                    Math.min(foundProductItem?.quantity || 0, quantity + 1),
+                  )
                 }
                 className='px-3 py-1 text-gray-600 hover:bg-gray-100'
               >
@@ -145,7 +165,7 @@ export default function ProductDetailPage() {
 
       <Section title='Chi tiết sản phẩm'>
         <p className='text-gray-700 leading-relaxed'>
-          {foundProductItem.description}
+          {foundProductItem?.description}
         </p>
       </Section>
 

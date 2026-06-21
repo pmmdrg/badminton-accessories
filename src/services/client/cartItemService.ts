@@ -11,6 +11,7 @@ export async function insertCartItem(payload: {
   productItemId: string;
   nameProductItem: string;
   price: number;
+  pricePromotion: number | null;
   quantity: number;
   imageProductItem: string;
 }) {
@@ -21,7 +22,7 @@ export async function insertCartItem(payload: {
 
 export async function updateCartItem(
   id: string,
-  payload: { quantity: number }
+  payload: { quantity: number },
 ) {
   const res = await api.put(`cart/items/update?id=${id}`, payload);
 

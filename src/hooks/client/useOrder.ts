@@ -10,7 +10,7 @@ import {
   getDetailOrder,
   takeOrderCompleted,
 } from '@/services/client/orderService';
-import { useToast } from '@/components/toast';
+import { useToast } from '@/providers/toastProvider';
 import { TOAST_TYPE } from '@/lib/constants';
 
 export function useOrderClient(id?: string) {

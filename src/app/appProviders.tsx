@@ -1,9 +1,9 @@
-import { ToastProvider } from '@/components/toast';
 import ReactQueryProvider from '@/providers/queryProvider';
+import { ToastProvider } from '@/providers/toastProvider';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { ReactNode } from 'react';
 
-export default function Providers({ children }: { children: ReactNode }) {
+export default function AppProviders({ children }: { children: ReactNode }) {
   return (
     <ReactQueryProvider>
       <GoogleOAuthProvider

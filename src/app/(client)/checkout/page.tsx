@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Suspense, useState } from 'react';
 import { placeholderImage } from '@/assets/images';
 import Button from '@/components/button';
-import { COUNTRY_CODE } from '@/lib/constants';
+import { COUNTRY_CODE, EmailRegex, PhoneRegex } from '@/lib/constants';
 import { usePaymentClient } from '@/hooks/client/usePayment';
 import { Payment } from '@/models/payment';
 import { isValidImageSrc, normalizedSelectOptions } from '@/lib/utils';
@@ -14,13 +14,12 @@ import { Spinner } from '@/components/spinner';
 import { CartItem } from '@/models/cartItem';
 import { useSearchParams } from 'next/navigation';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
+import TextField from '@/components/textfield';
 
 function CheckoutContent() {
+  const [paymentMethod, setPaymentMethod] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const searchParams = useSearchParams();
-  const districtId = parseInt(searchParams.get('district') || '0');
-  const wardCode = searchParams.get('ward') || '';
-  const addressUser = searchParams.get('address') || '';
-  const phoneNumber = searchParams.get('phone') || '';
   const vnpAmount = searchParams.get('vnp_Amount') || '';
   const vnpBankCode = searchParams.get('vnp_BankCode') || '';
   const vnpBankTranNo = searchParams.get('vnp_BankTranNo') || '';
@@ -34,12 +33,7 @@ function CheckoutContent() {
   const vnpTxnRef = searchParams.get('vnp_TxnRef') || '';
   const vnpSecureHash = searchParams.get('vnp_SecureHash') || '';
 
-  const { getByUserId, totalFee } = useCart(
-    districtId,
-    wardCode,
-    addressUser,
-    phoneNumber,
-  );
+  const { getByUserId, totalFee } = useCart();
   const { getAll, vnpayReturn, cod, vnpay } = usePaymentClient(
     '',
     '',
@@ -55,8 +49,8 @@ function CheckoutContent() {
     vnpTransactionStatus,
     vnpTxnRef,
     vnpSecureHash,
+    phoneNumber,
   );
-  const [paymentMethod, setPaymentMethod] = useState('');
 
   const paymentOptions = getAll.data?.data
     ? [
@@ -69,7 +63,7 @@ function CheckoutContent() {
 
   const handleCheckout = () => {
     if (paymentMethod === 'COD') {
-      cod.mutate();
+      cod.mutate(phoneNumber);
     } else if (totalFee.data?.data?.totalCartOrder) {
       vnpay.mutate({ amount: totalFee.data.data.totalCartOrder });
     }
@@ -172,18 +166,34 @@ function CheckoutContent() {
               )}
             </div>
 
-            <div className='space-y-2'>
-              <h2 className='text-xl font-semibold'>Phương thức thanh toán</h2>
+            <div className='flex rounded-lg border border-gray-400 p-4 items-center gap-20'>
               <SelectString
-                label='Chọn phương thức thanh toán'
+                label='Chọn Phương Thức Thanh Toán'
                 value={paymentMethod}
                 options={paymentOptions}
                 onChange={setPaymentMethod}
-                className='w-full border border-gray-300 rounded-lg p-3'
+                className='ml-2 grow-1'
+              />
+
+              <TextField
+                name='phone-number'
+                label='Nhập Số Điện Thoại'
+                placeholder='Số điện thoại'
+                value={phoneNumber}
+                error={
+                  PhoneRegex.test(phoneNumber)
+                    ? undefined
+                    : 'Vui lòng nhập số điện thoại hợp lệ'
+                }
+                onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </div>
 
-            <Button className='w-full font-bold py-3' onClick={handleCheckout}>
+            <Button
+              disabled={paymentMethod === '' || !PhoneRegex.test(phoneNumber)}
+              className='w-full font-bold py-3'
+              onClick={handleCheckout}
+            >
               Xác Nhận Đặt Hàng
             </Button>
           </>

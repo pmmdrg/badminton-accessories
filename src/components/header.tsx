@@ -11,8 +11,8 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import useAuth from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
-import { useToast } from './toast';
 import { TOAST_TYPE } from '@/lib/constants';
+import { useToast } from '@/providers/toastProvider';
 
 export default function Header() {
   const [isLogin, setIsLogin] = useState(false);
@@ -50,7 +50,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className='bg-gradient-to-r from-rose-800 to-rose-600 shadow-xl sticky top-0 z-50 border-b border-b-white/30'>
+    <header className='bg-gradient-to-r from-rose-800 to-rose-600 shadow-2xl sticky top-0 z-50 border-b border-b-white/30'>
       <div className='container mx-auto flex items-center justify-between px-4 py-3'>
         <Link href='/' className='text-2xl font-bold text-white'>
           Badminton Accessories Shop

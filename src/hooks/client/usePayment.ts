@@ -23,7 +23,8 @@ export function usePaymentClient(
   vnpTransactionNo?: string,
   vnpTransactionStatus?: string,
   vnpTxnRef?: string,
-  vnpSecureHash?: string
+  vnpSecureHash?: string,
+  phoneNumber?: string,
 ) {
   const getAll = useQuery({
     queryKey: ['payments'],
@@ -68,6 +69,7 @@ export function usePaymentClient(
       vnpTransactionStatus,
       vnpTxnRef,
       vnpSecureHash,
+      phoneNumber,
     ],
     queryFn: () =>
       vnpayPaymentReturn(
@@ -82,7 +84,8 @@ export function usePaymentClient(
         vnpTransactionNo!,
         vnpTransactionStatus!,
         vnpTxnRef!,
-        vnpSecureHash!
+        vnpSecureHash!,
+        phoneNumber!,
       ),
     enabled:
       vnpAmount !== undefined &&
@@ -108,7 +111,9 @@ export function usePaymentClient(
       vnpTxnRef !== undefined &&
       vnpTxnRef !== '' &&
       vnpSecureHash !== undefined &&
-      vnpSecureHash !== '',
+      vnpSecureHash !== '' &&
+      phoneNumber !== undefined &&
+      phoneNumber !== '',
   });
 
   return {

@@ -18,8 +18,8 @@ export async function findPaymentByName(name: string) {
   return res.data;
 }
 
-export async function codPayment() {
-  const res = await api.post('/payment/cod');
+export async function codPayment(phoneNumber: string) {
+  const res = await api.post(`/payment/cod?phonenumber=${phoneNumber}`);
 
   return res.data;
 }
@@ -42,10 +42,11 @@ export async function vnpayPaymentReturn(
   vnpTransactionNo: string,
   vnpTransactionStatus: string,
   vnpTxnRef: string,
-  vnpSecureHash: string
+  vnpSecureHash: string,
+  phoneNumber: string,
 ) {
   const res = await api.get(
-    `/payment/vnpay/return?vnp_Amount=${vnpAmount}&vnp_BankCode=${vnpBankCode}&vnp_BankTranNo=${vnpBankTranNo}&vnp_CardType=${vnpCardType}&vnp_OrderInfo=${vnpOrderInfo}&vnp_PayDate=${vnpPayDate}&vnp_ResponseCode=${vnpResponseCode}&vnp_TmnCode=${vnpTmnCode}&vnp_TransactionNo=${vnpTransactionNo}&vnp_TransactionStatus=${vnpTransactionStatus}&vnp_TxnRef=${vnpTxnRef}&vnp_SecureHash=${vnpSecureHash}`
+    `/payment/vnpay/return?vnp_Amount=${vnpAmount}&vnp_BankCode=${vnpBankCode}&vnp_BankTranNo=${vnpBankTranNo}&vnp_CardType=${vnpCardType}&vnp_OrderInfo=${vnpOrderInfo}&vnp_PayDate=${vnpPayDate}&vnp_ResponseCode=${vnpResponseCode}&vnp_TmnCode=${vnpTmnCode}&vnp_TransactionNo=${vnpTransactionNo}&vnp_TransactionStatus=${vnpTransactionStatus}&vnp_TxnRef=${vnpTxnRef}&vnp_SecureHash=${vnpSecureHash}&phonenumber=${phoneNumber}`,
   );
 
   return res.data;

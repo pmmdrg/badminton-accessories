@@ -12,7 +12,7 @@ export interface ProductItem {
   description?: string;
   quantity: number;
   price: number;
-  pricePromotion?: number;
+  pricePromotion: number | null;
   status: STATUS;
   updated_at: string;
   created_at: string;

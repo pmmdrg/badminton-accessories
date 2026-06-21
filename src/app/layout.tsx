@@ -4,8 +4,8 @@ import '../styles/globals.css';
 import { usePathname } from 'next/navigation';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
+import AppProviders from './appProviders';
 import ToastList from '@/components/toast';
-import Providers from './providers';
 
 export default function RootLayout({
   children,
@@ -42,10 +42,10 @@ export default function RootLayout({
         <link rel='icon' type='image/png' href='/favicon.png' />
       </head>
       <body>
-        <Providers>
+        <AppProviders>
           <ToastList />
           {renderElement()}
-        </Providers>
+        </AppProviders>
       </body>
     </html>
   );
