@@ -11,7 +11,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { useToast } from '@/components/toast';
 
 export default function LoginPage() {
-  const { login } = useAuth();
+  const { login, loginGoogle } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState({ email: '', password: '' });
@@ -102,7 +102,8 @@ export default function LoginPage() {
       <GoogleLogin
         shape='pill'
         onSuccess={(credentialRes) => {
-          console.log(credentialRes.credential);
+          if (credentialRes.credential)
+            loginGoogle.mutate({ credential: credentialRes.credential });
         }}
         onError={() => {
           addToast({
