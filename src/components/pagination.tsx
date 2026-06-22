@@ -32,7 +32,7 @@ export default function Pagination({
         className={clsx([
           'px-3 py-1.5 text-sm font-medium transition',
           {
-            'opacity-40': currentPage === 1,
+            'bg-rose-200': currentPage === 1,
             ' cursor-not-allowed': currentPage === 1,
             'hover:bg-rose-50': currentPage !== 1,
           },
@@ -46,7 +46,7 @@ export default function Pagination({
         className={`p-2 border border-rose-700 rounded-full transition
           ${
             currentPage === 1
-              ? 'opacity-40 cursor-not-allowed'
+              ? 'bg-rose-200 cursor-not-allowed'
               : 'hover:bg-rose-50'
           }
         `}
@@ -70,7 +70,7 @@ export default function Pagination({
         className={`p-2 border border-rose-700 rounded-full transition
           ${
             currentPage === totalPages
-              ? 'opacity-40 cursor-not-allowed'
+              ? 'bg-rose-200 cursor-not-allowed'
               : 'hover:bg-rose-50'
           }
         `}
@@ -84,7 +84,7 @@ export default function Pagination({
         className={`px-3 py-1.5 border border-rose-700 rounded-full text-sm font-medium transition
           ${
             currentPage === totalPages
-              ? 'opacity-40 cursor-not-allowed'
+              ? 'bg-rose-200 cursor-not-allowed'
               : 'hover:bg-rose-50'
           }
         `}

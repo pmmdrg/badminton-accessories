@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { SelectString } from '@/components/select';
 import TextField from '@/components/textfield';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
@@ -18,7 +18,7 @@ import { useColorClient } from '@/hooks/client/useColor';
 import { Color } from '@/models/color';
 import { useSearchParams } from 'next/navigation';
 
-export default function ProductListPage() {
+function ProductListContent() {
   const searchParams = useSearchParams();
   const [brand, setBrand] = useState('');
   const [category, setCategory] = useState('');
@@ -169,5 +169,13 @@ export default function ProductListPage() {
         onPageChange={setCurrPage}
       />
     </div>
+  );
+}
+
+export default function ProductListPage() {
+  return (
+    <Suspense>
+      <ProductListContent />
+    </Suspense>
   );
 }
