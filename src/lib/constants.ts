@@ -1,6 +1,5 @@
 import {
   ArchiveBoxIcon,
-  ArrowRightStartOnRectangleIcon,
   ArrowsPointingOutIcon,
   BuildingStorefrontIcon,
   ChatBubbleLeftRightIcon,

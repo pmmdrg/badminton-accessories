@@ -176,36 +176,38 @@ function CheckoutContent() {
               )}
             </div>
 
-            <div className='flex bg-gradient-to-br from-white/20 via-gray-200 to-gray-300 border border-white/30 backdrop-blur-md rounded-2xl shadow-xl p-4 items-center gap-20'>
-              <SelectString
-                label='Chọn Phương Thức Thanh Toán'
-                value={paymentMethod}
-                options={paymentOptions}
-                onChange={setPaymentMethod}
-                className='ml-2 grow-1'
-              />
+            <div className='bg-gradient-to-br from-white/20 via-gray-200 to-gray-300 border border-white/30 backdrop-blur-md rounded-2xl shadow-xl p-4'>
+              <div className='flex items-center gap-20'>
+                <SelectString
+                  label='Chọn Phương Thức Thanh Toán'
+                  value={paymentMethod}
+                  options={paymentOptions}
+                  onChange={setPaymentMethod}
+                  className='ml-2 grow-1'
+                />
 
-              <TextField
-                name='phone-number'
-                label='Nhập Số Điện Thoại'
-                placeholder='Số điện thoại'
-                value={phoneNumber}
-                error={
-                  PhoneRegex.test(phoneNumber)
-                    ? undefined
-                    : 'Vui lòng nhập số điện thoại hợp lệ'
-                }
-                onChange={(e) => setPhoneNumber(e.target.value)}
-              />
+                <TextField
+                  name='phone-number'
+                  label='Nhập Số Điện Thoại'
+                  placeholder='Số điện thoại'
+                  value={phoneNumber}
+                  error={
+                    PhoneRegex.test(phoneNumber)
+                      ? undefined
+                      : 'Vui lòng nhập số điện thoại hợp lệ'
+                  }
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                />
+              </div>
+
+              <Button
+                disabled={paymentMethod === '' || !PhoneRegex.test(phoneNumber)}
+                className='w-full font-bold py-3 mt-2'
+                onClick={handleCheckout}
+              >
+                Xác Nhận Đặt Hàng
+              </Button>
             </div>
-
-            <Button
-              disabled={paymentMethod === '' || !PhoneRegex.test(phoneNumber)}
-              className='w-full font-bold py-3'
-              onClick={handleCheckout}
-            >
-              Xác Nhận Đặt Hàng
-            </Button>
           </>
         )}
       </div>

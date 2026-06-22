@@ -94,6 +94,8 @@ function ProductListContent() {
     setCategory(searchParams.get('category') || '');
   }, [searchParams]);
 
+  if (productItems.getAll.isLoading) return <Spinner size='lg' />;
+
   return (
     <div className='min-h-screen'>
       <div className='flex justify-center'>
@@ -107,7 +109,7 @@ function ProductListContent() {
         />
       </div>
 
-      <div className='max-w-5xl mx-auto bg-gradient-to-br from-white/20 via-gray-200 to-gray-300 border border-white/30 backdrop-blur-md rounded-2xl shadow-xl p-4 flex flex-wrap items-center justify-between gap-4 my-2'>
+      <div className='max-w-5xl mx-auto bg-gradient-to-br from-white/20 via-gray-200 to-gray-300 border border-white/30 rounded-2xl shadow-xl p-4 flex flex-wrap items-center justify-between gap-4 my-2'>
         <SelectString
           label='Thương Hiệu'
           value={brand}
@@ -153,11 +155,13 @@ function ProductListContent() {
         />
       </div>
 
-      {productItems.getAll.isLoading ? (
-        <Spinner size='lg' />
+      {sortedProducts().length === 0 ? (
+        <div className='min-h-[500px] w-full flex items-center justify-center font-semibold text-gray-400'>
+          Rất tiếc, hiện tại cửa hàng chưa có sản phẩm phù hợp.
+        </div>
       ) : (
         <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 my-4 mx-4'>
-          {sortedProducts()?.map((productItem: ProductItem) => (
+          {sortedProducts().map((productItem: ProductItem) => (
             <ProdItemCard key={productItem.id} {...productItem} />
           ))}
         </div>
