@@ -1,3 +1,4 @@
+import { InternalAxiosRequestConfig } from 'axios';
 import { COUNTRY_CODE } from './constants';
 
 export function isValidImageSrc(src?: string) {
@@ -48,4 +49,10 @@ export function normalizedDateTime(dateTimeStr?: string | null) {
   const dateConverted = normalizedDate(dateTimeStr);
 
   return `${timeConverted.slice(0, timeConverted.length - 3)} ${dateConverted}`;
+}
+
+export function apiLogger(config: InternalAxiosRequestConfig) {
+  console.log(
+    `[REQUEST] ${config.method?.toUpperCase()} ${config.baseURL}${config.url}`,
+  );
 }
