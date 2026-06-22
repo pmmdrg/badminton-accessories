@@ -3,8 +3,9 @@ export interface DetailOrder {
   nameProductItem: string;
   orderId: string;
   price: number;
+  pricePromotion: number;
   productItemId: string;
   quantity: number;
-  totalPriceCartItem: number;
+  totalPriceOrderDetail: number;
   id: string;
 }

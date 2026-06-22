@@ -33,134 +33,51 @@ export default function DetailOrderModal({
         <Spinner />
       ) : (
         <div className='px-5'>
-          <div className='flex gap-40'>
-            <div className='flex gap-2'>
-              <p className='font-medium'>Người Đặt Hàng:</p>
-              {getDetail.data?.data[0].fullname}
-            </div>
-
-            <div className='flex gap-2'>
-              <p className='font-medium'>SĐT:</p>
-              {getDetail.data?.data[0].phonenumber}
-            </div>
-          </div>
-
-          <div className='my-4 flex gap-2'>
-            <p className='font-medium'>Số Lượng Sản Phẩm:</p>
-            {getDetail.data?.data[0].totalQuantity}
-          </div>
-
-          <div className='flex gap-40 my-4'>
-            <div className='flex gap-2'>
-              <p className='font-medium'>Giá Trị Giỏ Hàng:</p>
-
-              <p className='text-rose-600 font-bold'>
-                {getDetail.data?.data[0].totalCart?.toLocaleString(
-                  COUNTRY_CODE.VN,
-                )}
-                ₫
-              </p>
-            </div>
-
-            <div className='flex gap-2'>
-              <p className='font-medium'>Phí Ship:</p>
-
-              <p className='text-rose-600 font-bold'>
-                {getDetail.data?.data[0].shippingFee.toLocaleString(
-                  COUNTRY_CODE.VN,
-                )}
-                ₫
-              </p>
-            </div>
-          </div>
-
-          <div className='my-4 flex gap-2'>
-            <p className='font-medium'>Tổng Giá Trị Đơn Hàng:</p>
-
-            <p className='text-rose-600 font-bold'>
-              {getDetail.data?.data[0].totalCartOrder.toLocaleString(
-                COUNTRY_CODE.VN,
-              )}
-              ₫
-            </p>
-          </div>
-
-          <div className='my-4 flex gap-2'>
-            <p className='font-medium'>Địa Chỉ Đặt Hàng:</p>{' '}
-            {getDetail.data?.data[0].address}
-          </div>
-
-          <div className='my-4 flex gap-2'>
-            <p className='font-medium'>Trạng Thái Đơn Hàng:</p>
-            {capitalizeFirst(getDetail.data?.data[0].status)}
-          </div>
-
-          <div className='my-4 flex gap-2'>
-            <p className='font-medium'>Phương Thức Thanh Toán:</p>
-            {getDetail.data?.data[0].namePayment}
-          </div>
-
-          <div className='my-4 flex gap-2'>
-            <p className='font-medium'>Ngày Đặt Hàng:</p>
-            <p>{normalizedDate(getDetail.data?.data[0].created_at)}</p>
-          </div>
-
-          <div className='my-4 flex gap-2'>
-            <p className='font-medium'>Ngày Vận Chuyển:</p>
-            <p>{normalizedDate(getDetail.data?.data[0].delivered_at)}</p>
-          </div>
-
-          <div className='my-4 flex gap-2'>
-            <p className='font-medium'>Ngày Hoàn Tất Đơn Hàng:</p>
-            <p>{normalizedDate(getDetail.data?.data[0].completed_at)}</p>
-          </div>
-
-          {getDetail.data?.data[0].orderdetail.map(
-            (detail: DetailOrder, index: number) => (
-              <div key={detail.id}>
-                <div className='h-px bg-black' />
-                <div className='flex gap-8 items-center'>
-                  <p className='text-lg font-semibold'>{index + 1}</p>
-                  <Image
-                    src={
-                      isValidImageSrc(detail.imageProductItem)
-                        ? detail.imageProductItem
-                        : placeholderImage
-                    }
-                    alt={detail.nameProductItem}
-                    width={120}
-                    height={120}
-                    className='object-contain'
-                  />
-                  <div>
-                    <div className='my-4 flex gap-2'>
-                      <p className='font-medium'>Tên Mặt Hàng:</p>
-                      <p>{detail.nameProductItem}</p>
-                    </div>
-                    <div className='my-4 flex gap-2'>
-                      <p className='font-medium'>Đơn Giá:</p>
-                      <p className='text-rose-600 font-bold'>
-                        {detail.price.toLocaleString(COUNTRY_CODE.VN)}₫
-                      </p>
-                    </div>
-                    <div className='my-4 flex gap-2'>
-                      <p className='font-medium'>Số Lượng:</p>
-                      <p>{detail.quantity}</p>
-                    </div>
-                    <div className='my-4 flex gap-2'>
-                      <p className='font-medium'>Tổng Giá Trị Mặt Hàng:</p>
-                      <p className='text-rose-600 font-bold'>
-                        {detail.totalPriceCartItem.toLocaleString(
-                          COUNTRY_CODE.VN,
-                        )}
-                        ₫
-                      </p>
-                    </div>
-                  </div>
+          {getDetail.data?.data?.map((detail: DetailOrder, index: number) => (
+            <div key={detail.id} className='flex gap-8 items-center'>
+              <p className='text-lg font-semibold'>{index + 1}</p>
+              <Image
+                src={
+                  isValidImageSrc(detail.imageProductItem)
+                    ? detail.imageProductItem
+                    : placeholderImage
+                }
+                alt={detail.nameProductItem}
+                width={120}
+                height={120}
+                className='object-contain'
+              />
+              <div>
+                <div className='my-4 flex gap-2'>
+                  <p className='font-medium'>Tên Mặt Hàng:</p>
+                  <p>{detail.nameProductItem}</p>
+                </div>
+                <div className='my-4 flex gap-2'>
+                  <p className='font-medium'>Đơn Giá:</p>
+                  <p className='text-rose-600 font-bold'>
+                    {(detail.pricePromotion
+                      ? detail.pricePromotion
+                      : detail.price
+                    )?.toLocaleString(COUNTRY_CODE.VN)}
+                    ₫
+                  </p>
+                </div>
+                <div className='my-4 flex gap-2'>
+                  <p className='font-medium'>Số Lượng:</p>
+                  <p>{detail.quantity}</p>
+                </div>
+                <div className='my-4 flex gap-2'>
+                  <p className='font-medium'>Tổng Giá Trị Hàng:</p>
+                  <p className='text-rose-600 font-bold'>
+                    {detail.totalPriceOrderDetail?.toLocaleString(
+                      COUNTRY_CODE.VN,
+                    )}
+                    ₫
+                  </p>
                 </div>
               </div>
-            ),
-          )}
+            </div>
+          ))}
         </div>
       )}
     </Modal>

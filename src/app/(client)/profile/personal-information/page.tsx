@@ -118,7 +118,7 @@ export default function PersonalInformationPage() {
             <label className='font-medium'>Tiểu Sử</label>
             <TextField
               name='bio'
-              value={bio}
+              value={bio || ''}
               onChange={(e) => setBio(e.target.value)}
               placeholder='Giới thiệu ngắn về bản thân'
               className='border rounded-lg px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-rose-500'
