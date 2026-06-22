@@ -3,7 +3,6 @@ import api from '@/lib/api';
 export async function createSize(payload: {
   nameSize: string;
   sizeTypeId: string;
-  description: string;
 }) {
   const res = await api.post('/admin/size/create', payload);
 
@@ -50,7 +49,6 @@ export async function updateSize(
   id: string,
   payload: {
     nameSize?: string;
-    description?: string;
   },
 ) {
   const res = await api.put(`/admin/size/update?id=${id}`, payload);

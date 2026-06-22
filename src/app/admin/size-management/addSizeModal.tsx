@@ -9,11 +9,7 @@ import { useState } from 'react';
 interface AddSizeModalProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  onConfirm: (
-    nameSize: string,
-    sizeTypeId: string,
-    description: string,
-  ) => void;
+  onConfirm: (nameSize: string, sizeTypeId: string) => void;
 }
 
 export default function AddSizeModal({
@@ -23,7 +19,6 @@ export default function AddSizeModal({
 }: AddSizeModalProps) {
   const { getAll } = useSizeTypeAdmin();
   const [size, setSize] = useState('');
-  const [description, setDescription] = useState('');
   const [sizeTypeId, setSizeTypeId] = useState('');
 
   const sizeTypeOptions = getAll.data?.data
@@ -37,7 +32,6 @@ export default function AddSizeModal({
 
   const resetState = () => {
     setSize('');
-    setDescription('');
     setSizeTypeId('');
   };
 
@@ -49,7 +43,7 @@ export default function AddSizeModal({
         resetState();
       }}
       onConfirm={() => {
-        onConfirm(size, sizeTypeId, description);
+        onConfirm(size, sizeTypeId);
         resetState();
         setIsOpen(false);
       }}
@@ -70,16 +64,6 @@ export default function AddSizeModal({
         value={size}
         onChange={(e) => setSize(e.target.value)}
         error={size === '' ? 'Không để trống tên kích thước' : ''}
-        fullWidth
-      />
-
-      <TextField
-        label='Mô tả'
-        name='description'
-        placeholder='Nhập mô tả'
-        value={description}
-        multiline={5}
-        onChangeForMultiline={(e) => setDescription(e.target.value)}
         fullWidth
       />
     </Modal>

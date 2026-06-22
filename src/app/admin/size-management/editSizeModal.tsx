@@ -11,7 +11,7 @@ interface EditSizeModalProps {
   sizeId: string;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  onConfirm: (nameSize: string, description: string) => void;
+  onConfirm: (nameSize: string) => void;
 }
 
 export default function EditSizeModal({
@@ -24,14 +24,12 @@ export default function EditSizeModal({
   const { getAll } = useSizeTypeAdmin();
 
   const [size, setSize] = useState('');
-  const [description, setDescription] = useState('');
   const [sizeTypeId, setSizeTypeId] = useState('');
 
   useEffect(() => {
     if (!getById.data?.data) return;
 
     setSize(getById.data.data.nameSize);
-    setDescription(getById.data.data.description);
     setSizeTypeId(getById.data.data.sizeTypeId);
   }, [isOpen, getById.data]);
 
@@ -46,7 +44,6 @@ export default function EditSizeModal({
 
   const resetState = () => {
     setSize('');
-    setDescription('');
     setSizeTypeId('');
   };
 
@@ -58,7 +55,7 @@ export default function EditSizeModal({
         resetState();
       }}
       onConfirm={() => {
-        onConfirm(size, description);
+        onConfirm(size);
         resetState();
         setIsOpen(false);
       }}
@@ -80,16 +77,6 @@ export default function EditSizeModal({
         value={size}
         onChange={(e) => setSize(e.target.value)}
         error={size === '' ? 'Không để trống tên kích thước' : ''}
-        fullWidth
-      />
-
-      <TextField
-        label='Mô tả'
-        name='description'
-        placeholder='Nhập mô tả'
-        value={description}
-        multiline={5}
-        onChangeForMultiline={(e) => setDescription(e.target.value)}
         fullWidth
       />
     </Modal>

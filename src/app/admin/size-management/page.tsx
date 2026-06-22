@@ -28,24 +28,18 @@ export default function AdminSizePage() {
 
   const totalPages = Math.ceil((filteredSizes || []).length / 20);
 
-  const handleConfirmAdd = async (
-    sizeName: string,
-    sizeTypeId: string,
-    description: string,
-  ) => {
+  const handleConfirmAdd = async (sizeName: string, sizeTypeId: string) => {
     add.mutate({
       nameSize: sizeName,
       sizeTypeId,
-      description,
     });
   };
 
-  const handleConfirmEdit = async (sizeName: string, description: string) => {
+  const handleConfirmEdit = async (sizeName: string) => {
     edit.mutate({
       id: selectedId,
       payload: {
         nameSize: sizeName,
-        description,
       },
     });
 
@@ -90,7 +84,6 @@ export default function AdminSizePage() {
             <tr>
               <th className='px-4 py-2 text-left'>Tên Kích Thước</th>
               <th className='px-4 py-2 text-left'>Loại</th>
-              <th className='px-4 py-2 text-left'>Mô Tả</th>
               <th className='px-4 py-2 text-left'>Trạng Thái</th>
               <th className='px-4 py-2 text-left'>Ngày Tạo</th>
               <th className='px-4 py-2 text-left'>Hành Động</th>
@@ -103,9 +96,6 @@ export default function AdminSizePage() {
                   {size.nameSize}
                 </td>
                 <td className='px-4 py-2 font-semibold'>{size.nameSizeType}</td>
-                <td className='px-4 py-2 text-rose-700 font-semibold'>
-                  {size.description}
-                </td>
                 <td
                   className={clsx(
                     'px-4',

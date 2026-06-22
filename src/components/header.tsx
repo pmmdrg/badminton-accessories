@@ -80,6 +80,13 @@ export default function Header() {
             Về Chúng Tôi
           </Link>
 
+          <Link
+            href='/chat'
+            className='text-white hover:text-rose-300 font-semibold text-md'
+          >
+            CSKH
+          </Link>
+
           <button
             className='text-white hover:text-rose-300'
             onClick={() => {

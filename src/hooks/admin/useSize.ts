@@ -108,7 +108,6 @@ export function useSizeAdmin(
       id: string;
       payload: {
         nameSize?: string;
-        description?: string;
       };
     }) => updateSize(id, payload),
     onSuccess: (_, variables, ctx) => {
