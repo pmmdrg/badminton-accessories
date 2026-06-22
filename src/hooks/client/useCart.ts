@@ -42,17 +42,17 @@ export function useCart() {
 
   const untick = useMutation({
     mutationFn: (id: string) => untickCartItem(id),
-    onSuccess: () => {
-      editTotal.mutate();
-      queryClient.invalidateQueries({ queryKey: ['total-fee'] });
+    onSuccess: async () => {
+      await editTotal.mutateAsync();
+      await queryClient.invalidateQueries({ queryKey: ['total-fee'] });
     },
   });
 
   const tick = useMutation({
     mutationFn: (id: string) => tickCartItem(id),
-    onSuccess: () => {
-      editTotal.mutate();
-      queryClient.invalidateQueries({ queryKey: ['total-fee'] });
+    onSuccess: async () => {
+      await editTotal.mutateAsync();
+      await queryClient.invalidateQueries({ queryKey: ['total-fee'] });
     },
   });
 
