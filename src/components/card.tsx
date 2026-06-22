@@ -7,13 +7,22 @@ import { placeholderImage } from '@/assets/images';
 import { isValidImageSrc } from '@/lib/utils';
 import { CardProps } from '@/types/cardProps';
 
-export default function Card({ title, description, image }: CardProps) {
+export default function Card({
+  title,
+  description,
+  image,
+  queryParams,
+}: CardProps) {
   const router = useRouter();
 
   return (
     <div
       className='group cursor-pointer rounded-xl border border-gray-200 bg-gradient-to-br from-orange-300 to-blue-200 shadow-md transition-transform duration-300 hover:scale-[1.03] hover:shadow-md'
-      onClick={() => router.push(`/product`)}
+      onClick={() =>
+        router.push(
+          `/product${queryParams && queryParams.length > 0 ? `?${queryParams}` : ''}`,
+        )
+      }
     >
       <div className='relative w-full h-56 md:h-64 overflow-hidden rounded-t-xl'>
         <Image

@@ -59,6 +59,7 @@ export default function Homepage() {
               title={brand.nameBrand}
               description={brand.description}
               image={brand.imageBrand}
+              queryParams={`brand=${brand.id}`}
             />
           ))}
         </div>
@@ -72,6 +73,7 @@ export default function Homepage() {
               title={cate.nameCate}
               description={cate.description}
               image={cate.imageCate}
+              queryParams={`category=${cate.id}`}
             />
           ))}
         </div>

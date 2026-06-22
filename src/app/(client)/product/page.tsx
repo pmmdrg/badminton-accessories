@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SelectString } from '@/components/select';
 import TextField from '@/components/textfield';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
@@ -16,8 +16,10 @@ import { ProductItem } from '@/models/productItem';
 import ProdItemCard from '@/components/prodItemCard';
 import { useColorClient } from '@/hooks/client/useColor';
 import { Color } from '@/models/color';
+import { useSearchParams } from 'next/navigation';
 
 export default function ProductListPage() {
+  const searchParams = useSearchParams();
   const [brand, setBrand] = useState('');
   const [category, setCategory] = useState('');
   const [sort, setSort] = useState('');
@@ -86,6 +88,11 @@ export default function ProductListPage() {
         ),
       ]
     : [{ label: 'Tất Cả', value: '' }];
+
+  useEffect(() => {
+    setBrand(searchParams.get('brand') || '');
+    setCategory(searchParams.get('category') || '');
+  }, [searchParams]);
 
   return (
     <div className='min-h-screen'>
