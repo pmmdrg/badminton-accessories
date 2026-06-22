@@ -246,7 +246,7 @@ export default function DashboardPage() {
                       index: number,
                     ) => (
                       <tr
-                        key={`revenue-${pi.productItemId || index}`}
+                        key={`revenue-${pi.productItemId || index}-${pi.nameProductItem || index}`}
                         className='border-b border-gray-400'
                       >
                         <td className='p-2'>{pi.nameProductItem}</td>
