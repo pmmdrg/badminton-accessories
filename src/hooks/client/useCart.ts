@@ -7,9 +7,11 @@ import {
   updateCartTotal,
 } from '@/services/client/cartService';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import useAuth from '../useAuth';
 
 export function useCart() {
   const queryClient = useQueryClient();
+  const { userId } = useAuth();
 
   const getByUserId = useQuery({
     queryKey: ['cart'],
@@ -35,6 +37,7 @@ export function useCart() {
   const totalFee = useQuery({
     queryKey: ['total-fee'],
     queryFn: calculateTotalFee,
+    enabled: !!(userId && userId !== ''),
   });
 
   const untick = useMutation({
