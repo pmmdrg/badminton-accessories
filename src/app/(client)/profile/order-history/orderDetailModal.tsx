@@ -3,7 +3,7 @@ import Modal from '@/components/modal';
 import { Spinner } from '@/components/spinner';
 import { useOrderClient } from '@/hooks/client/useOrder';
 import { COUNTRY_CODE } from '@/lib/constants';
-import { capitalizeFirst, isValidImageSrc, normalizedDate } from '@/lib/utils';
+import { isValidImageSrc } from '@/lib/utils';
 import { DetailOrder } from '@/models/detailOrder';
 import Image from 'next/image';
 
