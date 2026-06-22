@@ -134,9 +134,9 @@ export default function DetailOrderModal({
 
           {getByOrderId.data?.data.orderdetail?.map(
             (detail: DetailOrder, index: number) => (
-              <>
+              <div key={detail.id}>
                 <div className='h-px bg-black' />
-                <div key={detail.id} className='flex gap-8 items-center'>
+                <div className='flex gap-8 items-center'>
                   <p className='text-lg font-semibold'>{index + 1}</p>
                   <Image
                     src={
@@ -175,7 +175,7 @@ export default function DetailOrderModal({
                     </div>
                   </div>
                 </div>
-              </>
+              </div>
             ),
           )}
         </div>

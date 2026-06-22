@@ -33,7 +33,9 @@ export default function Card({ title, description, image }: CardProps) {
           {title}
         </h3>
 
-        <p className='line-clamp-3 text-gray-500'>{description}</p>
+        <p className='line-clamp-3 text-gray-500 font-semibold'>
+          {description}
+        </p>
       </div>
     </div>
   );

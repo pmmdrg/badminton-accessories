@@ -15,14 +15,14 @@ import clsx from 'clsx';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export default function AdminSizePage() {
-  const { getAll, add, edit, remove, restore } = useSizeAdmin();
+  const { getAllWithSizeTypeName, add, edit, remove, restore } = useSizeAdmin();
   const [currPage, setCurrPage] = useState(1);
   const [search, setSearch] = useState('');
   const [selectedId, setSelectedId] = useState('');
   const [isOpenAdd, setIsOpenAdd] = useState(false);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
 
-  const filteredSizes = getAll.data?.data?.filter((s: Size) =>
+  const filteredSizes = getAllWithSizeTypeName.data?.data?.filter((s: Size) =>
     s.nameSize.toLowerCase().includes(search.toLowerCase()),
   );
 
@@ -40,11 +40,7 @@ export default function AdminSizePage() {
     });
   };
 
-  const handleConfirmEdit = async (
-    sizeName: string,
-    sizeTypeId: string,
-    description: string,
-  ) => {
+  const handleConfirmEdit = async (sizeName: string, description: string) => {
     edit.mutate({
       id: selectedId,
       payload: {
@@ -56,7 +52,7 @@ export default function AdminSizePage() {
     setSelectedId('');
   };
 
-  if (getAll.isLoading) return <Spinner />;
+  if (getAllWithSizeTypeName.isLoading) return <Spinner />;
 
   return (
     <div className='p-6'>
@@ -93,6 +89,7 @@ export default function AdminSizePage() {
           <thead className='bg-gray-300'>
             <tr>
               <th className='px-4 py-2 text-left'>Tên Kích Thước</th>
+              <th className='px-4 py-2 text-left'>Loại</th>
               <th className='px-4 py-2 text-left'>Mô Tả</th>
               <th className='px-4 py-2 text-left'>Trạng Thái</th>
               <th className='px-4 py-2 text-left'>Ngày Tạo</th>
@@ -105,6 +102,7 @@ export default function AdminSizePage() {
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
                   {size.nameSize}
                 </td>
+                <td className='px-4 py-2 font-semibold'>{size.nameSizeType}</td>
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
                   {size.description}
                 </td>

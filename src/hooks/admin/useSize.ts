@@ -12,6 +12,7 @@ import {
   updateSize,
   getSizeBySizeTypeId,
   getSizeBySizeTypeName,
+  getAllSizeWithSizeTypeNameAdmin,
 } from '@/services/admin/sizeService';
 import { useToast } from '@/providers/toastProvider';
 import { TOAST_TYPE } from '@/lib/constants';
@@ -35,7 +36,9 @@ export function useSizeAdmin(
         message: 'Đã tạo kích thước mới',
       });
 
-      queryClient.invalidateQueries({ queryKey: ['admin-sizes'] });
+      queryClient.invalidateQueries({
+        queryKey: ['admin-sizes-with-size-type-name'],
+      });
     },
     onMutate: () => {
       const toastId = addToast({
@@ -56,6 +59,11 @@ export function useSizeAdmin(
   const getAll = useQuery({
     queryKey: ['admin-sizes'],
     queryFn: getAllSizeAdmin,
+  });
+
+  const getAllWithSizeTypeName = useQuery({
+    queryKey: ['admin-sizes-with-size-type-name'],
+    queryFn: getAllSizeWithSizeTypeNameAdmin,
   });
 
   const getAllActive = useQuery({
@@ -109,7 +117,9 @@ export function useSizeAdmin(
         message: 'Đã chỉnh sửa kích thước',
       });
 
-      queryClient.invalidateQueries({ queryKey: ['admin-sizes'] });
+      queryClient.invalidateQueries({
+        queryKey: ['admin-sizes-with-size-type-name'],
+      });
       queryClient.invalidateQueries({ queryKey: ['id', variables.id] });
     },
     onMutate: () => {
@@ -136,7 +146,9 @@ export function useSizeAdmin(
         message: 'Đã xoá kích thước',
       });
 
-      queryClient.invalidateQueries({ queryKey: ['admin-sizes'] });
+      queryClient.invalidateQueries({
+        queryKey: ['admin-sizes-with-size-type-name'],
+      });
     },
   });
 
@@ -148,7 +160,9 @@ export function useSizeAdmin(
         message: 'Đã khôi phục kích thước',
       });
 
-      queryClient.invalidateQueries({ queryKey: ['admin-sizes'] });
+      queryClient.invalidateQueries({
+        queryKey: ['admin-sizes-with-size-type-name'],
+      });
     },
   });
 
@@ -164,5 +178,6 @@ export function useSizeAdmin(
     restore,
     getBySizeTypeName,
     getBySizeTypeId,
+    getAllWithSizeTypeName,
   };
 }

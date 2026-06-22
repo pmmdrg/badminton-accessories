@@ -94,6 +94,10 @@ export default function AdminImportPage() {
             getAll.data?.data?.find((i: Import) => i.id === selectedImportId)
               ?.title || ''
           }
+          supplier={
+            getAll.data?.data?.find((i: Import) => i.id === selectedImportId)
+              ?.supplierId || ''
+          }
         />
         <ImportDetailModal
           isOpen={isOpenViewImportDetail}

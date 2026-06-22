@@ -2,6 +2,7 @@ import Modal from '@/components/modal';
 import { SelectString } from '@/components/select';
 import TextField from '@/components/textfield';
 import { useProductItemAdmin } from '@/hooks/admin/useProductItem';
+import { useSupplierAdmin } from '@/hooks/admin/useSupplier';
 import { normalizedSelectOptions } from '@/lib/utils';
 import { ProductItem } from '@/models/productItem';
 import { useState } from 'react';
@@ -10,6 +11,7 @@ interface AddImportDetailModalProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   title: string;
+  supplier: string;
   onConfirm: (quantity: number, productItem: ProductItem | null) => void;
 }
 
@@ -17,17 +19,19 @@ export default function AddImportDetailModal({
   isOpen,
   setIsOpen,
   title = '',
+  supplier = '',
   onConfirm,
 }: AddImportDetailModalProps) {
-  const productItems = useProductItemAdmin();
+  const { getAll } = useProductItemAdmin();
+  const { getById } = useSupplierAdmin(supplier);
   const [productItem, setProductItem] = useState<ProductItem | null>(null);
   const [productItemName, setProductItemName] = useState('');
   const [quantity, setQuantity] = useState(0);
 
-  const prodItemOptions = productItems.getAll.data?.data
+  const prodItemOptions = getAll.data?.data
     ? [
         { label: 'Chưa có', value: '' },
-        ...productItems.getAll.data.data.map((pi: ProductItem) =>
+        ...getAll.data.data.map((pi: ProductItem) =>
           normalizedSelectOptions(pi.nameProductItem, pi.id),
         ),
       ]
@@ -59,6 +63,12 @@ export default function AddImportDetailModal({
         </p>
       </div>
 
+      <div className='mb-4 px-2'>
+        <p className='block text-sm text-gray-700 mb-1 font-medium'>
+          Nhà cung cấp: {getById.data?.data?.nameSupplier}
+        </p>
+      </div>
+
       <SelectString
         label='Mặt hàng sản phẩm'
         value={productItemName}
@@ -66,7 +76,7 @@ export default function AddImportDetailModal({
         onChange={(value) => {
           setProductItemName(value);
 
-          const foundProdItem = productItems.getAll.data?.data?.filter(
+          const foundProdItem = getAll.data?.data?.filter(
             (pi: ProductItem) => pi.id === value,
           );
 

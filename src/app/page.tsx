@@ -10,6 +10,7 @@ import { useBrandClient } from '@/hooks/client/useBrand';
 import { useCateClient } from '@/hooks/client/useCate';
 import { Brand } from '@/models/brand';
 import { Cate } from '@/models/cate';
+import { carouselBannerImages } from '@/assets/images';
 
 export default function Homepage() {
   const products = useProductClient();
@@ -19,18 +20,6 @@ export default function Homepage() {
   const productsReversed = products.getAll.data?.data
     ? [...products.getAll.data.data].reverse()
     : [];
-
-  const banners = [
-    'https://cdn.shopvnb.com/uploads/images/tin_tuc/hinh-anh-vot-cau-long-1-1687828854.webp',
-
-    'https://thethaodonga.com/wp-content/uploads/2022/06/hinh-anh-cau-long-dep-2.png',
-
-    'https://us.yonex.com/cdn/shop/files/CLP_Badminton_ProdWall_Hero.jpg',
-
-    'https://cdn.britannica.com/44/256944-050-8D414329/PV-Sindhu-2020-Tokyo-Olympics.jpg',
-
-    'https://www.racquetpoint.com/cdn/shop/articles/badminton-the-ultimate-guide-to-the-racquet-sport-460186.jpg',
-  ];
 
   if (
     products.getAll.isLoading ||
@@ -46,7 +35,7 @@ export default function Homepage() {
   return (
     <div className='px-10 mt-4'>
       <div className='rounded-2xl overflow-hidden shadow-lg bg-white/5 backdrop-blur-md'>
-        <Carousel images={banners} />
+        <Carousel images={carouselBannerImages} />
       </div>
 
       <Section title='Sản phẩm mới'>

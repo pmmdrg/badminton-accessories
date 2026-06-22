@@ -5,6 +5,7 @@ export interface Size {
   sizeTypeId: string;
   nameSize: string;
   description: string;
+  nameSizeType: string;
   created_at: string;
   status: STATUS;
 }

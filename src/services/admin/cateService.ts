@@ -42,7 +42,7 @@ export async function updateCate(
     nameCate?: string;
     imageCate?: string;
     description?: string;
-  }
+  },
 ) {
   const res = await api.put(`/admin/cate/update?id=${id}`, payload);
   return res.data;

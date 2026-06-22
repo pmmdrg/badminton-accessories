@@ -44,6 +44,12 @@ export default function AdminOrderPage() {
           endIcon={<MagnifyingGlassIcon className='w-5 h-5' />}
           className='w-sm sm:max-w-full'
         />
+
+        <DetailOrderModal
+          orderId={selectedId}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        />
       </div>
 
       <div className='overflow-x-auto bg-gradient-to-br from-white/20 via-gray-200 to-gray-300 border border-white/30 backdrop-blur-md rounded-2xl shadow-xl'>
@@ -139,11 +145,6 @@ export default function AdminOrderPage() {
             ))}
           </tbody>
         </table>
-        <DetailOrderModal
-          orderId={selectedId}
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-        />
       </div>
 
       <Pagination

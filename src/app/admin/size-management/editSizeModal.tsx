@@ -11,11 +11,7 @@ interface EditSizeModalProps {
   sizeId: string;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  onConfirm: (
-    nameSize: string,
-    sizeTypeId: string,
-    description: string,
-  ) => void;
+  onConfirm: (nameSize: string, description: string) => void;
 }
 
 export default function EditSizeModal({
@@ -24,25 +20,25 @@ export default function EditSizeModal({
   setIsOpen,
   onConfirm,
 }: EditSizeModalProps) {
-  const sizes = useSizeAdmin(sizeId);
-  const sizeTypes = useSizeTypeAdmin();
+  const { getById } = useSizeAdmin(sizeId);
+  const { getAll } = useSizeTypeAdmin();
 
   const [size, setSize] = useState('');
   const [description, setDescription] = useState('');
   const [sizeTypeId, setSizeTypeId] = useState('');
 
   useEffect(() => {
-    if (!sizes.getById.data?.data) return;
+    if (!getById.data?.data) return;
 
-    setSize(sizes.getById.data.data.nameSize);
-    setDescription(sizes.getById.data.data.description);
-    setSizeTypeId(sizes.getById.data.data.sizeTypeId);
-  }, [isOpen, sizes.getById.data]);
+    setSize(getById.data.data.nameSize);
+    setDescription(getById.data.data.description);
+    setSizeTypeId(getById.data.data.sizeTypeId);
+  }, [isOpen, getById.data]);
 
-  const sizeTypeOptions = sizeTypes.getAll.data?.data
+  const sizeTypeOptions = getAll.data?.data
     ? [
         { label: 'Chưa có', value: '' },
-        ...sizeTypes.getAll.data.data.map((st: SizeType) =>
+        ...getAll.data.data.map((st: SizeType) =>
           normalizedSelectOptions(st.description, st.id),
         ),
       ]
@@ -62,7 +58,7 @@ export default function EditSizeModal({
         resetState();
       }}
       onConfirm={() => {
-        onConfirm(size, sizeTypeId, description);
+        onConfirm(size, description);
         resetState();
         setIsOpen(false);
       }}
