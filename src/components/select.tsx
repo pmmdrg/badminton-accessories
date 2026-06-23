@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import Button from './button';
 import { Spinner } from './spinner';
-import { createPortal } from 'react-dom';
 
 export function SelectString({
   label,
@@ -131,40 +130,38 @@ export function SelectNumber({
       </button>
 
       <AnimatePresence>
-        {open &&
-          createPortal(
-            <motion.div
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.15 }}
-              className='fixed z-[9999] mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg overflow-y-scroll max-h-40'
-            >
-              {options ? (
-                options.map((opt, i) => (
-                  <div key={opt.value}>
-                    <Button
-                      variant='ghost'
-                      onClick={() => {
-                        onChange(opt.value);
-                        setOpen(false);
-                      }}
-                      className='w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100'
-                    >
-                      {opt.label}
-                    </Button>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.15 }}
+            className='absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg overflow-y-scroll max-h-40'
+          >
+            {options ? (
+              options.map((opt, i) => (
+                <div key={opt.value}>
+                  <Button
+                    variant='ghost'
+                    onClick={() => {
+                      onChange(opt.value);
+                      setOpen(false);
+                    }}
+                    className='w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100'
+                  >
+                    {opt.label}
+                  </Button>
 
-                    {i < options.length - 1 && (
-                      <div className='h-px bg-gray-200 mx-2' />
-                    )}
-                  </div>
-                ))
-              ) : (
-                <Spinner />
-              )}
-            </motion.div>,
-            document.body,
-          )}
+                  {i < options.length - 1 && (
+                    <div className='h-px bg-gray-200 mx-2' />
+                  )}
+                </div>
+              ))
+            ) : (
+              <Spinner />
+            )}
+          </motion.div>
+        )}
       </AnimatePresence>
     </div>
   );
