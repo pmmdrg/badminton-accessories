@@ -15,6 +15,11 @@ import useAuth from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
 import { TOAST_TYPE } from '@/lib/constants';
 import { useToast } from '@/providers/toastProvider';
+import { useUserClient } from '@/hooks/client/useUser';
+import Image from 'next/image';
+import { isValidImageSrc } from '@/lib/utils';
+import { placeholderUserImage } from '@/assets/images';
+import clsx from 'clsx';
 
 export default function Header() {
   const [isLogin, setIsLogin] = useState(false);
@@ -22,16 +27,15 @@ export default function Header() {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
-  const { logout } = useAuth();
+  const { logout, userId } = useAuth();
+  const { getInfo } = useUserClient();
   const router = useRouter();
   const { addToast } = useToast();
 
   useEffect(() => {
-    const accessToken = localStorage.getItem('access_token');
-
-    if (accessToken) setIsLogin(true);
+    if (userId && userId !== '') setIsLogin(true);
     else setIsLogin(false);
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -110,7 +114,30 @@ export default function Header() {
               onClick={() => setUserMenuOpen(!userMenuOpen)}
               className='focus:outline-none'
             >
-              <UserIcon className='w-6 h-6 text-white hover:text-rose-300 stroke-2' />
+              {isLogin ? (
+                <div className='relative w-9 h-9 rounded-full border border-white overflow-hidden'>
+                  <Image
+                    src={
+                      getInfo.data?.data?.avatar &&
+                      isValidImageSrc(getInfo.data?.data?.avatar)
+                        ? getInfo.data?.data?.avatar
+                        : placeholderUserImage
+                    }
+                    alt={getInfo.data?.data?.fullname || 'Profile'}
+                    fill
+                    className={clsx(
+                      getInfo.data?.data?.avatar &&
+                        isValidImageSrc(getInfo.data?.data?.avatar)
+                        ? 'object-cover'
+                        : 'object-contain',
+                      'transition-transform duration-500 group-hover:scale-105',
+                    )}
+                    sizes='36px'
+                  />
+                </div>
+              ) : (
+                <UserIcon className='w-6 h-6 text-white hover:text-rose-300 stroke-2' />
+              )}
             </button>
 
             {userMenuOpen && (

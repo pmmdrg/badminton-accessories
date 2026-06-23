@@ -9,14 +9,17 @@ import {
 } from '@/services/client/profileService';
 import { AxiosError } from 'axios';
 import { ApiError } from '@/types/apiError';
+import useAuth from '../useAuth';
 
 export function useUserClient() {
   const { addToast, updateToast } = useToast();
+  const { userId } = useAuth();
   const queryClient = useQueryClient();
 
   const getInfo = useQuery({
     queryKey: ['user-info'],
     queryFn: getUserInfo,
+    enabled: !!(userId && userId !== ''),
   });
 
   const editUser = useMutation({
