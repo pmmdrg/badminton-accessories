@@ -16,11 +16,11 @@ export async function getAllInactiveUser() {
 }
 
 export async function lockUser(id: string) {
-  const res = await api.put(`/admin/user/lock-user?id=${id}`);
+  const res = await api.put(`/admin/lock-user?id=${id}`);
   return res.data;
 }
 
 export async function restoreUser(id: string) {
-  const res = await api.put(`/admin/user/restore-user?id=${id}`);
+  const res = await api.put(`/admin/restore-user?id=${id}`);
   return res.data;
 }

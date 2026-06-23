@@ -37,7 +37,7 @@ export function useUserAdmin() {
         message: 'Đã khoá người dùng',
       });
 
-      queryClient.invalidateQueries({ queryKey: ['admin-suppliers'] });
+      queryClient.invalidateQueries({ queryKey: ['admin-users'] });
     },
   });
 
@@ -49,7 +49,7 @@ export function useUserAdmin() {
         message: 'Đã khôi phục người dùng',
       });
 
-      queryClient.invalidateQueries({ queryKey: ['admin-suppliers'] });
+      queryClient.invalidateQueries({ queryKey: ['admin-users'] });
     },
   });
 
