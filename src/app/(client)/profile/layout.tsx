@@ -12,56 +12,52 @@ export default function ProfileLayout({
   const pathname = usePathname();
 
   return (
-    <div className='w-full px-4 md:px-10 py-10'>
-      <div className='max-w-6xl mx-auto'>
-        <div className='flex gap-8'>
-          <aside className='w-64 shrink-0'>
-            <h2 className='text-lg font-semibold mb-4'>Hồ Sơ Người Dùng</h2>
+    <div className='flex gap-8 w-full px-4 md:px-10 py-10 h-[calc(80vh-7.5rem)] max-w-6xl mx-auto'>
+      <aside className='w-64 shrink-0'>
+        <h2 className='text-lg font-semibold mb-4'>Hồ Sơ Người Dùng</h2>
 
-            <nav className='flex flex-col gap-2'>
-              <button
-                onClick={() => router.push('/profile/personal-information')}
-                className={clsx(
-                  'text-left px-3 py-2 rounded-md transition',
-                  pathname.endsWith('personal-information')
-                    ? 'bg-rose-100 text-rose-700 font-medium'
-                    : 'hover:bg-gray-100 text-gray-700 font-semibold',
-                )}
-              >
-                Thông Tin Cá Nhân
-              </button>
+        <nav className='flex flex-col gap-2'>
+          <button
+            onClick={() => router.push('/profile/personal-information')}
+            className={clsx(
+              'text-left px-3 py-2 rounded-md transition',
+              pathname.endsWith('personal-information')
+                ? 'bg-rose-100 text-rose-700 font-medium'
+                : 'hover:bg-gray-100 text-gray-700 font-semibold',
+            )}
+          >
+            Thông Tin Cá Nhân
+          </button>
 
-              <button
-                onClick={() => router.push('/profile/address')}
-                className={clsx(
-                  'text-left px-3 py-2 rounded-md transition',
-                  pathname.endsWith('address')
-                    ? 'bg-rose-100 text-rose-700 font-medium'
-                    : 'hover:bg-gray-100 text-gray-700 font-semibold',
-                )}
-              >
-                Địa Chỉ
-              </button>
+          <button
+            onClick={() => router.push('/profile/address')}
+            className={clsx(
+              'text-left px-3 py-2 rounded-md transition',
+              pathname.endsWith('address')
+                ? 'bg-rose-100 text-rose-700 font-medium'
+                : 'hover:bg-gray-100 text-gray-700 font-semibold',
+            )}
+          >
+            Địa Chỉ
+          </button>
 
-              <button
-                onClick={() => router.push('/profile/order-history')}
-                className={clsx(
-                  'text-left px-3 py-2 rounded-md transition',
-                  pathname.endsWith('order-history')
-                    ? 'bg-rose-100 text-rose-700 font-medium'
-                    : 'hover:bg-gray-100 text-gray-700 font-semibold',
-                )}
-              >
-                Lịch Sử Đơn Hàng
-              </button>
-            </nav>
-          </aside>
+          <button
+            onClick={() => router.push('/profile/order-history')}
+            className={clsx(
+              'text-left px-3 py-2 rounded-md transition',
+              pathname.endsWith('order-history')
+                ? 'bg-rose-100 text-rose-700 font-medium'
+                : 'hover:bg-gray-100 text-gray-700 font-semibold',
+            )}
+          >
+            Lịch Sử Đơn Hàng
+          </button>
+        </nav>
+      </aside>
 
-          <div className='w-px bg-rose-700' />
+      <div className='w-px bg-rose-700' />
 
-          <main className='flex-1'>{children}</main>
-        </div>
-      </div>
+      <main className='flex-1 overflow-y-auto'>{children}</main>
     </div>
   );
 }
