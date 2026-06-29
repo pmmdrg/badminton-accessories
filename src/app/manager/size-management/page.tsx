@@ -44,7 +44,7 @@ export default function ManagerSizePage() {
           <thead className='bg-gray-300'>
             <tr>
               <th className='px-4 py-2 text-left'>Kích Thước</th>
-
+              <th className='px-4 py-2 text-left'>Loại Kích Thước</th>
               <th className='px-4 py-2 text-left'>Trạng Thái</th>
               <th className='px-4 py-2 text-left'>Ngày Tạo</th>
             </tr>
@@ -55,7 +55,7 @@ export default function ManagerSizePage() {
                 <td className='px-4 py-2 text-rose-700 font-semibold'>
                   {size.nameSize}
                 </td>
-
+                <td className='px-4 py-2 font-semibold'>{size.nameSizeType}</td>
                 <td
                   className={clsx(
                     'px-4',
