@@ -3,19 +3,19 @@
 import TextField from '@/components/textfield';
 import { useChatAdmin } from '@/hooks/admin/useChat';
 import { capitalizeFirst, normalizedDateTime } from '@/lib/utils';
-import { Chat } from '@/models/chat';
+import { Channel } from '@/models/channel';
 import { Message } from '@/models/message';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { useState } from 'react';
 
 export default function AdminChatPage() {
-  const [selectedId, setSelectedId] = useState('');
+  const [selectedChannel, setSelectedChannel] = useState('');
   const [search, setSearch] = useState('');
-  const { getAll, getById } = useChatAdmin(selectedId);
+  const { getAllChannels, getMessageByChannel } = useChatAdmin(selectedChannel);
 
-  const filteredChats = getAll.data?.data?.filter((b: Chat) =>
-    b.id.toLowerCase().includes(search.toLowerCase()),
+  const filteredChannels = getAllChannels.data?.data?.filter((b: Channel) =>
+    b.name.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (
@@ -27,21 +27,21 @@ export default function AdminChatPage() {
           <TextField
             name='chat'
             fullWidth
-            placeholder='Tìm kiếm theo mã cuộc trò chuyện'
+            placeholder='Tìm kiếm theo tên cuộc trò chuyện'
             endIcon={<MagnifyingGlassIcon className='w-5 h-5' />}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
           <div className='overflow-y-auto h-[calc(100vh-15rem)]'>
-            {filteredChats?.map((chat: Chat) => (
+            {filteredChannels?.map((channel: Channel) => (
               <div
-                key={chat.id}
+                key={channel.channel_url}
                 className={clsx(
                   'p-3',
                   'mb-2',
                   'mx-4',
                   'rounded-xl',
-                  { 'bg-white/50': selectedId === chat.id },
+                  { 'bg-white/50': selectedChannel === channel.channel_url },
                   'backdrop-blur-xl',
                   'border',
                   'border-white/30',
@@ -49,15 +49,15 @@ export default function AdminChatPage() {
                   'cursor-pointer',
                   'hover:bg-white/50',
                 )}
-                onClick={() => setSelectedId(chat.id)}
+                onClick={() => setSelectedChannel(channel.channel_url)}
               >
-                <div className='text-sm font-medium mb-2'>{chat.id}</div>
+                <div className='text-sm font-medium mb-2'>{channel.name}</div>
                 <div className='flex justify-between'>
                   <div className='text-sm text-gray-600 truncate font-semibold'>
-                    {chat.lastMessage}
+                    {`${channel.last_message.user.nickname}: ${channel.last_message.message}`}
                   </div>
                   <div className='text-sm text-gray-600 font-semibold'>
-                    {normalizedDateTime(chat.lastMessageAt)}
+                    {normalizedDateTime(channel.last_message.created_at)}
                   </div>
                 </div>
               </div>
@@ -70,7 +70,8 @@ export default function AdminChatPage() {
             <h2 className='font-semibold'>Chi Tiết Cuộc Trò Chuyện</h2>
           </div>
           <div className='overflow-y-auto h-full'>
-            {selectedId === '' || getById.data?.data?.length === 0 ? (
+            {selectedChannel === '' ||
+            getMessageByChannel.data?.data?.length === 0 ? (
               <div className='flex p-4 h-full items-center justify-center'>
                 <p className='text-gray-500 font-semibold text-sm text-center'>
                   Hãy chọn một cuộc trò chuyện, nếu đã chọn và vẫn không thấy
@@ -79,55 +80,57 @@ export default function AdminChatPage() {
               </div>
             ) : (
               <div className='p-4 flex flex-col justify-end'>
-                {getById.data?.data?.map((message: Message) => {
-                  const isEndUser = message.senderRole === 'user';
+                {getMessageByChannel.data?.data?.map(
+                  (message: Message, index: number) => {
+                    const isEndUser = message.user.role === 'user';
 
-                  return (
-                    <div key={message.id}>
-                      <p
-                        className={clsx(
-                          'text-xs',
-                          'font-bold',
-                          isEndUser ? 'text-end' : 'text-start',
-                          'text-gray-700',
-                          'mb-1',
-                        )}
-                      >
-                        {`${message.senderId} (${capitalizeFirst(message.senderRole)})`}
-                      </p>
-                      <div
-                        className={clsx(
-                          'flex',
-                          'justify-start',
-                          'gap-2',
-                          isEndUser ? 'flex-row-reverse' : 'flex-row',
-                          'items-end',
-                          'mb-4',
-                        )}
-                      >
-                        <div
+                    return (
+                      <div key={index}>
+                        <p
                           className={clsx(
-                            'rounded-2xl',
-                            'border',
-                            'border-white/30',
-                            'p-2',
-                            'backdrop-blur-xl',
-                            isEndUser
-                              ? 'bg-white/50'
-                              : 'bg-gradient-to-r from-rose-300 to-rose-400',
-                            'max-w-1/2',
-                            'shadow-md',
+                            'text-xs',
+                            'font-bold',
+                            isEndUser ? 'text-end' : 'text-start',
+                            'text-gray-700',
+                            'mb-1',
                           )}
                         >
-                          {message.content}
-                        </div>
-                        <p className='text-xs text-gray-500 font-semibold'>
-                          {normalizedDateTime(message.created_at)}
+                          {`${message.user.nickname}-${message.user.user_id} (${capitalizeFirst(message.user.role)})`}
                         </p>
+                        <div
+                          className={clsx(
+                            'flex',
+                            'justify-start',
+                            'gap-2',
+                            isEndUser ? 'flex-row-reverse' : 'flex-row',
+                            'items-end',
+                            'mb-4',
+                          )}
+                        >
+                          <div
+                            className={clsx(
+                              'rounded-2xl',
+                              'border',
+                              'border-white/30',
+                              'p-2',
+                              'backdrop-blur-xl',
+                              isEndUser
+                                ? 'bg-white/50'
+                                : 'bg-gradient-to-r from-rose-300 to-rose-400',
+                              'max-w-1/2',
+                              'shadow-md',
+                            )}
+                          >
+                            {message.message}
+                          </div>
+                          <p className='text-xs text-gray-500 font-semibold'>
+                            {normalizedDateTime(message.created_at)}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  },
+                )}
               </div>
             )}
           </div>

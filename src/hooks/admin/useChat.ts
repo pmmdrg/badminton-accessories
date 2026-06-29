@@ -1,20 +1,20 @@
 import {
-  getAllChatAdmin,
-  getMessageByIdAdmin,
+  getAllChannelsAdmin,
+  getAllMessagesByChannelAdmin,
 } from '@/services/admin/chatService';
 import { useQuery } from '@tanstack/react-query';
 
-export function useChatAdmin(id?: string) {
-  const getAll = useQuery({
-    queryKey: ['admin-chats'],
-    queryFn: getAllChatAdmin,
+export function useChatAdmin(channelUrl?: string) {
+  const getAllChannels = useQuery({
+    queryKey: ['admin-channels'],
+    queryFn: getAllChannelsAdmin,
   });
 
-  const getById = useQuery({
-    queryKey: ['id', id],
-    queryFn: () => getMessageByIdAdmin(id || ''),
-    enabled: !!id,
+  const getMessageByChannel = useQuery({
+    queryKey: ['channel_url', channelUrl],
+    queryFn: () => getAllMessagesByChannelAdmin(channelUrl || ''),
+    enabled: !!channelUrl,
   });
 
-  return { getAll, getById };
+  return { getAllChannels, getMessageByChannel };
 }

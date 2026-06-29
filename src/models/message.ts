@@ -1,8 +1,13 @@
+import { ROLE } from '@/lib/constants';
+
+export interface SendbirdUser {
+  user_id: string;
+  nickname: string;
+  role: ROLE;
+}
+
 export interface Message {
-  id: string;
-  content: string;
-  conservationId: string;
-  senderId: string;
-  senderRole: string;
+  user: SendbirdUser;
+  message: string;
   created_at: string;
 }
