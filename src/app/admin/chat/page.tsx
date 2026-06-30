@@ -54,10 +54,10 @@ export default function AdminChatPage() {
                 <div className='text-sm font-medium mb-2'>{channel.name}</div>
                 <div className='flex justify-between'>
                   <div className='text-sm text-gray-600 truncate font-semibold'>
-                    {`${channel.last_message.user.nickname}: ${channel.last_message.message}`}
+                    {`${channel.last_message?.user?.nickname}: ${channel.last_message?.message}`}
                   </div>
                   <div className='text-sm text-gray-600 font-semibold'>
-                    {normalizedDateTime(channel.last_message.created_at)}
+                    {normalizedDateTime(channel.last_message?.created_at)}
                   </div>
                 </div>
               </div>
@@ -82,7 +82,7 @@ export default function AdminChatPage() {
               <div className='p-4 flex flex-col justify-end'>
                 {getMessageByChannel.data?.data?.map(
                   (message: Message, index: number) => {
-                    const isEndUser = message.user.role === 'user';
+                    const isEndUser = message.user?.role === 'user';
 
                     return (
                       <div key={index}>
@@ -95,7 +95,7 @@ export default function AdminChatPage() {
                             'mb-1',
                           )}
                         >
-                          {`${message.user.nickname}-${message.user.user_id} (${capitalizeFirst(message.user.role)})`}
+                          {`${message.user?.nickname}-${message.user?.user_id} (${capitalizeFirst(message.user?.role)})`}
                         </p>
                         <div
                           className={clsx(
